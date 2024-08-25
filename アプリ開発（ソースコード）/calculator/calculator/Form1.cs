@@ -236,5 +236,15 @@ namespace calculator
                 decimalPointFlug = true;
             }
         }
+
+        private void calculationResult_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void calculationProcess_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

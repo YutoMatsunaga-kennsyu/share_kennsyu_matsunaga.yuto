@@ -40,13 +40,14 @@
             this.btnMinus = new System.Windows.Forms.Button();
             this.btn6 = new System.Windows.Forms.Button();
             this.btn7 = new System.Windows.Forms.Button();
-            this.calculationResult = new System.Windows.Forms.TextBox();
             this.btnAllClear = new System.Windows.Forms.Button();
             this.btnWaru = new System.Windows.Forms.Button();
             this.btn0 = new System.Windows.Forms.Button();
             this.btnKakeru = new System.Windows.Forms.Button();
             this.btnClear = new System.Windows.Forms.Button();
             this.btnPoint = new System.Windows.Forms.Button();
+            this.calculationProcess = new System.Windows.Forms.TextBox();
+            this.calculationResult = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // btnEqual
@@ -195,17 +196,6 @@
             this.btn7.UseVisualStyleBackColor = false;
             this.btn7.Click += new System.EventHandler(this.btn7_Click);
             // 
-            // calculationResult
-            // 
-            this.calculationResult.Font = new System.Drawing.Font("游ゴシック", 19.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.calculationResult.Location = new System.Drawing.Point(29, 44);
-            this.calculationResult.MaxLength = 9;
-            this.calculationResult.Name = "calculationResult";
-            this.calculationResult.Size = new System.Drawing.Size(369, 60);
-            this.calculationResult.TabIndex = 19;
-            this.calculationResult.Text = "0";
-            this.calculationResult.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            // 
             // btnAllClear
             // 
             this.btnAllClear.BackColor = System.Drawing.SystemColors.Window;
@@ -278,12 +268,34 @@
             this.btnPoint.UseVisualStyleBackColor = false;
             this.btnPoint.Click += new System.EventHandler(this.btnPoint_Click);
             // 
+            // calculationProcess
+            // 
+            this.calculationProcess.Font = new System.Drawing.Font("游ゴシック", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.calculationProcess.Location = new System.Drawing.Point(47, 23);
+            this.calculationProcess.Name = "calculationProcess";
+            this.calculationProcess.Size = new System.Drawing.Size(331, 36);
+            this.calculationProcess.TabIndex = 28;
+            this.calculationProcess.TextChanged += new System.EventHandler(this.calculationProcess_TextChanged);
+            // 
+            // calculationResult
+            // 
+            this.calculationResult.Font = new System.Drawing.Font("游ゴシック", 19.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.calculationResult.Location = new System.Drawing.Point(47, 65);
+            this.calculationResult.MaxLength = 12;
+            this.calculationResult.Name = "calculationResult";
+            this.calculationResult.Size = new System.Drawing.Size(331, 60);
+            this.calculationResult.TabIndex = 19;
+            this.calculationResult.Text = "0";
+            this.calculationResult.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.calculationResult.TextChanged += new System.EventHandler(this.calculationResult_TextChanged);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlLight;
             this.ClientSize = new System.Drawing.Size(427, 507);
+            this.Controls.Add(this.calculationProcess);
             this.Controls.Add(this.btnPoint);
             this.Controls.Add(this.btnClear);
             this.Controls.Add(this.btnKakeru);
@@ -324,13 +336,14 @@
         private System.Windows.Forms.Button btnMinus;
         private System.Windows.Forms.Button btn6;
         private System.Windows.Forms.Button btn7;
-        private System.Windows.Forms.TextBox calculationResult;
         private System.Windows.Forms.Button btnAllClear;
         private System.Windows.Forms.Button btnWaru;
         private System.Windows.Forms.Button btn0;
         private System.Windows.Forms.Button btnKakeru;
         private System.Windows.Forms.Button btnClear;
         private System.Windows.Forms.Button btnPoint;
+        private System.Windows.Forms.TextBox calculationProcess;
+        private System.Windows.Forms.TextBox calculationResult;
     }
 }
 
