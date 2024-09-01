@@ -8,12 +8,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Text.RegularExpressions;
 
 namespace calculator
 {
     public partial class Form1 : Form
     {
         String answer = "0";
+        String clacProcess = null;
         String prevOperator = null;
         //小数点ボタンフラグ
         Boolean decimalPointFlug = false;
@@ -44,11 +46,11 @@ namespace calculator
             else
             {
                 //計算結果表示欄の値が「0」以外の時、計算結果表示欄に表示されている値に、「押下した数字ボタンの値」を結合する。
-                answer = answer + btnNum;
-            }
-
+                answer = answer + btnNum;              
+            }   
             //計算結果表示欄のTextプロパティに、値を設定する。
             calculationResult.Text = answer;
+
             //演算子フラグをtrueにする。（演算子ボタンを連続して押下した際に、何も処理を起こさないようにする）
             if (operatorFlug == false)
             {
@@ -56,6 +58,8 @@ namespace calculator
             }
 
         }
+
+
 
         private void btn1_Click(object sender, EventArgs e)
         {
@@ -113,6 +117,7 @@ namespace calculator
             prevOperator = null;
             answer = "0";
             calculationResult.Text = answer;
+            calculationProcess.Text = null;
             calcFirstNum = 0;
             calcSecondNum = 0;
             operatorFlug = false;
@@ -128,6 +133,7 @@ namespace calculator
         //演算系ボタン（+,-,*,/,=）の処理
         private void calculation(String clacOperator)
         {
+
             //事前に演算系ボタンを押下しているかどうかを判定
             if (prevOperator != null)
             {
@@ -142,11 +148,11 @@ namespace calculator
                 {
                     calculationResult.Text = (calcFirstNum - calcSecondNum).ToString();
                 }
-                else if (prevOperator.Equals("*"))
+                else if (prevOperator.Equals("×"))
                 {
                     calculationResult.Text = (calcFirstNum * calcSecondNum).ToString();
                 }
-                else if (prevOperator.Equals("/"))
+                else if (prevOperator.Equals("÷"))
                 {
                     try
                     {
@@ -160,9 +166,35 @@ namespace calculator
                         return;
                     }
                 }
+                    //計算結果表示欄の値を、計算過程表示欄に表示。
+                    calculationProcess.Text = calculationResult.Text;
+                
+              
+                //等号ボタン以外の場合
+                if (clacOperator.Equals("=") == false)
+                {
+                    //計算過程表示欄に演算子を追加。
+                    calculationProcess.Text += clacOperator;
+                }
+
+            }
+            else
+            {
+                //等号ボタン以外の場合
+                if (clacOperator.Equals("=") == false)
+                {
+                    decimal value;
+                    if (decimal.TryParse(calculationProcess.Text, out value) == false)
+                    {
+                        //計算結果表示欄の値を、計算過程表示欄に追加する。
+                        calculationProcess.Text += calculationResult.Text;
+                    }
+                    //計算過程表示欄に演算子を追加。
+                    calculationProcess.Text += clacOperator;
+                }
             }
 
-            //等号ボタン以外の処理
+             //等号ボタンの処理
             if (clacOperator.Equals("="))
             {
                 //演算子の値を消去する
@@ -178,6 +210,7 @@ namespace calculator
 
             //演算結果を、次回の演算に使用するために変数に格納
             calcFirstNum = decimal.Parse(calculationResult.Text);
+
             answer = "0";
             //小数点ボタンフラグをfalseにする
             decimalPointFlug = false;
@@ -186,7 +219,7 @@ namespace calculator
         {
             if (operatorFlug == true)
             {
-                calculation("/");
+                calculation("÷");
             }
 
         }
@@ -195,7 +228,7 @@ namespace calculator
         {
             if (operatorFlug == true)
             {
-                calculation("*");
+                calculation("×");
             }
 
         }
@@ -228,11 +261,12 @@ namespace calculator
         //小数点ボタンの処理
         private void btnPoint_Click(object sender, EventArgs e)
         {
-            //計算結果表示欄の数値が小数点ボタンを押下されることで、少数になったかどうかを判定
+            //小数点ボタンが事前に押されているかを判定
             if (decimalPointFlug == false)
             {
-                answer = answer + ".";
+                answer += ".";
                 calculationResult.Text = answer;
+                calculationProcess.Text += ".";
                 decimalPointFlug = true;
             }
         }

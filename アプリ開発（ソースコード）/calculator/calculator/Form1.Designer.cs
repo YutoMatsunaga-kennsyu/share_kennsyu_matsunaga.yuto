@@ -48,6 +48,7 @@
             this.btnPoint = new System.Windows.Forms.Button();
             this.calculationProcess = new System.Windows.Forms.TextBox();
             this.calculationResult = new System.Windows.Forms.TextBox();
+            this.textError = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // btnEqual
@@ -275,6 +276,7 @@
             this.calculationProcess.Name = "calculationProcess";
             this.calculationProcess.Size = new System.Drawing.Size(331, 36);
             this.calculationProcess.TabIndex = 28;
+            this.calculationProcess.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.calculationProcess.TextChanged += new System.EventHandler(this.calculationProcess_TextChanged);
             // 
             // calculationResult
@@ -289,12 +291,22 @@
             this.calculationResult.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.calculationResult.TextChanged += new System.EventHandler(this.calculationResult_TextChanged);
             // 
+            // textError
+            // 
+            this.textError.Font = new System.Drawing.Font("MS UI Gothic", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.textError.Location = new System.Drawing.Point(12, 85);
+            this.textError.MaxLength = 1;
+            this.textError.Name = "textError";
+            this.textError.Size = new System.Drawing.Size(29, 37);
+            this.textError.TabIndex = 29;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlLight;
             this.ClientSize = new System.Drawing.Size(427, 507);
+            this.Controls.Add(this.textError);
             this.Controls.Add(this.calculationProcess);
             this.Controls.Add(this.btnPoint);
             this.Controls.Add(this.btnClear);
@@ -344,6 +356,7 @@
         private System.Windows.Forms.Button btnPoint;
         private System.Windows.Forms.TextBox calculationProcess;
         private System.Windows.Forms.TextBox calculationResult;
+        private System.Windows.Forms.TextBox textError;
     }
 }
 
