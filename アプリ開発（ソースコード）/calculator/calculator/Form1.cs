@@ -12,6 +12,7 @@ using System.Text.RegularExpressions;
 
 namespace calculator
 {
+
     public partial class Form1 : Form
     {
         String answer = "0";
@@ -46,10 +47,29 @@ namespace calculator
             else
             {
                 //計算結果表示欄の値が「0」以外の時、計算結果表示欄に表示されている値に、「押下した数字ボタンの値」を結合する。
-                answer = answer + btnNum;              
-            }   
-            //計算結果表示欄のTextプロパティに、値を設定する。
-            calculationResult.Text = answer;
+                answer = answer + btnNum;
+            }
+
+            //計算結果表示欄に表示されている値の桁数を計算
+            int freq = Regex.Matches(answer, @"[0-9]").Count;
+            if(freq < 12)
+            {
+                //計算結果表示欄のTextプロパティに、値を設定する。
+                if (answer.Contains("."))
+                {
+                    calculationResult.Text = decimal.Parse(answer).ToString("N12").TrimEnd('0');
+                }
+                else
+                {
+                    calculationResult.Text = String.Format("{0:#,0}", decimal.Parse(answer));
+                }
+            }
+            else
+            {
+                //計算結果表示欄に表示されている値が最大桁数を超えたらエラー
+                textError.Text = "E";
+            }
+  
 
             //演算子フラグをtrueにする。（演算子ボタンを連続して押下した際に、何も処理を起こさないようにする）
             if (operatorFlug == false)
@@ -142,21 +162,21 @@ namespace calculator
                 //各演算子毎の計算
                 if (prevOperator.Equals("+"))
                 {
-                    calculationResult.Text = (calcFirstNum + calcSecondNum).ToString();
+                    answer = (calcFirstNum + calcSecondNum).ToString();
                 }
                 else if (prevOperator.Equals("-"))
                 {
-                    calculationResult.Text = (calcFirstNum - calcSecondNum).ToString();
+                    answer = (calcFirstNum - calcSecondNum).ToString();
                 }
                 else if (prevOperator.Equals("×"))
                 {
-                    calculationResult.Text = (calcFirstNum * calcSecondNum).ToString();
+                    answer = (calcFirstNum * calcSecondNum).ToString();
                 }
                 else if (prevOperator.Equals("÷"))
                 {
                     try
                     {
-                        calculationResult.Text = (calcFirstNum / calcSecondNum).ToString();
+                        answer = (calcFirstNum / calcSecondNum).ToString();
                     }
                     catch (DivideByZeroException e)
                     {
@@ -166,10 +186,20 @@ namespace calculator
                         return;
                     }
                 }
-                    //計算結果表示欄の値を、計算過程表示欄に表示。
-                    calculationProcess.Text = calculationResult.Text;
                 
-              
+                //計算結果が少数かどうかを判定し、計算結果を計算結果表示欄に表示。
+                if (answer.Contains("."))
+                {
+                    calculationResult.Text = decimal.Parse(answer).ToString("N12").TrimEnd('0');
+                }
+                else
+                {
+                    calculationResult.Text = String.Format("{0:#,0}", decimal.Parse(answer));
+                }
+                //計算結果表示欄の値を、計算過程表示欄に表示。
+                calculationProcess.Text = calculationResult.Text;
+
+
                 //等号ボタン以外の場合
                 if (clacOperator.Equals("=") == false)
                 {
@@ -194,7 +224,7 @@ namespace calculator
                 }
             }
 
-             //等号ボタンの処理
+            //等号ボタンの処理
             if (clacOperator.Equals("="))
             {
                 //演算子の値を消去する
@@ -210,11 +240,11 @@ namespace calculator
 
             //演算結果を、次回の演算に使用するために変数に格納
             calcFirstNum = decimal.Parse(calculationResult.Text);
-
             answer = "0";
             //小数点ボタンフラグをfalseにする
             decimalPointFlug = false;
         }
+
         private void btnWaru_Click(object sender, EventArgs e)
         {
             if (operatorFlug == true)
@@ -264,9 +294,8 @@ namespace calculator
             //小数点ボタンが事前に押されているかを判定
             if (decimalPointFlug == false)
             {
-                answer += ".";
+                answer = String.Format("{0:#,0}", decimal.Parse(answer)) + ".";
                 calculationResult.Text = answer;
-                calculationProcess.Text += ".";
                 decimalPointFlug = true;
             }
         }
