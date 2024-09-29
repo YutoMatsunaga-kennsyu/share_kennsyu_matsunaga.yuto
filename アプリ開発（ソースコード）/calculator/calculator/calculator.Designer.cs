@@ -1,6 +1,6 @@
 ﻿namespace calculator
 {
-    partial class Form1
+    partial class calculator
     {
         /// <summary>
         /// 必要なデザイナー変数です。

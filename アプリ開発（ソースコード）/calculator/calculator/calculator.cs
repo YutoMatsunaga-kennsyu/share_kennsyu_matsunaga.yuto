@@ -14,7 +14,7 @@ using System.Diagnostics;
 namespace calculator
 {
 
-    public partial class Form1 : Form
+    public partial class calculator : Form
     {
         //計算結果
         String answer = "0";
@@ -33,7 +33,7 @@ namespace calculator
         decimal calcSecondNum = 0;
 
 
-        public Form1()
+        public calculator()
         {
             InitializeComponent();
             btnEqual.Enabled = false;

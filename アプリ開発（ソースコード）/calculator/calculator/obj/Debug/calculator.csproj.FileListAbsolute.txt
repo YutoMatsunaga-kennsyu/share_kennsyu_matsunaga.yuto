@@ -12,9 +12,9 @@ C:\Users\yuto1\OneDrive\ドキュメント\share_kennsyu_matsunaga.yuto\アプ�
 C:\Users\yuto1\OneDrive\ドキュメント\share_kennsyu_matsunaga.yuto\アプリ開発（ソースコード）\calculator\calculator\bin\Debug\calculator.exe
 C:\Users\yuto1\OneDrive\ドキュメント\share_kennsyu_matsunaga.yuto\アプリ開発（ソースコード）\calculator\calculator\bin\Debug\calculator.pdb
 C:\Users\yuto1\OneDrive\ドキュメント\share_kennsyu_matsunaga.yuto\アプリ開発（ソースコード）\calculator\calculator\obj\Debug\calculator.csproj.AssemblyReference.cache
-C:\Users\yuto1\OneDrive\ドキュメント\share_kennsyu_matsunaga.yuto\アプリ開発（ソースコード）\calculator\calculator\obj\Debug\calculator.Form1.resources
 C:\Users\yuto1\OneDrive\ドキュメント\share_kennsyu_matsunaga.yuto\アプリ開発（ソースコード）\calculator\calculator\obj\Debug\calculator.Properties.Resources.resources
 C:\Users\yuto1\OneDrive\ドキュメント\share_kennsyu_matsunaga.yuto\アプリ開発（ソースコード）\calculator\calculator\obj\Debug\calculator.csproj.GenerateResource.cache
 C:\Users\yuto1\OneDrive\ドキュメント\share_kennsyu_matsunaga.yuto\アプリ開発（ソースコード）\calculator\calculator\obj\Debug\calculator.csproj.CoreCompileInputs.cache
 C:\Users\yuto1\OneDrive\ドキュメント\share_kennsyu_matsunaga.yuto\アプリ開発（ソースコード）\calculator\calculator\obj\Debug\calculator.exe
 C:\Users\yuto1\OneDrive\ドキュメント\share_kennsyu_matsunaga.yuto\アプリ開発（ソースコード）\calculator\calculator\obj\Debug\calculator.pdb
+C:\Users\yuto1\OneDrive\ドキュメント\share_kennsyu_matsunaga.yuto\アプリ開発（ソースコード）\calculator\calculator\obj\Debug\calculator.calculator.resources
