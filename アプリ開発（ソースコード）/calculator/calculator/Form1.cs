@@ -9,26 +9,34 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Text.RegularExpressions;
+using System.Diagnostics;
 
 namespace calculator
 {
 
     public partial class Form1 : Form
     {
+        //計算結果
         String answer = "0";
-        String clacProcess = null;
+
+        //演算子
         String prevOperator = null;
+
         //小数点ボタンフラグ
         Boolean decimalPointFlug = false;
+
         //演算子フラグ
         Boolean operatorFlug = false;
 
+        //計算用
         decimal calcFirstNum = 0;
         decimal calcSecondNum = 0;
+
 
         public Form1()
         {
             InitializeComponent();
+            btnEqual.Enabled = false;
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -36,40 +44,65 @@ namespace calculator
 
         }
 
+        //引数の数値の整数部の桁数を返すメソッド
+        private int integerDigit(decimal answer)
+        {
+            string strAnswer = answer.ToString();
+            int index = strAnswer.IndexOf('.');
+            if (index == -1)
+                return 0;
+
+            return strAnswer.Substring(0, index).Length;
+        }
+
+        //引数の数値の小数点以下の桁数(末尾の0も含む)を返すメソッド
+        private int decimalDigit(decimal answer)
+        {
+            string strAnswer = answer.ToString();
+            int index = strAnswer.IndexOf('.');
+            if (index == -1)
+                return 0;
+
+            return strAnswer.Substring(index + 1).Length;
+        }
+
         //数字ボタン(0～9)押下時の処理
         private void concatNum(String btnNum)
         {
             if (answer == "0")
             {
-                //計算結果表示欄の値が「0」の時、「押下した数字ボタンの値」で上書きする。
+                //「押下した数字ボタンの値」で上書きする。
                 answer = btnNum;
             }
             else
             {
-                //計算結果表示欄の値が「0」以外の時、計算結果表示欄に表示されている値に、「押下した数字ボタンの値」を結合する。
+                //計算結果表示欄に表示されている値に、「押下した数字ボタンの値」を結合する。
                 answer = answer + btnNum;
             }
 
-            //計算結果表示欄に表示されている値の桁数を計算
-            int freq = Regex.Matches(answer, @"[0-9]").Count;
-            if(freq < 12)
+            //計算結果表示欄の数値の桁数チェック
+            if (Regex.Matches(answer, @"[0-9]").Count <= 12)
             {
-                //計算結果表示欄のTextプロパティに、値を設定する。
+                //計算結果表示欄に、値を設定する。
                 if (answer.Contains("."))
                 {
-                    calculationResult.Text = decimal.Parse(answer).ToString("N12").TrimEnd('0');
+                    //小数点以下の桁数を取得
+                    int digit = decimalDigit(decimal.Parse(answer));
+                    //カンマと小数点の共存
+                    calculationResult.Text = decimal.Parse(answer).ToString("N" + digit);
                 }
                 else
                 {
-                    calculationResult.Text = String.Format("{0:#,0}", decimal.Parse(answer));
+                    calculationResult.Text = decimal.Parse(answer).ToString("N0");
                 }
             }
             else
             {
                 //計算結果表示欄に表示されている値が最大桁数を超えたらエラー
                 textError.Text = "E";
+                buttonEnabled(false);
             }
-  
+
 
             //演算子フラグをtrueにする。（演算子ボタンを連続して押下した際に、何も処理を起こさないようにする）
             if (operatorFlug == false)
@@ -131,9 +164,9 @@ namespace calculator
             concatNum("0");
         }
 
+        //ACボタンの処理
         private void btnAllClear_Click(object sender, EventArgs e)
         {
-            //演算子をnullにする
             prevOperator = null;
             answer = "0";
             calculationResult.Text = answer;
@@ -141,9 +174,11 @@ namespace calculator
             calcFirstNum = 0;
             calcSecondNum = 0;
             operatorFlug = false;
+            textError.Text = null;
+            buttonEnabled(true);
         }
 
-        //クリアボタン押下時の処理
+        //Cボタンの処理
         private void btnClear_Click(object sender, EventArgs e)
         {
             answer = "0";
@@ -181,47 +216,58 @@ namespace calculator
                     catch (DivideByZeroException e)
                     {
                         //0除算した際の処理
-                        calculationResult.Text = "Error";
-                        answer = "0";
+                        textError.Text = "E";
+                        buttonEnabled(false);
                         return;
                     }
                 }
-                
-                //計算結果が少数かどうかを判定し、計算結果を計算結果表示欄に表示。
-                if (answer.Contains("."))
+
+                //計算結果の桁数チェック(除算の場合、割る数が1より大きければ最大桁数を超えることはない)
+                if (Regex.Matches(answer, @"[0-9]").Count <= 12 || (prevOperator.Equals("÷") && calcSecondNum >= 1))
                 {
-                    calculationResult.Text = decimal.Parse(answer).ToString("N12").TrimEnd('0');
+                    //計算結果が少数かどうかを判定し、計算結果を計算結果表示欄に表示。
+                    if (answer.Contains("."))
+                    {
+                        //除算で最大桁数を超えた場合、最大桁数に合わせる
+                        if (prevOperator.Equals("÷"))
+                        {
+                            //整数部の桁数を取得
+                            int digit = integerDigit(decimal.Parse(answer));
+                            calculationResult.Text = decimal.Parse(answer).ToString("N" + (12 - digit));
+                        }
+                        else
+                        {
+                            calculationResult.Text = decimal.Parse(answer).ToString("N12").TrimEnd('0');
+                        }
+                    }
+                    else
+                    {
+                        calculationResult.Text = decimal.Parse(answer).ToString("N0");
+                    }
+                    //計算結果表示欄の値を、計算過程表示欄に表示。
+                    calculationProcess.Text = calculationResult.Text;
+
+                    //等号ボタン以外の場合
+                    if (clacOperator.Equals("=") == false)
+                    {
+                        //計算過程表示欄に演算子を追加。
+                        calculationProcess.Text += clacOperator;
+                    }
                 }
                 else
                 {
-                    calculationResult.Text = String.Format("{0:#,0}", decimal.Parse(answer));
+                    //計算結果が最大桁数を超えたらエラー
+                    textError.Text = "E";
+                    buttonEnabled(false);
                 }
-                //計算結果表示欄の値を、計算過程表示欄に表示。
-                calculationProcess.Text = calculationResult.Text;
-
-
-                //等号ボタン以外の場合
-                if (clacOperator.Equals("=") == false)
-                {
-                    //計算過程表示欄に演算子を追加。
-                    calculationProcess.Text += clacOperator;
-                }
-
             }
             else
             {
-                //等号ボタン以外の場合
-                if (clacOperator.Equals("=") == false)
-                {
-                    decimal value;
-                    if (decimal.TryParse(calculationProcess.Text, out value) == false)
-                    {
-                        //計算結果表示欄の値を、計算過程表示欄に追加する。
-                        calculationProcess.Text += calculationResult.Text;
-                    }
-                    //計算過程表示欄に演算子を追加。
-                    calculationProcess.Text += clacOperator;
-                }
+                //計算結果表示欄の値を、計算過程表示欄に追加する。
+                calculationProcess.Text = calculationResult.Text;
+                //計算過程表示欄に演算子を追加。
+                calculationProcess.Text += clacOperator;
+
             }
 
             //等号ボタンの処理
@@ -232,6 +278,7 @@ namespace calculator
             }
             else
             {
+                btnEqual.Enabled = true;
                 //演算子フラグをfalseにする。
                 operatorFlug = false;
                 //演算子の値を格納する。
@@ -286,6 +333,7 @@ namespace calculator
             if (operatorFlug == true)
             {
                 calculation("=");
+                btnEqual.Enabled = false;
             }
         }
         //小数点ボタンの処理
@@ -294,20 +342,32 @@ namespace calculator
             //小数点ボタンが事前に押されているかを判定
             if (decimalPointFlug == false)
             {
-                answer = String.Format("{0:#,0}", decimal.Parse(answer)) + ".";
+                answer = decimal.Parse(answer).ToString("N0") + ".";
                 calculationResult.Text = answer;
                 decimalPointFlug = true;
             }
         }
 
-        private void calculationResult_TextChanged(object sender, EventArgs e)
+        //エラー後、AC,Cボタン以外使用不可
+        private void buttonEnabled(Boolean con)
         {
-
-        }
-
-        private void calculationProcess_TextChanged(object sender, EventArgs e)
-        {
-
+            btn1.Enabled = con;
+            btn2.Enabled = con;
+            btn3.Enabled = con;
+            btn4.Enabled = con;
+            btn5.Enabled = con;
+            btn6.Enabled = con;
+            btn7.Enabled = con;
+            btn8.Enabled = con;
+            btn9.Enabled = con;
+            btn0.Enabled = con;
+            btnWaru.Enabled = con;
+            btnKakeru.Enabled = con;
+            btnMinus.Enabled = con;
+            btnPlus.Enabled = con;
+            btnEqual.Enabled = con;
+            btnPoint.Enabled = con;
+            btnClear.Enabled = con;
         }
     }
 }

@@ -277,7 +277,7 @@
             this.calculationProcess.Size = new System.Drawing.Size(331, 36);
             this.calculationProcess.TabIndex = 28;
             this.calculationProcess.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.calculationProcess.TextChanged += new System.EventHandler(this.calculationProcess_TextChanged);
+
             // 
             // calculationResult
             // 
@@ -289,7 +289,7 @@
             this.calculationResult.TabIndex = 19;
             this.calculationResult.Text = "0";
             this.calculationResult.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.calculationResult.TextChanged += new System.EventHandler(this.calculationResult_TextChanged);
+
             // 
             // textError
             // 
