@@ -13,252 +13,286 @@ using System.Diagnostics;
 
 namespace calculator
 {
-
-    public partial class calculator : Form
+    ///<summary>電卓アプリの処理</summary>
+    public partial class Calculator : Form
     {
         //計算結果
-        String answer = "0";
+        String gStrAnswer = "0";
 
         //演算子
-        String prevOperator = null;
+        String strPrevOperator = null;
 
         //小数点ボタンフラグ
-        Boolean decimalPointFlug = false;
+        Boolean decimalPointFlag = false;
 
         //演算子フラグ
-        Boolean operatorFlug = false;
+        Boolean operatorFlag = false;
 
-        //計算用
-        decimal calcFirstNum = 0;
-        decimal calcSecondNum = 0;
+        //計算用数値
+        decimal decCalcFirstNum = 0;
+        decimal decCalcSecondNum = 0;
 
-
-        public calculator()
+        /// <summary>電卓アプリ起動時の処理</summary>
+        public Calculator()
         {
             InitializeComponent();
             btnEqual.Enabled = false;
         }
 
-        private void Form1_Load(object sender, EventArgs e)
+        /// <summary>数値から整数部の桁数を取得する</summary>
+        /// <param decAnswer="decAnswer">整数部の桁数を取得したい数値</param>
+        /// <returns>引数の数値の整数部の桁数</returns>
+        private int GetIntegerDigit(decimal decAnswer)
         {
-
-        }
-
-        //引数の数値の整数部の桁数を返すメソッド
-        private int integerDigit(decimal answer)
-        {
-            string strAnswer = answer.ToString();
-            int index = strAnswer.IndexOf('.');
-            if (index == -1)
+            string _strAnswer = decAnswer.ToString();
+            int numIndex = _strAnswer.IndexOf('.');
+            if (numIndex == -1)
+            {
                 return 0;
-
-            return strAnswer.Substring(0, index).Length;
+            }
+            return _strAnswer.Substring(0, numIndex).Length;
         }
 
-        //引数の数値の小数点以下の桁数(末尾の0も含む)を返すメソッド
-        private int decimalDigit(decimal answer)
+        /// <summary>数値から小数点以下の桁数を取得する</summary>
+        /// <param decAnswer="decAnswer">小数点以下の桁数を取得したい数値</param>
+        /// <returns>引数の数値の小数点以下の桁数</returns>
+        private int GetDecimalDigit(decimal decAnswer)
         {
-            string strAnswer = answer.ToString();
-            int index = strAnswer.IndexOf('.');
-            if (index == -1)
+            string _strAnswer = decAnswer.ToString();
+            int numIndex = _strAnswer.IndexOf('.');
+            if (numIndex == -1)
+            {
                 return 0;
-
-            return strAnswer.Substring(index + 1).Length;
+            }
+            return _strAnswer.Substring(numIndex + 1).Length;
         }
 
-        //数字ボタン(0～9)押下時の処理
-        private void concatNum(String btnNum)
+        /// <summary>数字ボタン(0～9)押下時の処理</summary>
+        /// <param strBtnNum="strBtnNum">押下した数字ボタンの数値</param>
+        private void ConcatNum(String strBtnNum)
         {
-            if (answer == "0")
+            if (gStrAnswer == "0")
             {
                 //「押下した数字ボタンの値」で上書きする。
-                answer = btnNum;
+                gStrAnswer = strBtnNum;
             }
             else
             {
                 //計算結果表示欄に表示されている値に、「押下した数字ボタンの値」を結合する。
-                answer = answer + btnNum;
+                gStrAnswer = gStrAnswer + strBtnNum;
             }
 
             //計算結果表示欄の数値の桁数チェック
-            if (Regex.Matches(answer, @"[0-9]").Count <= 12)
+            if (Regex.Matches(gStrAnswer, @"[0-9]").Count <= 12)
             {
                 //計算結果表示欄に、値を設定する。
-                if (answer.Contains("."))
+                if (gStrAnswer.Contains("."))
                 {
                     //小数点以下の桁数を取得
-                    int digit = decimalDigit(decimal.Parse(answer));
+                    int numDigit = GetDecimalDigit(decimal.Parse(gStrAnswer));
                     //カンマと小数点の共存
-                    calculationResult.Text = decimal.Parse(answer).ToString("N" + digit);
+                    calculationResult.Text = decimal.Parse(gStrAnswer).ToString("N" + numDigit);
                 }
                 else
                 {
-                    calculationResult.Text = decimal.Parse(answer).ToString("N0");
+                    calculationResult.Text = decimal.Parse(gStrAnswer).ToString("N0");
                 }
             }
             else
             {
                 //計算結果表示欄に表示されている値が最大桁数を超えたらエラー
                 textError.Text = "E";
-                buttonEnabled(false);
+                BtnEnabled(false);
             }
-
 
             //演算子フラグをtrueにする。（演算子ボタンを連続して押下した際に、何も処理を起こさないようにする）
-            if (operatorFlug == false)
+            if (operatorFlag == false)
             {
-                operatorFlug = true;
+                operatorFlag = true;
             }
-
         }
 
-
-
-        private void btn1_Click(object sender, EventArgs e)
+        /// <summary>数字ボタン(1)押下時の処理</summary>
+        /// <param sender="sender">イベントを発生させるインスタンスへの参照</param>
+        /// <param e="e">イベントのインスタンス</param>
+        private void Btn1_Click(object sender, EventArgs e)
         {
-            concatNum("1");
+            ConcatNum("1");
         }
 
-        private void btn2_Click(object sender, EventArgs e)
+        /// <summary>数字ボタン(2)押下時の処理</summary>
+        /// <param sender="sender">イベントを発生させるインスタンスへの参照</param>
+        /// <param e="e">イベントのインスタンス</param>
+        private void Btn2_Click(object sender, EventArgs e)
         {
-            concatNum("2");
+            ConcatNum("2");
         }
 
-        private void btn3_Click(object sender, EventArgs e)
+        /// <summary>数字ボタン(3)押下時の処理</summary>
+        /// <param sender="sender">イベントを発生させるインスタンスへの参照</param>
+        /// <param e="e">イベントのインスタンス</param>
+        private void Btn3_Click(object sender, EventArgs e)
         {
-            concatNum("3");
+            ConcatNum("3");
         }
 
-        private void btn4_Click(object sender, EventArgs e)
+        /// <summary>数字ボタン(4)押下時の処理</summary>
+        /// <param sender="sender">イベントを発生させるインスタンスへの参照</param>
+        /// <param e="e">イベントのインスタンス</param>
+        private void Btn4_Click(object sender, EventArgs e)
         {
-            concatNum("4");
+            ConcatNum("4");
         }
 
-        private void btn5_Click(object sender, EventArgs e)
+        /// <summary>数字ボタン(5)押下時の処理</summary>
+        /// <param sender="sender">イベントを発生させるインスタンスへの参照</param>
+        /// <param e="e">イベントのインスタンス</param>
+        private void Btn5_Click(object sender, EventArgs e)
         {
-            concatNum("5");
+            ConcatNum("5");
         }
 
-        private void btn6_Click(object sender, EventArgs e)
+        /// <summary>数字ボタン(6)押下時の処理</summary>
+        /// <param sender="sender">イベントを発生させるインスタンスへの参照</param>
+        /// <param e="e">イベントのインスタンス</param>
+        private void Btn6_Click(object sender, EventArgs e)
         {
-            concatNum("6");
+            ConcatNum("6");
         }
 
-        private void btn7_Click(object sender, EventArgs e)
+        /// <summary>数字ボタン(7)押下時の処理</summary>
+        /// <param sender="sender">イベントを発生させるインスタンスへの参照</param>
+        /// <param e="e">イベントのインスタンス</param>
+        private void Btn7_Click(object sender, EventArgs e)
         {
-            concatNum("7");
+            ConcatNum("7");
         }
 
-        private void btn8_Click(object sender, EventArgs e)
+        /// <summary>数字ボタン(8)押下時の処理</summary>
+        /// <param sender="sender">イベントを発生させるインスタンスへの参照</param>
+        /// <param e="e">イベントのインスタンス</param>
+        private void Btn8_Click(object sender, EventArgs e)
         {
-            concatNum("8");
+            ConcatNum("8");
         }
 
-        private void btn9_Click(object sender, EventArgs e)
+        /// <summary>数字ボタン(9)押下時の処理</summary>
+        /// <param sender="sender">イベントを発生させるインスタンスへの参照</param>
+        /// <param e="e">イベントのインスタンス</param>
+        private void Btn9_Click(object sender, EventArgs e)
         {
-            concatNum("9");
+            ConcatNum("9");
         }
 
-        private void btn0_Click(object sender, EventArgs e)
+        /// <summary>数字ボタン(0)押下時の処理</summary>
+        /// <param sender="sender">イベントを発生させるインスタンスへの参照</param>
+        /// <param e="e">イベントのインスタンス</param>
+        private void Btn0_Click(object sender, EventArgs e)
         {
-            concatNum("0");
+            ConcatNum("0");
         }
 
-        //ACボタンの処理
-        private void btnAllClear_Click(object sender, EventArgs e)
+        /// <summary>ACボタン押下時の処理</summary>
+        /// <param sender="sender">イベントを発生させるインスタンスへの参照</param>
+        /// <param e="e">イベントのインスタンス</param>
+        private void BtnAllClear_Click(object sender, EventArgs e)
         {
-            prevOperator = null;
-            answer = "0";
-            calculationResult.Text = answer;
+            strPrevOperator = null;
+            gStrAnswer = "0";
+            calculationResult.Text = gStrAnswer;
             calculationProcess.Text = null;
-            calcFirstNum = 0;
-            calcSecondNum = 0;
-            operatorFlug = false;
+            decCalcFirstNum = 0;
+            decCalcSecondNum = 0;
+            operatorFlag = false;
+            decimalPointFlag = false;
             textError.Text = null;
-            buttonEnabled(true);
+            BtnEnabled(true);
         }
 
-        //Cボタンの処理
-        private void btnClear_Click(object sender, EventArgs e)
+        /// <summary>Cボタン押下時の処理</summary>
+        /// <param sender="sender">イベントを発生させるインスタンスへの参照</param>
+        /// <param e="e">イベントのインスタンス</param>
+        private void BtnClear_Click(object sender, EventArgs e)
         {
-            answer = "0";
-            calculationResult.Text = answer;
+            decimalPointFlag = false;
+            gStrAnswer = "0";
+            calculationResult.Text = gStrAnswer;
         }
 
-        //演算系ボタン（+,-,*,/,=）の処理
-        private void calculation(String clacOperator)
+        /// <summary>演算系（+,-,*,/,=）ボタン押下時の処理</summary>
+        /// <param strCalcOperator="strCalcOperator">直前に押下した演算子ボタンの演算子の値</param>
+        private void Calculation(String strCalcOperator)
         {
-
             //事前に演算系ボタンを押下しているかどうかを判定
-            if (prevOperator != null)
+            if (strPrevOperator != null)
             {
                 //検索結果表示欄の値をセットする
-                calcSecondNum = decimal.Parse(calculationResult.Text);
+                decCalcSecondNum = decimal.Parse(calculationResult.Text);
                 //各演算子毎の計算
-                if (prevOperator.Equals("+"))
+                if (strPrevOperator.Equals("+"))
                 {
-                    answer = (calcFirstNum + calcSecondNum).ToString();
+                    gStrAnswer = (decCalcFirstNum + decCalcSecondNum).ToString();
                 }
-                else if (prevOperator.Equals("-"))
+                else if (strPrevOperator.Equals("-"))
                 {
-                    answer = (calcFirstNum - calcSecondNum).ToString();
+                    gStrAnswer = (decCalcFirstNum - decCalcSecondNum).ToString();
                 }
-                else if (prevOperator.Equals("×"))
+                else if (strPrevOperator.Equals("×"))
                 {
-                    answer = (calcFirstNum * calcSecondNum).ToString();
+                    gStrAnswer = (decCalcFirstNum * decCalcSecondNum).ToString();
                 }
-                else if (prevOperator.Equals("÷"))
+                else if (strPrevOperator.Equals("÷"))
                 {
                     try
                     {
-                        answer = (calcFirstNum / calcSecondNum).ToString();
+                        gStrAnswer = (decCalcFirstNum / decCalcSecondNum).ToString();
                     }
                     catch (DivideByZeroException e)
                     {
                         //0除算した際の処理
                         textError.Text = "E";
-                        buttonEnabled(false);
+                        BtnEnabled(false);
                         return;
                     }
                 }
 
                 //計算結果の桁数チェック(除算の場合、割る数が1より大きければ最大桁数を超えることはない)
-                if (Regex.Matches(answer, @"[0-9]").Count <= 12 || (prevOperator.Equals("÷") && calcSecondNum >= 1))
+                if (Regex.Matches(gStrAnswer, @"[0-9]").Count <= 12 || (strPrevOperator.Equals("÷") && decCalcSecondNum >= 1))
                 {
                     //計算結果が少数かどうかを判定し、計算結果を計算結果表示欄に表示。
-                    if (answer.Contains("."))
+                    if (gStrAnswer.Contains("."))
                     {
                         //除算で最大桁数を超えた場合、最大桁数に合わせる
-                        if (prevOperator.Equals("÷"))
+                        if (strPrevOperator.Equals("÷"))
                         {
                             //整数部の桁数を取得
-                            int digit = integerDigit(decimal.Parse(answer));
-                            calculationResult.Text = decimal.Parse(answer).ToString("N" + (12 - digit));
+                            int numDigit = GetIntegerDigit(decimal.Parse(gStrAnswer));
+                            calculationResult.Text = decimal.Parse(gStrAnswer).ToString("N" + (12 - numDigit));
                         }
                         else
                         {
-                            calculationResult.Text = decimal.Parse(answer).ToString("N12").TrimEnd('0');
+                            calculationResult.Text = decimal.Parse(gStrAnswer).ToString("N12").TrimEnd('0');
                         }
                     }
                     else
                     {
-                        calculationResult.Text = decimal.Parse(answer).ToString("N0");
+                        calculationResult.Text = decimal.Parse(gStrAnswer).ToString("N0");
                     }
                     //計算結果表示欄の値を、計算過程表示欄に表示。
                     calculationProcess.Text = calculationResult.Text;
 
                     //等号ボタン以外の場合
-                    if (clacOperator.Equals("=") == false)
+                    if (strCalcOperator.Equals("=") == false)
                     {
                         //計算過程表示欄に演算子を追加。
-                        calculationProcess.Text += clacOperator;
+                        calculationProcess.Text += strCalcOperator;
                     }
                 }
                 else
                 {
                     //計算結果が最大桁数を超えたらエラー
                     textError.Text = "E";
-                    buttonEnabled(false);
+                    BtnEnabled(false);
                 }
             }
             else
@@ -266,90 +300,103 @@ namespace calculator
                 //計算結果表示欄の値を、計算過程表示欄に追加する。
                 calculationProcess.Text = calculationResult.Text;
                 //計算過程表示欄に演算子を追加。
-                calculationProcess.Text += clacOperator;
-
+                calculationProcess.Text += strCalcOperator;
             }
 
             //等号ボタンの処理
-            if (clacOperator.Equals("="))
+            if (strCalcOperator.Equals("="))
             {
                 //演算子の値を消去する
-                prevOperator = null;
+                strPrevOperator = null;
             }
             else
             {
                 btnEqual.Enabled = true;
                 //演算子フラグをfalseにする。
-                operatorFlug = false;
+                operatorFlag = false;
                 //演算子の値を格納する。
-                prevOperator = clacOperator;
+                strPrevOperator = strCalcOperator;
             }
-
             //演算結果を、次回の演算に使用するために変数に格納
-            calcFirstNum = decimal.Parse(calculationResult.Text);
-            answer = "0";
+            decCalcFirstNum = decimal.Parse(calculationResult.Text);
+            gStrAnswer = "0";
             //小数点ボタンフラグをfalseにする
-            decimalPointFlug = false;
+            decimalPointFlag = false;
         }
 
-        private void btnWaru_Click(object sender, EventArgs e)
+        /// <summary>除算ボタン押下時の処理</summary>
+        /// <param sender="sender">イベントを発生させるインスタンスへの参照</param>
+        /// <param e="e">イベントのインスタンス</param>
+        private void BtnWaru_Click(object sender, EventArgs e)
         {
-            if (operatorFlug == true)
+            if (operatorFlag == true)
             {
-                calculation("÷");
+                Calculation("÷");
             }
-
         }
 
-        private void btnKakeru_Click(object sender, EventArgs e)
+        /// <summary>乗算ボタン押下時の処理</summary>
+        /// <param sender="sender">イベントを発生させるインスタンスへの参照</param>
+        /// <param e="e">イベントのインスタンス</param>
+        private void BtnKakeru_Click(object sender, EventArgs e)
         {
-            if (operatorFlug == true)
+            if (operatorFlag == true)
             {
-                calculation("×");
+                Calculation("×");
             }
-
         }
 
-        private void btnMinus_Click(object sender, EventArgs e)
+        /// <summary>減算ボタン押下時の処理</summary>
+        /// <param sender="sender">イベントを発生させるインスタンスへの参照</param>
+        /// <param e="e">イベントのインスタンス</param>
+        private void BtnMinus_Click(object sender, EventArgs e)
         {
-            if (operatorFlug == true)
+            if (operatorFlag == true)
             {
-                calculation("-");
+                Calculation("-");
             }
-
         }
-        //加算ボタンの処理
-        private void btnPlus_Click(object sender, EventArgs e)
+
+        /// <summary>加算ボタン押下時の処理</summary>
+        /// <param sender="sender">イベントを発生させるインスタンスへの参照</param>
+        /// <param e="e">イベントのインスタンス</param>
+        private void BtnPlus_Click(object sender, EventArgs e)
         {
-            if (operatorFlug == true)
+            if (operatorFlag == true)
             {
-                calculation("+");
+                Calculation("+");
             }
-
         }
-        //等号ボタンの処理
-        private void btnEqual_Click(object sender, EventArgs e)
+
+        /// <summary>等号ボタン押下時の処理</summary>
+        /// <param sender="sender">イベントを発生させるインスタンスへの参照</param>
+        /// <param e="e">イベントのインスタンス</param>
+        private void BtnEqual_Click(object sender, EventArgs e)
         {
-            if (operatorFlug == true)
+            if (operatorFlag == true)
             {
-                calculation("=");
+                Calculation("=");
                 btnEqual.Enabled = false;
             }
         }
-        //小数点ボタンの処理
-        private void btnPoint_Click(object sender, EventArgs e)
+
+        /// <summary>小数点ボタン押下時の処理</summary>
+        /// <param sender="sender">イベントを発生させるインスタンスへの参照</param>
+        /// <param e="e">イベントのインスタンス</param>
+        private void BtnPoint_Click(object sender, EventArgs e)
         {
             //小数点ボタンが事前に押されているかを判定
-            if (decimalPointFlug == false)
+            if (decimalPointFlag == false)
             {
-                answer = decimal.Parse(answer).ToString("N0") + ".";
-                calculationResult.Text = answer;
-                decimalPointFlug = true;
+                gStrAnswer = decimal.Parse(gStrAnswer).ToString("N0") + ".";
+                calculationResult.Text = gStrAnswer;
+                decimalPointFlag = true;
             }
         }
 
-        //エラー後、AC,Cボタン以外使用不可
-        private void buttonEnabled(Boolean con)
+        /// <summary>ACボタン以外のボタンを制御する</summary>
+        /// <param con="con">ボタンを使用可能にする際は「true」、使用不可は「false」</param>
+        private void BtnEnabled(Boolean con)
         {
             btn1.Enabled = con;
             btn2.Enabled = con;
