@@ -260,18 +260,18 @@ namespace calculator
                 if (Regex.Matches(gStrAnswer, @"[0-9]").Count <= 12 || (strPrevOperator.Equals("÷") && decCalcSecondNum >= 1))
                 {
                     //計算結果が少数かどうかを判定し、計算結果を計算結果表示欄に表示。
-                    if (gStrAnswer.Contains("."))
+                    if (gStrAnswer.Contains(".") && decimal.Parse(gStrAnswer) % 1 != 0)
                     {
                         //除算で最大桁数を超えた場合、最大桁数に合わせる
                         if (strPrevOperator.Equals("÷"))
                         {
                             //整数部の桁数を取得
                             int numDigit = GetIntegerDigit(decimal.Parse(gStrAnswer));
-                            calculationResult.Text = decimal.Parse(gStrAnswer).ToString("N" + (12 - numDigit));
+                            calculationResult.Text = decimal.Parse(gStrAnswer).ToString("N" + (12 - numDigit)).TrimEnd('0');
                         }
                         else
                         {
-                            calculationResult.Text = decimal.Parse(gStrAnswer).ToString("N12").TrimEnd('0');
+                                calculationResult.Text = decimal.Parse(gStrAnswer).ToString("N12").TrimEnd('0');
                         }
                     }
                     else
