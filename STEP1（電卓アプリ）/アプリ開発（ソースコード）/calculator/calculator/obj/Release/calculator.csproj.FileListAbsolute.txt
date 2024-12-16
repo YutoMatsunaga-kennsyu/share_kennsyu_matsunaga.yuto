@@ -1,0 +1,10 @@
+C:\Users\yuto1\OneDrive\ドキュメント\share_kennsyu_matsunaga.yuto\アプリ開発（ソースコード）\calculator\calculator\bin\Release\calculator.exe.config
+C:\Users\yuto1\OneDrive\ドキュメント\share_kennsyu_matsunaga.yuto\アプリ開発（ソースコード）\calculator\calculator\bin\Release\calculator.exe
+C:\Users\yuto1\OneDrive\ドキュメント\share_kennsyu_matsunaga.yuto\アプリ開発（ソースコード）\calculator\calculator\bin\Release\calculator.pdb
+C:\Users\yuto1\OneDrive\ドキュメント\share_kennsyu_matsunaga.yuto\アプリ開発（ソースコード）\calculator\calculator\obj\Release\calculator.csproj.AssemblyReference.cache
+C:\Users\yuto1\OneDrive\ドキュメント\share_kennsyu_matsunaga.yuto\アプリ開発（ソースコード）\calculator\calculator\obj\Release\calculator.Calculator.resources
+C:\Users\yuto1\OneDrive\ドキュメント\share_kennsyu_matsunaga.yuto\アプリ開発（ソースコード）\calculator\calculator\obj\Release\calculator.Properties.Resources.resources
+C:\Users\yuto1\OneDrive\ドキュメント\share_kennsyu_matsunaga.yuto\アプリ開発（ソースコード）\calculator\calculator\obj\Release\calculator.csproj.GenerateResource.cache
+C:\Users\yuto1\OneDrive\ドキュメント\share_kennsyu_matsunaga.yuto\アプリ開発（ソースコード）\calculator\calculator\obj\Release\calculator.csproj.CoreCompileInputs.cache
+C:\Users\yuto1\OneDrive\ドキュメント\share_kennsyu_matsunaga.yuto\アプリ開発（ソースコード）\calculator\calculator\obj\Release\calculator.exe
+C:\Users\yuto1\OneDrive\ドキュメント\share_kennsyu_matsunaga.yuto\アプリ開発（ソースコード）\calculator\calculator\obj\Release\calculator.pdb
