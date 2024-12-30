@@ -61,23 +61,26 @@
             // comboBox1
             // 
             this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(406, 120);
+            this.comboBox1.Location = new System.Drawing.Point(305, 96);
+            this.comboBox1.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(136, 23);
+            this.comboBox1.Size = new System.Drawing.Size(103, 20);
             this.comboBox1.TabIndex = 0;
             // 
             // dateTimePicker1
             // 
-            this.dateTimePicker1.Location = new System.Drawing.Point(243, 121);
+            this.dateTimePicker1.Location = new System.Drawing.Point(182, 97);
+            this.dateTimePicker1.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.dateTimePicker1.Name = "dateTimePicker1";
-            this.dateTimePicker1.Size = new System.Drawing.Size(142, 22);
+            this.dateTimePicker1.Size = new System.Drawing.Size(107, 19);
             this.dateTimePicker1.TabIndex = 1;
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(26, 121);
+            this.textBox1.Location = new System.Drawing.Point(19, 97);
+            this.textBox1.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(196, 22);
+            this.textBox1.Size = new System.Drawing.Size(148, 19);
             this.textBox1.TabIndex = 2;
             // 
             // SearchBtn
@@ -85,9 +88,10 @@
             this.SearchBtn.BackColor = System.Drawing.Color.MediumSeaGreen;
             this.SearchBtn.Font = new System.Drawing.Font("メイリオ", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.SearchBtn.ForeColor = System.Drawing.SystemColors.Desktop;
-            this.SearchBtn.Location = new System.Drawing.Point(587, 98);
+            this.SearchBtn.Location = new System.Drawing.Point(440, 79);
+            this.SearchBtn.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.SearchBtn.Name = "SearchBtn";
-            this.SearchBtn.Size = new System.Drawing.Size(88, 45);
+            this.SearchBtn.Size = new System.Drawing.Size(66, 36);
             this.SearchBtn.TabIndex = 3;
             this.SearchBtn.Text = "Search";
             this.SearchBtn.UseVisualStyleBackColor = false;
@@ -96,9 +100,10 @@
             // 
             this.ResetBtn.Font = new System.Drawing.Font("メイリオ", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.ResetBtn.ForeColor = System.Drawing.SystemColors.Desktop;
-            this.ResetBtn.Location = new System.Drawing.Point(693, 98);
+            this.ResetBtn.Location = new System.Drawing.Point(520, 79);
+            this.ResetBtn.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.ResetBtn.Name = "ResetBtn";
-            this.ResetBtn.Size = new System.Drawing.Size(86, 45);
+            this.ResetBtn.Size = new System.Drawing.Size(65, 36);
             this.ResetBtn.TabIndex = 4;
             this.ResetBtn.Text = "Reset";
             this.ResetBtn.UseVisualStyleBackColor = true;
@@ -108,9 +113,10 @@
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("メイリオ", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.label1.ForeColor = System.Drawing.SystemColors.Desktop;
-            this.label1.Location = new System.Drawing.Point(12, 39);
+            this.label1.Location = new System.Drawing.Point(9, 31);
+            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(147, 42);
+            this.label1.Size = new System.Drawing.Size(115, 33);
             this.label1.TabIndex = 6;
             this.label1.Text = "Task List";
             // 
@@ -119,9 +125,10 @@
             this.NameLabel.AutoSize = true;
             this.NameLabel.Font = new System.Drawing.Font("メイリオ", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.NameLabel.ForeColor = System.Drawing.SystemColors.Desktop;
-            this.NameLabel.Location = new System.Drawing.Point(22, 95);
+            this.NameLabel.Location = new System.Drawing.Point(17, 76);
+            this.NameLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.NameLabel.Name = "NameLabel";
-            this.NameLabel.Size = new System.Drawing.Size(53, 23);
+            this.NameLabel.Size = new System.Drawing.Size(43, 18);
             this.NameLabel.TabIndex = 7;
             this.NameLabel.Text = "Name";
             // 
@@ -130,9 +137,10 @@
             this.DueDateLabel.AutoSize = true;
             this.DueDateLabel.Font = new System.Drawing.Font("メイリオ", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.DueDateLabel.ForeColor = System.Drawing.SystemColors.Desktop;
-            this.DueDateLabel.Location = new System.Drawing.Point(239, 94);
+            this.DueDateLabel.Location = new System.Drawing.Point(179, 75);
+            this.DueDateLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.DueDateLabel.Name = "DueDateLabel";
-            this.DueDateLabel.Size = new System.Drawing.Size(74, 23);
+            this.DueDateLabel.Size = new System.Drawing.Size(59, 18);
             this.DueDateLabel.TabIndex = 8;
             this.DueDateLabel.Text = "DueDate";
             // 
@@ -141,9 +149,10 @@
             this.TagLabel.AutoSize = true;
             this.TagLabel.Font = new System.Drawing.Font("メイリオ", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.TagLabel.ForeColor = System.Drawing.SystemColors.Desktop;
-            this.TagLabel.Location = new System.Drawing.Point(402, 94);
+            this.TagLabel.Location = new System.Drawing.Point(301, 75);
+            this.TagLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.TagLabel.Name = "TagLabel";
-            this.TagLabel.Size = new System.Drawing.Size(36, 23);
+            this.TagLabel.Size = new System.Drawing.Size(29, 18);
             this.TagLabel.TabIndex = 9;
             this.TagLabel.Text = "Tag";
             // 
@@ -160,7 +169,7 @@
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-            this.toolStrip1.Size = new System.Drawing.Size(1265, 27);
+            this.toolStrip1.Size = new System.Drawing.Size(1004, 27);
             this.toolStrip1.TabIndex = 10;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -170,7 +179,7 @@
             this.Re.BackColor = System.Drawing.Color.MediumSeaGreen;
             this.Re.Font = new System.Drawing.Font("メイリオ", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.Re.Name = "Re";
-            this.Re.Size = new System.Drawing.Size(29, 36);
+            this.Re.Size = new System.Drawing.Size(23, 24);
             this.Re.Text = "Re";
             // 
             // rental
@@ -179,7 +188,7 @@
             this.rental.Font = new System.Drawing.Font("メイリオ", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.rental.ForeColor = System.Drawing.SystemColors.WindowFrame;
             this.rental.Name = "rental";
-            this.rental.Size = new System.Drawing.Size(53, 36);
+            this.rental.Size = new System.Drawing.Size(42, 24);
             this.rental.Text = "rental";
             // 
             // TaskDetail
@@ -187,7 +196,7 @@
             this.TaskDetail.Font = new System.Drawing.Font("メイリオ", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.TaskDetail.ForeColor = System.Drawing.SystemColors.WindowFrame;
             this.TaskDetail.Name = "TaskDetail";
-            this.TaskDetail.Size = new System.Drawing.Size(85, 36);
+            this.TaskDetail.Size = new System.Drawing.Size(69, 24);
             this.TaskDetail.Text = "TaskDetail";
             // 
             // toolStripButton1
@@ -197,7 +206,7 @@
             this.toolStripButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton1.Image")));
             this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton1.Name = "toolStripButton1";
-            this.toolStripButton1.Size = new System.Drawing.Size(29, 24);
+            this.toolStripButton1.Size = new System.Drawing.Size(24, 24);
             this.toolStripButton1.Text = "toolStripButton1";
             // 
             // UserName
@@ -205,14 +214,22 @@
             this.UserName.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
             this.UserName.ForeColor = System.Drawing.SystemColors.WindowFrame;
             this.UserName.Name = "UserName";
-            this.UserName.Size = new System.Drawing.Size(82, 36);
+            this.UserName.Size = new System.Drawing.Size(66, 24);
             this.UserName.Text = "Matsunaga";
             // 
             // TaskInformation
             // 
+            this.TaskInformation.AccessibleRole = System.Windows.Forms.AccessibleRole.None;
+            this.TaskInformation.AllowUserToAddRows = false;
+            this.TaskInformation.AllowUserToDeleteRows = false;
+            this.TaskInformation.AllowUserToResizeColumns = false;
+            this.TaskInformation.AllowUserToResizeRows = false;
             this.TaskInformation.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.TaskInformation.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.TaskInformation.BackgroundColor = System.Drawing.SystemColors.Control;
+            this.TaskInformation.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.TaskInformation.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
             this.TaskInformation.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.TaskInformation.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.TaskName,
@@ -222,11 +239,13 @@
             this.IsDone,
             this.UpdatedOn,
             this.IsActive});
-            this.TaskInformation.Location = new System.Drawing.Point(26, 166);
+            this.TaskInformation.Location = new System.Drawing.Point(19, 130);
+            this.TaskInformation.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.TaskInformation.Name = "TaskInformation";
+            this.TaskInformation.RowHeadersVisible = false;
             this.TaskInformation.RowHeadersWidth = 51;
             this.TaskInformation.RowTemplate.Height = 24;
-            this.TaskInformation.Size = new System.Drawing.Size(1208, 369);
+            this.TaskInformation.Size = new System.Drawing.Size(971, 295);
             this.TaskInformation.TabIndex = 11;
             this.TaskInformation.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.TaskInformation_CellContentClick);
             // 
@@ -235,49 +254,42 @@
             this.TaskName.HeaderText = "Name";
             this.TaskName.MinimumWidth = 6;
             this.TaskName.Name = "TaskName";
-            this.TaskName.Width = 125;
             // 
             // Description
             // 
             this.Description.HeaderText = "Description";
             this.Description.MinimumWidth = 6;
             this.Description.Name = "Description";
-            this.Description.Width = 125;
             // 
             // DueDate
             // 
             this.DueDate.HeaderText = "DueDate";
             this.DueDate.MinimumWidth = 6;
             this.DueDate.Name = "DueDate";
-            this.DueDate.Width = 125;
             // 
             // Tag
             // 
             this.Tag.HeaderText = "Tag";
             this.Tag.MinimumWidth = 6;
             this.Tag.Name = "Tag";
-            this.Tag.Width = 125;
             // 
             // IsDone
             // 
             this.IsDone.HeaderText = "Is Done";
             this.IsDone.MinimumWidth = 6;
             this.IsDone.Name = "IsDone";
-            this.IsDone.Width = 125;
             // 
             // UpdatedOn
             // 
             this.UpdatedOn.HeaderText = "Updated On";
             this.UpdatedOn.MinimumWidth = 6;
             this.UpdatedOn.Name = "UpdatedOn";
-            this.UpdatedOn.Width = 125;
             // 
             // IsActive
             // 
             this.IsActive.HeaderText = "Is Active";
             this.IsActive.MinimumWidth = 6;
             this.IsActive.Name = "IsActive";
-            this.IsActive.Width = 125;
             // 
             // button1
             // 
@@ -285,31 +297,34 @@
             this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button1.Font = new System.Drawing.Font("メイリオ", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.button1.ForeColor = System.Drawing.SystemColors.Control;
-            this.button1.Location = new System.Drawing.Point(587, 98);
+            this.button1.Location = new System.Drawing.Point(440, 79);
+            this.button1.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(88, 45);
+            this.button1.Size = new System.Drawing.Size(66, 36);
             this.button1.TabIndex = 3;
             this.button1.Text = "Search";
             this.button1.UseVisualStyleBackColor = false;
             // 
             // button2
             // 
+            this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.button2.BackColor = System.Drawing.Color.MediumSeaGreen;
             this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button2.Font = new System.Drawing.Font("メイリオ", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.button2.ForeColor = System.Drawing.SystemColors.Control;
-            this.button2.Location = new System.Drawing.Point(1138, 41);
+            this.button2.Location = new System.Drawing.Point(918, 44);
+            this.button2.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(96, 45);
+            this.button2.Size = new System.Drawing.Size(72, 36);
             this.button2.TabIndex = 5;
             this.button2.Text = "新規作成";
             this.button2.UseVisualStyleBackColor = false;
             // 
             // TaskList
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1265, 597);
+            this.ClientSize = new System.Drawing.Size(1004, 477);
             this.Controls.Add(this.TaskInformation);
             this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.TagLabel);
@@ -324,8 +339,10 @@
             this.Controls.Add(this.dateTimePicker1);
             this.Controls.Add(this.comboBox1);
             this.ForeColor = System.Drawing.SystemColors.Desktop;
+            this.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.Name = "TaskList";
             this.Text = "Task List";
+            this.Load += new System.EventHandler(this.TaskList_Load);
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.TaskInformation)).EndInit();

@@ -30,13 +30,19 @@ namespace WindowsFormsApp1
                     _msStockData.dueDate,
                     _msStockData.tag,
                     _msStockData.doneDate,
-                    _msStockData.updateDate
+                    _msStockData.updateDate,
+                    _msStockData.active
                 );
             }
 
         }
 
         private void TaskInformation_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void TaskList_Load(object sender, EventArgs e)
         {
 
         }
