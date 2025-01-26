@@ -13,7 +13,7 @@ namespace WindowsFormsApp1
 
         private MySqlConnection GetMySqlConnection()
         {
-          return new MySqlConnection(connectionString);
+            return new MySqlConnection(connectionString);
         }
 
         public List<TaskListEntity> SelectAll()
@@ -36,20 +36,35 @@ namespace WindowsFormsApp1
             using var reader = command.ExecuteReader();
             while (reader.Read())
             {
-                taskEntityList.Add(new TaskListEntity()
+                if (!reader["done_date"].Equals(DBNull.Value)) {
+                    taskEntityList.Add(new TaskListEntity()
+                    {
+                        taskName = (string)reader["task_name"],
+                        description = (string)reader["description"],
+                        dueDate = (DateTime)reader["due_date"],
+                        tag = (string)reader["tag"],
+                        doneDate = (DateTime)reader["done_date"],
+                        updateDate = (DateTime)reader["update_date"],
+                        active = (string)reader["active"],
+                    });
+                }else
                 {
-                    taskName = (string)reader["task_name"],
-                    description = (string)reader["description"],
-                    dueDate = (DateTime)reader["due_date"],
-                    tag = (string)reader["tag"],
-                    doneDate = (DateTime)reader["done_date"],
-                    updateDate = (DateTime)reader["update_date"],
-                    active = (string)reader["active"],
-                });
+                    taskEntityList.Add(new TaskListEntity()
+                    {
+                        taskName = (string)reader["task_name"],
+                        description = (string)reader["description"],
+                        dueDate = (DateTime)reader["due_date"],
+                        tag = (string)reader["tag"],
+                        doneDate = null,
+                        updateDate = (DateTime)reader["update_date"],
+                        active = (string)reader["active"],
+                    });
+                }
             }
 
             // 在庫マスタエンティティのリスト
             return taskEntityList;
+            }
         }
     }
-}
+

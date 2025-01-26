@@ -75,7 +75,6 @@ C:\Users\yuto1\OneDrive\ドキュメント\share_kennsyu_matsunaga.yuto\STEP2（
 C:\Users\yuto1\OneDrive\ドキュメント\share_kennsyu_matsunaga.yuto\STEP2（タスク管理アプリ）\アプリ開発（ソースコード）\TaskManagement\TaskList\bin\Debug\K4os.Compression.LZ4.Streams.xml
 C:\Users\yuto1\OneDrive\ドキュメント\share_kennsyu_matsunaga.yuto\STEP2（タスク管理アプリ）\アプリ開発（ソースコード）\TaskManagement\TaskList\bin\Debug\K4os.Hash.xxHash.xml
 C:\Users\yuto1\OneDrive\ドキュメント\share_kennsyu_matsunaga.yuto\STEP2（タスク管理アプリ）\アプリ開発（ソースコード）\TaskManagement\TaskList\bin\Debug\Microsoft.Bcl.AsyncInterfaces.xml
-C:\Users\yuto1\OneDrive\ドキュメント\share_kennsyu_matsunaga.yuto\STEP2（タスク管理アプリ）\アプリ開発（ソースコード）\TaskManagement\TaskList\bin\Debug\Microsoft.Extensions.DependencyInjection.Abstractions.xml
 C:\Users\yuto1\OneDrive\ドキュメント\share_kennsyu_matsunaga.yuto\STEP2（タスク管理アプリ）\アプリ開発（ソースコード）\TaskManagement\TaskList\bin\Debug\Microsoft.Extensions.Logging.Abstractions.xml
 C:\Users\yuto1\OneDrive\ドキュメント\share_kennsyu_matsunaga.yuto\STEP2（タスク管理アプリ）\アプリ開発（ソースコード）\TaskManagement\TaskList\bin\Debug\MySql.Data.xml
 C:\Users\yuto1\OneDrive\ドキュメント\share_kennsyu_matsunaga.yuto\STEP2（タスク管理アプリ）\アプリ開発（ソースコード）\TaskManagement\TaskList\bin\Debug\MySqlConnector.xml

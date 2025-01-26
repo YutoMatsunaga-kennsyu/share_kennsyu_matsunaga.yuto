@@ -19,7 +19,11 @@ namespace Login
 
         private void button1_Click(object sender, EventArgs e)
         {
-
+            if ((string.IsNullOrEmpty(textBoxEx1.Text)) || (string.IsNullOrEmpty(textBoxEx2.Text)))
+            {
+                MessageBox.Show("ユーザー名、またはパスワードが未入力です");
+                MessageBox.Show("ユーザー名、またはパスワードが間違っています");
+            }
         }
 
         private void label3_Click(object sender, EventArgs e)

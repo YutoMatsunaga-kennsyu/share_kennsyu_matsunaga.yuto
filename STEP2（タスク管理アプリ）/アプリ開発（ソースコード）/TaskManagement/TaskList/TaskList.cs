@@ -13,18 +13,37 @@ namespace WindowsFormsApp1
 {
     public partial class TaskList : Form
     {
+        public DataTable dataTable = new DataTable();
+        public BindingSource bindingSource = new BindingSource();
+        public BindingList<DataTable> tables = new BindingList<DataTable>();
+
+        // 1ページで表示する行数
+        public int pageSize = 5;
+
+
         public TaskList()
         {
             InitializeComponent();
+            //DetaTableから列の自動生成を行なわない
+            TaskInformation.AutoGenerateColumns = false;
+
             // 在庫マスタ DAO取得
             TaskListDao ms_Stock_Dao = new();
 
             // 在庫マスタの全抽出
             var _msStockDataList = ms_Stock_Dao.SelectAll();
 
+            this.dataTable.Columns.Add("TaskName", typeof(string));
+            this.dataTable.Columns.Add("Description", typeof(string));
+            this.dataTable.Columns.Add("DueDate", typeof(DateTime));
+            this.dataTable.Columns.Add("Tag", typeof(string));
+            this.dataTable.Columns.Add("Is Done", typeof(DateTime));
+            this.dataTable.Columns.Add("Updated On", typeof(DateTime));
+            this.dataTable.Columns.Add("Is Active", typeof(string));
+
             foreach (var _msStockData in _msStockDataList)
             {
-                TaskInformation.Rows.Add(
+                dataTable.Rows.Add(
                     _msStockData.taskName,
                     _msStockData.description,
                     _msStockData.dueDate,
@@ -35,7 +54,42 @@ namespace WindowsFormsApp1
                 );
             }
 
+            SetPagedDataSource();
+
         }
+
+        private void SetPagedDataSource()
+        {
+            DataTable dt = null;
+            int counter = 1;
+
+            foreach (DataRow dr in this.dataTable.Rows)
+            {
+                if (counter == 1)
+                {
+                    dt = dataTable.Clone();
+                    tables.Add(dt);
+                }
+
+                dt.Rows.Add(dr.ItemArray);
+
+                if (pageSize < ++counter)
+                {
+                    counter = 1;
+                }
+            }
+
+            this.bindingNavigator1.BindingSource = bindingSource;
+            bindingSource.DataSource = tables;
+            bindingSource.PositionChanged += bindingSource_PositionChanged;
+            bindingSource_PositionChanged(bindingSource, EventArgs.Empty);
+        }
+
+        private void bindingSource_PositionChanged(object sender, EventArgs e)
+        {
+            this.TaskInformation.DataSource = tables[bindingSource.Position];
+        }
+
 
         private void TaskInformation_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -43,6 +97,31 @@ namespace WindowsFormsApp1
         }
 
         private void TaskList_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void bindingSource1_CurrentChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label4_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label3_Click(object sender, EventArgs e)
         {
 
         }
