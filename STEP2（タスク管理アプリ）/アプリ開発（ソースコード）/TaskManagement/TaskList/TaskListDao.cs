@@ -19,7 +19,7 @@ namespace WindowsFormsApp1
         public List<TaskListEntity> SelectAll()
         {
             // 実行SQL
-            var commandText = "SELECT * FROM task_list";
+            var commandText = "SELECT * FROM task_list ORDER BY ABS(DATEDIFF(due_date, CURDATE()));";
 
             // MySQLへの接続
             using var connection = GetMySqlConnection();
@@ -41,8 +41,8 @@ namespace WindowsFormsApp1
                     {
                         taskName = (string)reader["task_name"],
                         description = (string)reader["description"],
-                        dueDate = (DateTime)reader["due_date"],
                         tag = (string)reader["tag"],
+                        dueDate = (DateTime)reader["due_date"],
                         doneDate = (DateTime)reader["done_date"],
                         updateDate = (DateTime)reader["update_date"],
                         active = (string)reader["active"],
@@ -53,8 +53,8 @@ namespace WindowsFormsApp1
                     {
                         taskName = (string)reader["task_name"],
                         description = (string)reader["description"],
-                        dueDate = (DateTime)reader["due_date"],
                         tag = (string)reader["tag"],
+                        dueDate = (DateTime)reader["due_date"],
                         doneDate = null,
                         updateDate = (DateTime)reader["update_date"],
                         active = (string)reader["active"],

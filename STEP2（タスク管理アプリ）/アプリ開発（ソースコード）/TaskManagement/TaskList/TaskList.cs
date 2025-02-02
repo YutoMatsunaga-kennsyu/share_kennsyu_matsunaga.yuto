@@ -13,6 +13,7 @@ namespace WindowsFormsApp1
 {
     public partial class TaskList : Form
     {
+
         public DataTable dataTable = new DataTable();
         public BindingSource bindingSource = new BindingSource();
         public BindingList<DataTable> tables = new BindingList<DataTable>();
@@ -27,6 +28,10 @@ namespace WindowsFormsApp1
             //DetaTableから列の自動生成を行なわない
             TaskInformation.AutoGenerateColumns = false;
 
+            //初期値
+            TagComboBox.SelectedIndex = 0;
+            ActiveComboBox.SelectedIndex = 1;
+
             // 在庫マスタ DAO取得
             TaskListDao ms_Stock_Dao = new();
 
@@ -35,8 +40,8 @@ namespace WindowsFormsApp1
 
             this.dataTable.Columns.Add("TaskName", typeof(string));
             this.dataTable.Columns.Add("Description", typeof(string));
-            this.dataTable.Columns.Add("DueDate", typeof(DateTime));
             this.dataTable.Columns.Add("Tag", typeof(string));
+            this.dataTable.Columns.Add("DueDate", typeof(DateTime));
             this.dataTable.Columns.Add("Is Done", typeof(DateTime));
             this.dataTable.Columns.Add("Updated On", typeof(DateTime));
             this.dataTable.Columns.Add("Is Active", typeof(string));
@@ -46,13 +51,17 @@ namespace WindowsFormsApp1
                 dataTable.Rows.Add(
                     _msStockData.taskName,
                     _msStockData.description,
-                    _msStockData.dueDate,
                     _msStockData.tag,
+                    _msStockData.dueDate,
                     _msStockData.doneDate,
                     _msStockData.updateDate,
                     _msStockData.active
                 );
             }
+
+            //DataViewを取得
+            DataView dv = dataTable.DefaultView;
+            dv.Sort = "DueDate DESC";
 
             SetPagedDataSource();
 
@@ -81,8 +90,11 @@ namespace WindowsFormsApp1
 
             this.bindingNavigator1.BindingSource = bindingSource;
             bindingSource.DataSource = tables;
+
             bindingSource.PositionChanged += bindingSource_PositionChanged;
+
             bindingSource_PositionChanged(bindingSource, EventArgs.Empty);
+
         }
 
         private void bindingSource_PositionChanged(object sender, EventArgs e)
@@ -122,6 +134,16 @@ namespace WindowsFormsApp1
         }
 
         private void label3_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label5_Click(object sender, EventArgs e)
         {
 
         }
