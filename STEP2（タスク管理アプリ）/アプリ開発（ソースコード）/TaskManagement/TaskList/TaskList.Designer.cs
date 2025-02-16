@@ -30,18 +30,17 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TaskList));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle51 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle59 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle60 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle52 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle53 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle54 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle55 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle56 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle57 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle58 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle41 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle49 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle50 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle42 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle43 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle44 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle45 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle46 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle47 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle48 = new System.Windows.Forms.DataGridViewCellStyle();
             this.TagComboBox = new System.Windows.Forms.ComboBox();
-            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.ResetBtn = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
@@ -53,6 +52,13 @@
             this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
             this.UserName = new System.Windows.Forms.ToolStripLabel();
             this.TaskInformation = new System.Windows.Forms.DataGridView();
+            this.TaskName = new System.Windows.Forms.DataGridViewLinkColumn();
+            this.Description = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Tag = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DueDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.a = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Updated_On = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Is_Active = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.bindingNavigator1 = new System.Windows.Forms.BindingNavigator(this.components);
@@ -65,21 +71,18 @@
             this.bindingNavigatorMoveNextItem = new System.Windows.Forms.ToolStripButton();
             this.bindingNavigatorMoveLastItem = new System.Windows.Forms.ToolStripButton();
             this.bindingNavigatorSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-            this.bindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.ActiveComboBox = new System.Windows.Forms.ComboBox();
             this.label4 = new System.Windows.Forms.Label();
-            this.dateTimePicker2 = new System.Windows.Forms.DateTimePicker();
             this.label5 = new System.Windows.Forms.Label();
-            this.dateTimePicker3 = new System.Windows.Forms.DateTimePicker();
-            this.TaskName = new System.Windows.Forms.DataGridViewLinkColumn();
-            this.Description = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Tag = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.DueDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.a = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Updated_On = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Is_Active = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.btnDateTo = new System.Windows.Forms.Button();
+            this.bindingSource1 = new System.Windows.Forms.BindingSource(this.components);
+            this.txtDateFrom = new System.Windows.Forms.TextBox();
+            this.txtDateTo = new System.Windows.Forms.TextBox();
+            this.btnDateFrom = new System.Windows.Forms.Button();
+            this.btnDateDone = new System.Windows.Forms.Button();
+            this.txtDateDone = new System.Windows.Forms.TextBox();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.TaskInformation)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bindingNavigator1)).BeginInit();
@@ -89,6 +92,7 @@
             // 
             // TagComboBox
             // 
+            this.TagComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.TagComboBox.Font = new System.Drawing.Font("メイリオ", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.TagComboBox.FormattingEnabled = true;
             this.TagComboBox.Items.AddRange(new object[] {
@@ -96,20 +100,11 @@
             "仕事",
             "家事",
             "趣味"});
-            this.TagComboBox.Location = new System.Drawing.Point(255, 131);
+            this.TagComboBox.Location = new System.Drawing.Point(299, 131);
             this.TagComboBox.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.TagComboBox.Name = "TagComboBox";
             this.TagComboBox.Size = new System.Drawing.Size(188, 31);
             this.TagComboBox.TabIndex = 0;
-            // 
-            // dateTimePicker1
-            // 
-            this.dateTimePicker1.Font = new System.Drawing.Font("メイリオ", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.dateTimePicker1.Location = new System.Drawing.Point(800, 131);
-            this.dateTimePicker1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.dateTimePicker1.Name = "dateTimePicker1";
-            this.dateTimePicker1.Size = new System.Drawing.Size(155, 30);
-            this.dateTimePicker1.TabIndex = 1;
             // 
             // textBox1
             // 
@@ -117,7 +112,7 @@
             this.textBox1.Location = new System.Drawing.Point(26, 131);
             this.textBox1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(209, 30);
+            this.textBox1.Size = new System.Drawing.Size(257, 30);
             this.textBox1.TabIndex = 2;
             // 
             // ResetBtn
@@ -152,7 +147,7 @@
             this.NameLabel.AutoSize = true;
             this.NameLabel.Font = new System.Drawing.Font("メイリオ", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.NameLabel.ForeColor = System.Drawing.SystemColors.Desktop;
-            this.NameLabel.Location = new System.Drawing.Point(23, 105);
+            this.NameLabel.Location = new System.Drawing.Point(23, 106);
             this.NameLabel.Name = "NameLabel";
             this.NameLabel.Size = new System.Drawing.Size(70, 23);
             this.NameLabel.TabIndex = 7;
@@ -163,7 +158,7 @@
             this.DueDateLabel.AutoSize = true;
             this.DueDateLabel.Font = new System.Drawing.Font("メイリオ", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.DueDateLabel.ForeColor = System.Drawing.SystemColors.Desktop;
-            this.DueDateLabel.Location = new System.Drawing.Point(459, 107);
+            this.DueDateLabel.Location = new System.Drawing.Point(498, 107);
             this.DueDateLabel.Name = "DueDateLabel";
             this.DueDateLabel.Size = new System.Drawing.Size(115, 23);
             this.DueDateLabel.TabIndex = 8;
@@ -174,7 +169,7 @@
             this.TagLabel.AutoSize = true;
             this.TagLabel.Font = new System.Drawing.Font("メイリオ", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.TagLabel.ForeColor = System.Drawing.SystemColors.Desktop;
-            this.TagLabel.Location = new System.Drawing.Point(252, 106);
+            this.TagLabel.Location = new System.Drawing.Point(294, 107);
             this.TagLabel.Name = "TagLabel";
             this.TagLabel.Size = new System.Drawing.Size(85, 23);
             this.TagLabel.TabIndex = 9;
@@ -191,7 +186,7 @@
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-            this.toolStrip1.Size = new System.Drawing.Size(1339, 27);
+            this.toolStrip1.Size = new System.Drawing.Size(1339, 31);
             this.toolStrip1.TabIndex = 10;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -211,7 +206,7 @@
             this.toolStripButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton1.Image")));
             this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton1.Name = "toolStripButton1";
-            this.toolStripButton1.Size = new System.Drawing.Size(29, 24);
+            this.toolStripButton1.Size = new System.Drawing.Size(29, 28);
             this.toolStripButton1.Text = "toolStripButton1";
             // 
             // UserName
@@ -235,14 +230,14 @@
             this.TaskInformation.BackgroundColor = System.Drawing.SystemColors.Control;
             this.TaskInformation.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.TaskInformation.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle51.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle51.BackColor = System.Drawing.Color.MediumSeaGreen;
-            dataGridViewCellStyle51.Font = new System.Drawing.Font("メイリオ", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            dataGridViewCellStyle51.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle51.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle51.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle51.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.TaskInformation.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle51;
+            dataGridViewCellStyle41.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle41.BackColor = System.Drawing.Color.MediumSeaGreen;
+            dataGridViewCellStyle41.Font = new System.Drawing.Font("メイリオ", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            dataGridViewCellStyle41.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle41.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle41.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle41.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.TaskInformation.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle41;
             this.TaskInformation.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.TaskInformation.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.TaskName,
@@ -252,33 +247,110 @@
             this.a,
             this.Updated_On,
             this.Is_Active});
-            dataGridViewCellStyle59.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle59.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle59.Font = new System.Drawing.Font("メイリオ", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            dataGridViewCellStyle59.ForeColor = System.Drawing.SystemColors.Desktop;
-            dataGridViewCellStyle59.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle59.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle59.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.TaskInformation.DefaultCellStyle = dataGridViewCellStyle59;
+            dataGridViewCellStyle49.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle49.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle49.Font = new System.Drawing.Font("メイリオ", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            dataGridViewCellStyle49.ForeColor = System.Drawing.SystemColors.Desktop;
+            dataGridViewCellStyle49.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle49.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle49.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.TaskInformation.DefaultCellStyle = dataGridViewCellStyle49;
             this.TaskInformation.EnableHeadersVisualStyles = false;
             this.TaskInformation.Location = new System.Drawing.Point(25, 190);
             this.TaskInformation.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.TaskInformation.Name = "TaskInformation";
             this.TaskInformation.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Sunken;
-            dataGridViewCellStyle60.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle60.BackColor = System.Drawing.Color.MediumSeaGreen;
-            dataGridViewCellStyle60.Font = new System.Drawing.Font("MS UI Gothic", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            dataGridViewCellStyle60.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle60.SelectionBackColor = System.Drawing.Color.MediumSeaGreen;
-            dataGridViewCellStyle60.SelectionForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle60.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.TaskInformation.RowHeadersDefaultCellStyle = dataGridViewCellStyle60;
+            dataGridViewCellStyle50.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle50.BackColor = System.Drawing.Color.MediumSeaGreen;
+            dataGridViewCellStyle50.Font = new System.Drawing.Font("MS UI Gothic", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            dataGridViewCellStyle50.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle50.SelectionBackColor = System.Drawing.Color.MediumSeaGreen;
+            dataGridViewCellStyle50.SelectionForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle50.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.TaskInformation.RowHeadersDefaultCellStyle = dataGridViewCellStyle50;
             this.TaskInformation.RowHeadersVisible = false;
             this.TaskInformation.RowHeadersWidth = 51;
             this.TaskInformation.RowTemplate.Height = 50;
             this.TaskInformation.Size = new System.Drawing.Size(1295, 394);
             this.TaskInformation.TabIndex = 11;
             this.TaskInformation.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.TaskInformation_CellContentClick);
+            // 
+            // TaskName
+            // 
+            this.TaskName.DataPropertyName = "TaskName";
+            dataGridViewCellStyle42.SelectionBackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle42.SelectionForeColor = System.Drawing.Color.Black;
+            this.TaskName.DefaultCellStyle = dataGridViewCellStyle42;
+            this.TaskName.HeaderText = "タスク名";
+            this.TaskName.MinimumWidth = 6;
+            this.TaskName.Name = "TaskName";
+            this.TaskName.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            // 
+            // Description
+            // 
+            this.Description.DataPropertyName = "Description";
+            dataGridViewCellStyle43.SelectionBackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle43.SelectionForeColor = System.Drawing.Color.Black;
+            this.Description.DefaultCellStyle = dataGridViewCellStyle43;
+            this.Description.HeaderText = "説明";
+            this.Description.MinimumWidth = 6;
+            this.Description.Name = "Description";
+            this.Description.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // Tag
+            // 
+            this.Tag.DataPropertyName = "Tag";
+            dataGridViewCellStyle44.SelectionBackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle44.SelectionForeColor = System.Drawing.Color.Black;
+            this.Tag.DefaultCellStyle = dataGridViewCellStyle44;
+            this.Tag.HeaderText = "タスク分類";
+            this.Tag.MinimumWidth = 6;
+            this.Tag.Name = "Tag";
+            this.Tag.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // DueDate
+            // 
+            this.DueDate.DataPropertyName = "DueDate";
+            dataGridViewCellStyle45.SelectionBackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle45.SelectionForeColor = System.Drawing.Color.Black;
+            this.DueDate.DefaultCellStyle = dataGridViewCellStyle45;
+            this.DueDate.HeaderText = "タスク完了期限";
+            this.DueDate.MinimumWidth = 6;
+            this.DueDate.Name = "DueDate";
+            this.DueDate.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // a
+            // 
+            this.a.DataPropertyName = "Is Done";
+            dataGridViewCellStyle46.SelectionBackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle46.SelectionForeColor = System.Drawing.Color.Black;
+            this.a.DefaultCellStyle = dataGridViewCellStyle46;
+            this.a.HeaderText = "タスク完了日";
+            this.a.MinimumWidth = 6;
+            this.a.Name = "a";
+            this.a.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // Updated_On
+            // 
+            this.Updated_On.DataPropertyName = "Updated On";
+            dataGridViewCellStyle47.SelectionBackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle47.SelectionForeColor = System.Drawing.Color.Black;
+            this.Updated_On.DefaultCellStyle = dataGridViewCellStyle47;
+            this.Updated_On.HeaderText = "タスク更新日";
+            this.Updated_On.MinimumWidth = 6;
+            this.Updated_On.Name = "Updated_On";
+            this.Updated_On.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // Is_Active
+            // 
+            this.Is_Active.DataPropertyName = "Is Active";
+            dataGridViewCellStyle48.SelectionBackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle48.SelectionForeColor = System.Drawing.Color.Black;
+            this.Is_Active.DefaultCellStyle = dataGridViewCellStyle48;
+            this.Is_Active.HeaderText = "タスク状況";
+            this.Is_Active.MinimumWidth = 6;
+            this.Is_Active.Name = "Is_Active";
+            this.Is_Active.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
             // button1
             // 
@@ -326,14 +398,14 @@
             this.bindingNavigatorMoveNextItem,
             this.bindingNavigatorMoveLastItem,
             this.bindingNavigatorSeparator2});
-            this.bindingNavigator1.Location = new System.Drawing.Point(0, 601);
+            this.bindingNavigator1.Location = new System.Drawing.Point(0, 597);
             this.bindingNavigator1.MoveFirstItem = this.bindingNavigatorMoveFirstItem;
             this.bindingNavigator1.MoveLastItem = this.bindingNavigatorMoveLastItem;
             this.bindingNavigator1.MoveNextItem = this.bindingNavigatorMoveNextItem;
             this.bindingNavigator1.MovePreviousItem = this.bindingNavigatorMovePreviousItem;
             this.bindingNavigator1.Name = "bindingNavigator1";
             this.bindingNavigator1.PositionItem = this.bindingNavigatorPositionItem;
-            this.bindingNavigator1.Size = new System.Drawing.Size(1339, 27);
+            this.bindingNavigator1.Size = new System.Drawing.Size(1339, 31);
             this.bindingNavigator1.TabIndex = 12;
             this.bindingNavigator1.Text = "bindingNavigator1";
             // 
@@ -405,10 +477,6 @@
             this.bindingNavigatorSeparator2.Name = "bindingNavigatorSeparator2";
             this.bindingNavigatorSeparator2.Size = new System.Drawing.Size(6, 27);
             // 
-            // bindingSource1
-            // 
-            this.bindingSource1.CurrentChanged += new System.EventHandler(this.bindingSource1_CurrentChanged);
-            // 
             // label2
             // 
             this.label2.AutoSize = true;
@@ -425,7 +493,7 @@
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("メイリオ", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.label3.ForeColor = System.Drawing.SystemColors.Desktop;
-            this.label3.Location = new System.Drawing.Point(795, 107);
+            this.label3.Location = new System.Drawing.Point(836, 109);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(100, 23);
             this.label3.TabIndex = 15;
@@ -434,13 +502,14 @@
             // 
             // ActiveComboBox
             // 
+            this.ActiveComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.ActiveComboBox.Font = new System.Drawing.Font("メイリオ", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.ActiveComboBox.FormattingEnabled = true;
             this.ActiveComboBox.Items.AddRange(new object[] {
             "全て",
             "未完了",
             "完了"});
-            this.ActiveComboBox.Location = new System.Drawing.Point(973, 130);
+            this.ActiveComboBox.Location = new System.Drawing.Point(1012, 134);
             this.ActiveComboBox.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.ActiveComboBox.Name = "ActiveComboBox";
             this.ActiveComboBox.Size = new System.Drawing.Size(90, 31);
@@ -451,21 +520,12 @@
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("メイリオ", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.label4.ForeColor = System.Drawing.SystemColors.Desktop;
-            this.label4.Location = new System.Drawing.Point(968, 107);
+            this.label4.Location = new System.Drawing.Point(1007, 109);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(85, 23);
             this.label4.TabIndex = 17;
             this.label4.Text = "タスク状況";
             this.label4.Click += new System.EventHandler(this.label4_Click);
-            // 
-            // dateTimePicker2
-            // 
-            this.dateTimePicker2.Font = new System.Drawing.Font("メイリオ", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.dateTimePicker2.Location = new System.Drawing.Point(463, 131);
-            this.dateTimePicker2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.dateTimePicker2.Name = "dateTimePicker2";
-            this.dateTimePicker2.Size = new System.Drawing.Size(146, 30);
-            this.dateTimePicker2.TabIndex = 18;
             // 
             // label5
             // 
@@ -473,107 +533,92 @@
             this.label5.BackColor = System.Drawing.SystemColors.Control;
             this.label5.Font = new System.Drawing.Font("メイリオ", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.label5.ForeColor = System.Drawing.SystemColors.Desktop;
-            this.label5.Location = new System.Drawing.Point(609, 136);
+            this.label5.Location = new System.Drawing.Point(645, 136);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(25, 23);
             this.label5.TabIndex = 20;
             this.label5.Text = "～";
             this.label5.Click += new System.EventHandler(this.label5_Click);
             // 
-            // dateTimePicker3
+            // btnDateTo
             // 
-            this.dateTimePicker3.Font = new System.Drawing.Font("メイリオ", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.dateTimePicker3.Location = new System.Drawing.Point(635, 131);
-            this.dateTimePicker3.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.dateTimePicker3.Name = "dateTimePicker3";
-            this.dateTimePicker3.Size = new System.Drawing.Size(146, 30);
-            this.dateTimePicker3.TabIndex = 21;
+            this.btnDateTo.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.btnDateTo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnDateTo.Font = new System.Drawing.Font("メイリオ", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.btnDateTo.Location = new System.Drawing.Point(786, 134);
+            this.btnDateTo.Name = "btnDateTo";
+            this.btnDateTo.Size = new System.Drawing.Size(29, 30);
+            this.btnDateTo.TabIndex = 22;
+            this.btnDateTo.Text = "▼\r\n\r\n";
+            this.btnDateTo.UseVisualStyleBackColor = false;
+            this.btnDateTo.Click += new System.EventHandler(this.btnDateTo_Click);
             // 
-            // TaskName
+            // bindingSource1
             // 
-            this.TaskName.DataPropertyName = "TaskName";
-            dataGridViewCellStyle52.SelectionBackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle52.SelectionForeColor = System.Drawing.Color.Black;
-            this.TaskName.DefaultCellStyle = dataGridViewCellStyle52;
-            this.TaskName.HeaderText = "タスク名";
-            this.TaskName.MinimumWidth = 6;
-            this.TaskName.Name = "TaskName";
-            this.TaskName.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.bindingSource1.CurrentChanged += new System.EventHandler(this.bindingSource1_CurrentChanged);
             // 
-            // Description
+            // txtDateFrom
             // 
-            this.Description.DataPropertyName = "Description";
-            dataGridViewCellStyle53.SelectionBackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle53.SelectionForeColor = System.Drawing.Color.Black;
-            this.Description.DefaultCellStyle = dataGridViewCellStyle53;
-            this.Description.HeaderText = "説明";
-            this.Description.MinimumWidth = 6;
-            this.Description.Name = "Description";
-            this.Description.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.txtDateFrom.Font = new System.Drawing.Font("メイリオ", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.txtDateFrom.Location = new System.Drawing.Point(502, 131);
+            this.txtDateFrom.Name = "txtDateFrom";
+            this.txtDateFrom.Size = new System.Drawing.Size(115, 30);
+            this.txtDateFrom.TabIndex = 24;
             // 
-            // Tag
+            // txtDateTo
             // 
-            this.Tag.DataPropertyName = "Tag";
-            dataGridViewCellStyle54.SelectionBackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle54.SelectionForeColor = System.Drawing.Color.Black;
-            this.Tag.DefaultCellStyle = dataGridViewCellStyle54;
-            this.Tag.HeaderText = "タスク分類";
-            this.Tag.MinimumWidth = 6;
-            this.Tag.Name = "Tag";
-            this.Tag.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.txtDateTo.Font = new System.Drawing.Font("メイリオ", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.txtDateTo.Location = new System.Drawing.Point(671, 132);
+            this.txtDateTo.Name = "txtDateTo";
+            this.txtDateTo.Size = new System.Drawing.Size(115, 30);
+            this.txtDateTo.TabIndex = 25;
             // 
-            // DueDate
+            // btnDateFrom
             // 
-            this.DueDate.DataPropertyName = "DueDate";
-            dataGridViewCellStyle55.SelectionBackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle55.SelectionForeColor = System.Drawing.Color.Black;
-            this.DueDate.DefaultCellStyle = dataGridViewCellStyle55;
-            this.DueDate.HeaderText = "タスク完了期限";
-            this.DueDate.MinimumWidth = 6;
-            this.DueDate.Name = "DueDate";
-            this.DueDate.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.btnDateFrom.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.btnDateFrom.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnDateFrom.Font = new System.Drawing.Font("メイリオ", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.btnDateFrom.Location = new System.Drawing.Point(614, 132);
+            this.btnDateFrom.Name = "btnDateFrom";
+            this.btnDateFrom.Size = new System.Drawing.Size(29, 30);
+            this.btnDateFrom.TabIndex = 26;
+            this.btnDateFrom.Text = "▼\r\n\r\n";
+            this.btnDateFrom.UseVisualStyleBackColor = false;
+            this.btnDateFrom.Click += new System.EventHandler(this.btnDateFrom_Click);
             // 
-            // a
+            // btnDateDone
             // 
-            this.a.DataPropertyName = "Is Done";
-            dataGridViewCellStyle56.SelectionBackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle56.SelectionForeColor = System.Drawing.Color.Black;
-            this.a.DefaultCellStyle = dataGridViewCellStyle56;
-            this.a.HeaderText = "タスク完了日";
-            this.a.MinimumWidth = 6;
-            this.a.Name = "a";
-            this.a.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.btnDateDone.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.btnDateDone.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnDateDone.Font = new System.Drawing.Font("メイリオ", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.btnDateDone.Location = new System.Drawing.Point(956, 135);
+            this.btnDateDone.Name = "btnDateDone";
+            this.btnDateDone.Size = new System.Drawing.Size(29, 30);
+            this.btnDateDone.TabIndex = 27;
+            this.btnDateDone.Text = "▼\r\n\r\n";
+            this.btnDateDone.UseVisualStyleBackColor = false;
+            this.btnDateDone.Click += new System.EventHandler(this.btnDateDone_Click);
             // 
-            // Updated_On
+            // txtDateDone
             // 
-            this.Updated_On.DataPropertyName = "Updated On";
-            dataGridViewCellStyle57.SelectionBackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle57.SelectionForeColor = System.Drawing.Color.Black;
-            this.Updated_On.DefaultCellStyle = dataGridViewCellStyle57;
-            this.Updated_On.HeaderText = "タスク更新日";
-            this.Updated_On.MinimumWidth = 6;
-            this.Updated_On.Name = "Updated_On";
-            this.Updated_On.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // Is_Active
-            // 
-            this.Is_Active.DataPropertyName = "Is Active";
-            dataGridViewCellStyle58.SelectionBackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle58.SelectionForeColor = System.Drawing.Color.Black;
-            this.Is_Active.DefaultCellStyle = dataGridViewCellStyle58;
-            this.Is_Active.HeaderText = "タスク状況";
-            this.Is_Active.MinimumWidth = 6;
-            this.Is_Active.Name = "Is_Active";
-            this.Is_Active.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.txtDateDone.Font = new System.Drawing.Font("メイリオ", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.txtDateDone.Location = new System.Drawing.Point(840, 134);
+            this.txtDateDone.Name = "txtDateDone";
+            this.txtDateDone.Size = new System.Drawing.Size(115, 30);
+            this.txtDateDone.TabIndex = 28;
             // 
             // TaskList
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1339, 628);
-            this.Controls.Add(this.dateTimePicker3);
+            this.Controls.Add(this.txtDateDone);
+            this.Controls.Add(this.btnDateDone);
+            this.Controls.Add(this.btnDateFrom);
+            this.Controls.Add(this.txtDateTo);
+            this.Controls.Add(this.txtDateFrom);
+            this.Controls.Add(this.btnDateTo);
             this.Controls.Add(this.label5);
-            this.Controls.Add(this.dateTimePicker2);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.ActiveComboBox);
             this.Controls.Add(this.label3);
@@ -589,7 +634,6 @@
             this.Controls.Add(this.ResetBtn);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.textBox1);
-            this.Controls.Add(this.dateTimePicker1);
             this.Controls.Add(this.TagComboBox);
             this.ForeColor = System.Drawing.SystemColors.Desktop;
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
@@ -611,7 +655,6 @@
         #endregion
 
         private System.Windows.Forms.ComboBox TagComboBox;
-        private System.Windows.Forms.DateTimePicker dateTimePicker1;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Button ResetBtn;
         private System.Windows.Forms.Label label1;
@@ -640,9 +683,7 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.ComboBox ActiveComboBox;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.DateTimePicker dateTimePicker2;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.DateTimePicker dateTimePicker3;
         private System.Windows.Forms.DataGridViewLinkColumn TaskName;
         private System.Windows.Forms.DataGridViewTextBoxColumn Description;
         private System.Windows.Forms.DataGridViewTextBoxColumn Tag;
@@ -650,6 +691,12 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn a;
         private System.Windows.Forms.DataGridViewTextBoxColumn Updated_On;
         private System.Windows.Forms.DataGridViewTextBoxColumn Is_Active;
+        private System.Windows.Forms.Button btnDateTo;
+        private System.Windows.Forms.TextBox txtDateFrom;
+        private System.Windows.Forms.TextBox txtDateTo;
+        private System.Windows.Forms.Button btnDateFrom;
+        private System.Windows.Forms.Button btnDateDone;
+        private System.Windows.Forms.TextBox txtDateDone;
     }
 }
 

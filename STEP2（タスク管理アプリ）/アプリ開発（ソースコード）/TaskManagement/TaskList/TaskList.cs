@@ -11,8 +11,11 @@ using MySql.Data.MySqlClient;
 
 namespace WindowsFormsApp1
 {
+    
     public partial class TaskList : Form
-    {
+
+    {   
+
 
         public DataTable dataTable = new DataTable();
         public BindingSource bindingSource = new BindingSource();
@@ -102,13 +105,13 @@ namespace WindowsFormsApp1
             this.TaskInformation.DataSource = tables[bindingSource.Position];
         }
 
-
-        private void TaskInformation_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private void TaskList_Load(object sender, EventArgs e)
         {
 
         }
 
-        private void TaskList_Load(object sender, EventArgs e)
+
+        private void TaskInformation_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
         }
@@ -148,9 +151,23 @@ namespace WindowsFormsApp1
 
         }
 
-        private void label6_Click(object sender, EventArgs e)
-        {
 
+        private void btnDateTo_Click(object sender, EventArgs e)
+        {
+            // カレンダ表示処理
+            FormCalendar.inputCalenda(this, txtDateTo, btnDateTo);
+        }
+
+        private void btnDateFrom_Click(object sender, EventArgs e)
+        {
+            // カレンダ表示処理
+            FormCalendar.inputCalenda(this, txtDateFrom, btnDateFrom);
+        }
+
+        private void btnDateDone_Click(object sender, EventArgs e)
+        {
+            // カレンダ表示処理
+            FormCalendar.inputCalenda(this, txtDateDone, btnDateDone);
         }
     }
 }
