@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.Common;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -168,6 +169,27 @@ namespace WindowsFormsApp1
         {
             // カレンダ表示処理
             FormCalendar.inputCalenda(this, txtDateDone, btnDateDone);
+        }
+
+        private void ResetBtn_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("選択したタスクを削除しますか？", "タスクの削除", MessageBoxButtons.YesNo);
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("選択したタスクは既に完了済みです", "入力値エラー");
+            MessageBox.Show("選択したタスクを完了しますか？", "タスクの完了", MessageBoxButtons.YesNo);
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("タスク完了期限(開始日)は、タスク完了期限(終了日)と同じか前の日付を設定してください", "入力値エラー");
         }
     }
 }

@@ -54,8 +54,15 @@ namespace WindowsFormsApp1
 
             calenda.Location = bt.PointToScreen(bt.ClientRectangle.Location);
 
+            if (bt.Name.Equals("btnDateDone"))
+            {
+                calenda.monthCalendar1.MaxDate = DateTime.Today;
+            }
+
             // カレンダーフォームを表示する
             calenda.ShowDialog(owner);
+
+
 
             // 選択された日付をtextBoxにセットする
             if (!textBox.Text.Equals(calenda.selectDate))

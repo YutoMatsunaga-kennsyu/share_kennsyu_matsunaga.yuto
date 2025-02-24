@@ -1,0 +1,10 @@
+C:\Users\yuto1\OneDrive\ドキュメント\share_kennsyu_matsunaga.yuto\STEP2（タスク管理アプリ）\アプリ開発（ソースコード）\TaskManagement\Login\bin\Debug\Login.exe.config
+C:\Users\yuto1\OneDrive\ドキュメント\share_kennsyu_matsunaga.yuto\STEP2（タスク管理アプリ）\アプリ開発（ソースコード）\TaskManagement\Login\bin\Debug\Login.exe
+C:\Users\yuto1\OneDrive\ドキュメント\share_kennsyu_matsunaga.yuto\STEP2（タスク管理アプリ）\アプリ開発（ソースコード）\TaskManagement\Login\bin\Debug\Login.pdb
+C:\Users\yuto1\OneDrive\ドキュメント\share_kennsyu_matsunaga.yuto\STEP2（タスク管理アプリ）\アプリ開発（ソースコード）\TaskManagement\Login\obj\Debug\Login.csproj.AssemblyReference.cache
+C:\Users\yuto1\OneDrive\ドキュメント\share_kennsyu_matsunaga.yuto\STEP2（タスク管理アプリ）\アプリ開発（ソースコード）\TaskManagement\Login\obj\Debug\Login.Login.resources
+C:\Users\yuto1\OneDrive\ドキュメント\share_kennsyu_matsunaga.yuto\STEP2（タスク管理アプリ）\アプリ開発（ソースコード）\TaskManagement\Login\obj\Debug\Login.Properties.Resources.resources
+C:\Users\yuto1\OneDrive\ドキュメント\share_kennsyu_matsunaga.yuto\STEP2（タスク管理アプリ）\アプリ開発（ソースコード）\TaskManagement\Login\obj\Debug\Login.csproj.GenerateResource.cache
+C:\Users\yuto1\OneDrive\ドキュメント\share_kennsyu_matsunaga.yuto\STEP2（タスク管理アプリ）\アプリ開発（ソースコード）\TaskManagement\Login\obj\Debug\Login.csproj.CoreCompileInputs.cache
+C:\Users\yuto1\OneDrive\ドキュメント\share_kennsyu_matsunaga.yuto\STEP2（タスク管理アプリ）\アプリ開発（ソースコード）\TaskManagement\Login\obj\Debug\Login.exe
+C:\Users\yuto1\OneDrive\ドキュメント\share_kennsyu_matsunaga.yuto\STEP2（タスク管理アプリ）\アプリ開発（ソースコード）\TaskManagement\Login\obj\Debug\Login.pdb
