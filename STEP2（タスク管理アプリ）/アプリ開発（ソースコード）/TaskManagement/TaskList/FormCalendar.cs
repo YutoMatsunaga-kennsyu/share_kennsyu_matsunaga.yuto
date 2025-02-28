@@ -58,6 +58,10 @@ namespace WindowsFormsApp1
             {
                 calenda.monthCalendar1.MaxDate = DateTime.Today;
             }
+            else if (bt.Name.Equals("btnDate"))
+            {
+                calenda.monthCalendar1.MinDate = DateTime.Today;
+            }
 
             // カレンダーフォームを表示する
             calenda.ShowDialog(owner);
