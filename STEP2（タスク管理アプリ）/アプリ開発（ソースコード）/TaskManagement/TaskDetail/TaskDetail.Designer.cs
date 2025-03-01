@@ -261,7 +261,7 @@
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(96, 45);
             this.button3.TabIndex = 30;
-            this.button3.Text = "登録";
+            this.button3.Text = "修正";
             this.button3.UseVisualStyleBackColor = false;
             // 
             // label1
