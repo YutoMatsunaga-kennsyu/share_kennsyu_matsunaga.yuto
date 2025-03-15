@@ -1,7 +1,7 @@
 CREATE TABLE tasks (
   user_no int NOT NULL,
   task_name VARCHAR(15) NOT NULL,
-  description VARCHAR(20),
+  description VARCHAR(30),
   tag VARCHAR(15) NOT NULL,
   due_date DATE NOT NULL,
   done_date DATETIME,
