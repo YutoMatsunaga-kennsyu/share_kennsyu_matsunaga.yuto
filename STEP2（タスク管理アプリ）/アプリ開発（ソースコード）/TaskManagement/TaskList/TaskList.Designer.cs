@@ -1,4 +1,4 @@
-﻿namespace WindowsFormsApp1
+﻿namespace TaskList
 {
     partial class TaskList
     {
@@ -30,17 +30,17 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TaskList));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle78 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle87 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle88 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle79 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle80 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle81 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle82 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle83 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle84 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle85 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle86 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
             this.TagComboBox = new System.Windows.Forms.ComboBox();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.ResetBtn = new System.Windows.Forms.Button();
@@ -53,6 +53,14 @@
             this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
             this.UserName = new System.Windows.Forms.ToolStripLabel();
             this.TaskInformation = new System.Windows.Forms.DataGridView();
+            this.TaskName = new System.Windows.Forms.DataGridViewLinkColumn();
+            this.Description = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Tag = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DueDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.a = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Updated_On = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Is_Active = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Check = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.bindingNavigator1 = new System.Windows.Forms.BindingNavigator(this.components);
@@ -79,14 +87,6 @@
             this.txtDateDone = new System.Windows.Forms.TextBox();
             this.button3 = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
-            this.TaskName = new System.Windows.Forms.DataGridViewLinkColumn();
-            this.Description = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Tag = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.DueDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.a = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Updated_On = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Is_Active = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Check = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.TaskInformation)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bindingNavigator1)).BeginInit();
@@ -192,7 +192,7 @@
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-            this.toolStrip1.Size = new System.Drawing.Size(1339, 27);
+            this.toolStrip1.Size = new System.Drawing.Size(1339, 31);
             this.toolStrip1.TabIndex = 10;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -212,7 +212,7 @@
             this.toolStripButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton1.Image")));
             this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton1.Name = "toolStripButton1";
-            this.toolStripButton1.Size = new System.Drawing.Size(29, 24);
+            this.toolStripButton1.Size = new System.Drawing.Size(29, 28);
             this.toolStripButton1.Text = "toolStripButton1";
             // 
             // UserName
@@ -236,14 +236,14 @@
             this.TaskInformation.BackgroundColor = System.Drawing.SystemColors.Control;
             this.TaskInformation.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.TaskInformation.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle78.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle78.BackColor = System.Drawing.Color.MediumSeaGreen;
-            dataGridViewCellStyle78.Font = new System.Drawing.Font("メイリオ", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            dataGridViewCellStyle78.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle78.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle78.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle78.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.TaskInformation.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle78;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.MediumSeaGreen;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("メイリオ", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.TaskInformation.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.TaskInformation.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.TaskInformation.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.TaskName,
@@ -254,33 +254,129 @@
             this.Updated_On,
             this.Is_Active,
             this.Check});
-            dataGridViewCellStyle87.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle87.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle87.Font = new System.Drawing.Font("メイリオ", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            dataGridViewCellStyle87.ForeColor = System.Drawing.SystemColors.Desktop;
-            dataGridViewCellStyle87.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle87.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle87.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.TaskInformation.DefaultCellStyle = dataGridViewCellStyle87;
+            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle10.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle10.Font = new System.Drawing.Font("メイリオ", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            dataGridViewCellStyle10.ForeColor = System.Drawing.SystemColors.Desktop;
+            dataGridViewCellStyle10.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle10.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.TaskInformation.DefaultCellStyle = dataGridViewCellStyle10;
             this.TaskInformation.EnableHeadersVisualStyles = false;
             this.TaskInformation.Location = new System.Drawing.Point(25, 190);
             this.TaskInformation.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.TaskInformation.Name = "TaskInformation";
             this.TaskInformation.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Sunken;
-            dataGridViewCellStyle88.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle88.BackColor = System.Drawing.Color.MediumSeaGreen;
-            dataGridViewCellStyle88.Font = new System.Drawing.Font("MS UI Gothic", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            dataGridViewCellStyle88.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle88.SelectionBackColor = System.Drawing.Color.MediumSeaGreen;
-            dataGridViewCellStyle88.SelectionForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle88.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.TaskInformation.RowHeadersDefaultCellStyle = dataGridViewCellStyle88;
+            dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle11.BackColor = System.Drawing.Color.MediumSeaGreen;
+            dataGridViewCellStyle11.Font = new System.Drawing.Font("MS UI Gothic", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            dataGridViewCellStyle11.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle11.SelectionBackColor = System.Drawing.Color.MediumSeaGreen;
+            dataGridViewCellStyle11.SelectionForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle11.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.TaskInformation.RowHeadersDefaultCellStyle = dataGridViewCellStyle11;
             this.TaskInformation.RowHeadersVisible = false;
             this.TaskInformation.RowHeadersWidth = 51;
             this.TaskInformation.RowTemplate.Height = 50;
             this.TaskInformation.Size = new System.Drawing.Size(1295, 343);
             this.TaskInformation.TabIndex = 11;
             this.TaskInformation.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.TaskInformation_CellContentClick);
+            // 
+            // TaskName
+            // 
+            this.TaskName.DataPropertyName = "TaskName";
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.Black;
+            this.TaskName.DefaultCellStyle = dataGridViewCellStyle2;
+            this.TaskName.FillWeight = 102.0626F;
+            this.TaskName.HeaderText = "タスク名";
+            this.TaskName.MinimumWidth = 6;
+            this.TaskName.Name = "TaskName";
+            this.TaskName.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            // 
+            // Description
+            // 
+            this.Description.DataPropertyName = "Description";
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.Black;
+            this.Description.DefaultCellStyle = dataGridViewCellStyle3;
+            this.Description.FillWeight = 102.0626F;
+            this.Description.HeaderText = "説明";
+            this.Description.MinimumWidth = 6;
+            this.Description.Name = "Description";
+            this.Description.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // Tag
+            // 
+            this.Tag.DataPropertyName = "Tag";
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.Color.Black;
+            this.Tag.DefaultCellStyle = dataGridViewCellStyle4;
+            this.Tag.FillWeight = 102.0626F;
+            this.Tag.HeaderText = "タスク分類";
+            this.Tag.MinimumWidth = 6;
+            this.Tag.Name = "Tag";
+            this.Tag.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // DueDate
+            // 
+            this.DueDate.DataPropertyName = "DueDate";
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.Color.Black;
+            this.DueDate.DefaultCellStyle = dataGridViewCellStyle5;
+            this.DueDate.FillWeight = 102.0626F;
+            this.DueDate.HeaderText = "タスク完了期限";
+            this.DueDate.MinimumWidth = 6;
+            this.DueDate.Name = "DueDate";
+            this.DueDate.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // a
+            // 
+            this.a.DataPropertyName = "Is Done";
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.Color.Black;
+            this.a.DefaultCellStyle = dataGridViewCellStyle6;
+            this.a.FillWeight = 102.0626F;
+            this.a.HeaderText = "タスク完了日";
+            this.a.MinimumWidth = 6;
+            this.a.Name = "a";
+            this.a.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // Updated_On
+            // 
+            this.Updated_On.DataPropertyName = "Updated On";
+            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.Color.Black;
+            this.Updated_On.DefaultCellStyle = dataGridViewCellStyle7;
+            this.Updated_On.FillWeight = 102.0626F;
+            this.Updated_On.HeaderText = "タスク更新日";
+            this.Updated_On.MinimumWidth = 6;
+            this.Updated_On.Name = "Updated_On";
+            this.Updated_On.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // Is_Active
+            // 
+            this.Is_Active.DataPropertyName = "Is Active";
+            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.Color.Black;
+            this.Is_Active.DefaultCellStyle = dataGridViewCellStyle8;
+            this.Is_Active.FillWeight = 102.0626F;
+            this.Is_Active.HeaderText = "タスク状況";
+            this.Is_Active.MinimumWidth = 6;
+            this.Is_Active.Name = "Is_Active";
+            this.Is_Active.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // Check
+            // 
+            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle9.NullValue = false;
+            dataGridViewCellStyle9.SelectionBackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle9.SelectionForeColor = System.Drawing.Color.Black;
+            this.Check.DefaultCellStyle = dataGridViewCellStyle9;
+            this.Check.FillWeight = 85.56149F;
+            this.Check.HeaderText = "削除/完了選択";
+            this.Check.MinimumWidth = 6;
+            this.Check.Name = "Check";
             // 
             // button1
             // 
@@ -330,14 +426,14 @@
             this.bindingNavigatorMoveNextItem,
             this.bindingNavigatorMoveLastItem,
             this.bindingNavigatorSeparator2});
-            this.bindingNavigator1.Location = new System.Drawing.Point(0, 601);
+            this.bindingNavigator1.Location = new System.Drawing.Point(0, 597);
             this.bindingNavigator1.MoveFirstItem = this.bindingNavigatorMoveFirstItem;
             this.bindingNavigator1.MoveLastItem = this.bindingNavigatorMoveLastItem;
             this.bindingNavigator1.MoveNextItem = this.bindingNavigatorMoveNextItem;
             this.bindingNavigator1.MovePreviousItem = this.bindingNavigatorMovePreviousItem;
             this.bindingNavigator1.Name = "bindingNavigator1";
             this.bindingNavigator1.PositionItem = this.bindingNavigatorPositionItem;
-            this.bindingNavigator1.Size = new System.Drawing.Size(1339, 27);
+            this.bindingNavigator1.Size = new System.Drawing.Size(1339, 31);
             this.bindingNavigator1.TabIndex = 12;
             this.bindingNavigator1.Text = "bindingNavigator1";
             // 
@@ -571,102 +667,6 @@
             this.button4.Text = "削除";
             this.button4.UseVisualStyleBackColor = false;
             this.button4.Click += new System.EventHandler(this.button4_Click);
-            // 
-            // TaskName
-            // 
-            this.TaskName.DataPropertyName = "TaskName";
-            dataGridViewCellStyle79.SelectionBackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle79.SelectionForeColor = System.Drawing.Color.Black;
-            this.TaskName.DefaultCellStyle = dataGridViewCellStyle79;
-            this.TaskName.FillWeight = 102.0626F;
-            this.TaskName.HeaderText = "タスク名";
-            this.TaskName.MinimumWidth = 6;
-            this.TaskName.Name = "TaskName";
-            this.TaskName.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            // 
-            // Description
-            // 
-            this.Description.DataPropertyName = "Description";
-            dataGridViewCellStyle80.SelectionBackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle80.SelectionForeColor = System.Drawing.Color.Black;
-            this.Description.DefaultCellStyle = dataGridViewCellStyle80;
-            this.Description.FillWeight = 102.0626F;
-            this.Description.HeaderText = "説明";
-            this.Description.MinimumWidth = 6;
-            this.Description.Name = "Description";
-            this.Description.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // Tag
-            // 
-            this.Tag.DataPropertyName = "Tag";
-            dataGridViewCellStyle81.SelectionBackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle81.SelectionForeColor = System.Drawing.Color.Black;
-            this.Tag.DefaultCellStyle = dataGridViewCellStyle81;
-            this.Tag.FillWeight = 102.0626F;
-            this.Tag.HeaderText = "タスク分類";
-            this.Tag.MinimumWidth = 6;
-            this.Tag.Name = "Tag";
-            this.Tag.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // DueDate
-            // 
-            this.DueDate.DataPropertyName = "DueDate";
-            dataGridViewCellStyle82.SelectionBackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle82.SelectionForeColor = System.Drawing.Color.Black;
-            this.DueDate.DefaultCellStyle = dataGridViewCellStyle82;
-            this.DueDate.FillWeight = 102.0626F;
-            this.DueDate.HeaderText = "タスク完了期限";
-            this.DueDate.MinimumWidth = 6;
-            this.DueDate.Name = "DueDate";
-            this.DueDate.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // a
-            // 
-            this.a.DataPropertyName = "Is Done";
-            dataGridViewCellStyle83.SelectionBackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle83.SelectionForeColor = System.Drawing.Color.Black;
-            this.a.DefaultCellStyle = dataGridViewCellStyle83;
-            this.a.FillWeight = 102.0626F;
-            this.a.HeaderText = "タスク完了日";
-            this.a.MinimumWidth = 6;
-            this.a.Name = "a";
-            this.a.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // Updated_On
-            // 
-            this.Updated_On.DataPropertyName = "Updated On";
-            dataGridViewCellStyle84.SelectionBackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle84.SelectionForeColor = System.Drawing.Color.Black;
-            this.Updated_On.DefaultCellStyle = dataGridViewCellStyle84;
-            this.Updated_On.FillWeight = 102.0626F;
-            this.Updated_On.HeaderText = "タスク更新日";
-            this.Updated_On.MinimumWidth = 6;
-            this.Updated_On.Name = "Updated_On";
-            this.Updated_On.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // Is_Active
-            // 
-            this.Is_Active.DataPropertyName = "Is Active";
-            dataGridViewCellStyle85.SelectionBackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle85.SelectionForeColor = System.Drawing.Color.Black;
-            this.Is_Active.DefaultCellStyle = dataGridViewCellStyle85;
-            this.Is_Active.FillWeight = 102.0626F;
-            this.Is_Active.HeaderText = "タスク状況";
-            this.Is_Active.MinimumWidth = 6;
-            this.Is_Active.Name = "Is_Active";
-            this.Is_Active.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // Check
-            // 
-            dataGridViewCellStyle86.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle86.NullValue = false;
-            dataGridViewCellStyle86.SelectionBackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle86.SelectionForeColor = System.Drawing.Color.Black;
-            this.Check.DefaultCellStyle = dataGridViewCellStyle86;
-            this.Check.FillWeight = 85.56149F;
-            this.Check.HeaderText = "削除/完了選択";
-            this.Check.MinimumWidth = 6;
-            this.Check.Name = "Check";
             // 
             // TaskList
             // 

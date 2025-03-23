@@ -49,7 +49,7 @@
             this.LoginBtn.TabIndex = 0;
             this.LoginBtn.Text = "Login";
             this.LoginBtn.UseVisualStyleBackColor = false;
-            this.LoginBtn.Click += new System.EventHandler(this.button1_Click);
+            this.LoginBtn.Click += new System.EventHandler(this.LoginBtn_Click);
             // 
             // label1
             // 
@@ -86,21 +86,23 @@
             // 
             // textBoxEx1
             // 
-            this.textBoxEx1.Font = new System.Drawing.Font("MS UI Gothic", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.textBoxEx1.Font = new System.Drawing.Font("MS UI Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.textBoxEx1.Location = new System.Drawing.Point(44, 307);
+            this.textBoxEx1.MaxLength = 20;
             this.textBoxEx1.Name = "textBoxEx1";
             this.textBoxEx1.Placeholder = "Username";
-            this.textBoxEx1.Size = new System.Drawing.Size(387, 32);
+            this.textBoxEx1.Size = new System.Drawing.Size(387, 27);
             this.textBoxEx1.TabIndex = 5;
             // 
             // textBoxEx2
             // 
-            this.textBoxEx2.Font = new System.Drawing.Font("MS UI Gothic", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.textBoxEx2.Font = new System.Drawing.Font("MS UI Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.textBoxEx2.Location = new System.Drawing.Point(44, 368);
+            this.textBoxEx2.MaxLength = 20;
             this.textBoxEx2.Name = "textBoxEx2";
             this.textBoxEx2.PasswordChar = '*';
             this.textBoxEx2.Placeholder = "Password";
-            this.textBoxEx2.Size = new System.Drawing.Size(387, 32);
+            this.textBoxEx2.Size = new System.Drawing.Size(387, 27);
             this.textBoxEx2.TabIndex = 6;
             // 
             // Login

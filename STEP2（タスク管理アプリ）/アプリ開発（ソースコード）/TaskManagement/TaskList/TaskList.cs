@@ -37,7 +37,7 @@ namespace WindowsFormsApp1
             ActiveComboBox.SelectedIndex = 1;
 
             // 在庫マスタ DAO取得
-            TaskListDao ms_Stock_Dao = new();
+            TasksDao ms_Stock_Dao = new();
 
             // 在庫マスタの全抽出
             var _msStockDataList = ms_Stock_Dao.SelectAll();

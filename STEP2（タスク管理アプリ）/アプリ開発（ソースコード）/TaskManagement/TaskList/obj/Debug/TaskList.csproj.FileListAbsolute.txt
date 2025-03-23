@@ -87,8 +87,8 @@ C:\Users\yuto1\OneDrive\ドキュメント\share_kennsyu_matsunaga.yuto\STEP2（
 C:\Users\yuto1\OneDrive\ドキュメント\share_kennsyu_matsunaga.yuto\STEP2（タスク管理アプリ）\アプリ開発（ソースコード）\TaskManagement\TaskList\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml
 C:\Users\yuto1\OneDrive\ドキュメント\share_kennsyu_matsunaga.yuto\STEP2（タスク管理アプリ）\アプリ開発（ソースコード）\TaskManagement\TaskList\bin\Debug\System.Threading.Tasks.Extensions.xml
 C:\Users\yuto1\OneDrive\ドキュメント\share_kennsyu_matsunaga.yuto\STEP2（タスク管理アプリ）\アプリ開発（ソースコード）\TaskManagement\TaskList\obj\Debug\TaskList.csproj.AssemblyReference.cache
-C:\Users\yuto1\OneDrive\ドキュメント\share_kennsyu_matsunaga.yuto\STEP2（タスク管理アプリ）\アプリ開発（ソースコード）\TaskManagement\TaskList\obj\Debug\WindowsFormsApp1.FormCalendar.resources
-C:\Users\yuto1\OneDrive\ドキュメント\share_kennsyu_matsunaga.yuto\STEP2（タスク管理アプリ）\アプリ開発（ソースコード）\TaskManagement\TaskList\obj\Debug\WindowsFormsApp1.TaskList.resources
+C:\Users\yuto1\OneDrive\ドキュメント\share_kennsyu_matsunaga.yuto\STEP2（タスク管理アプリ）\アプリ開発（ソースコード）\TaskManagement\TaskList\obj\Debug\TaskList.FormCalendar.resources
+C:\Users\yuto1\OneDrive\ドキュメント\share_kennsyu_matsunaga.yuto\STEP2（タスク管理アプリ）\アプリ開発（ソースコード）\TaskManagement\TaskList\obj\Debug\TaskList.TaskList.resources
 C:\Users\yuto1\OneDrive\ドキュメント\share_kennsyu_matsunaga.yuto\STEP2（タスク管理アプリ）\アプリ開発（ソースコード）\TaskManagement\TaskList\obj\Debug\WindowsFormsApp1.Properties.Resources.resources
 C:\Users\yuto1\OneDrive\ドキュメント\share_kennsyu_matsunaga.yuto\STEP2（タスク管理アプリ）\アプリ開発（ソースコード）\TaskManagement\TaskList\obj\Debug\TaskList.csproj.GenerateResource.cache
 C:\Users\yuto1\OneDrive\ドキュメント\share_kennsyu_matsunaga.yuto\STEP2（タスク管理アプリ）\アプリ開発（ソースコード）\TaskManagement\TaskList\obj\Debug\TaskList.csproj.CoreCompileInputs.cache

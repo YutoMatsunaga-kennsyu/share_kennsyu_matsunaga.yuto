@@ -17,14 +17,16 @@ namespace Login
             InitializeComponent();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void LoginBtn_Click(object sender, EventArgs e)
         {
             if ((string.IsNullOrEmpty(textBoxEx1.Text)) || (string.IsNullOrEmpty(textBoxEx2.Text)))
             {
                 MessageBox.Show("ユーザー名、またはパスワードが未入力です","入力値エラー");
-                MessageBox.Show("ユーザー名、またはパスワードが間違っています","ログインエラー");
+                MessageBox.Show("ユーザー名、またはパスワードが間違っています", "ログインエラー");
             }
         }
+
+        
 
         private void label3_Click(object sender, EventArgs e)
         {
