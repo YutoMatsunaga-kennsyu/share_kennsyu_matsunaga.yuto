@@ -5,9 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using MySqlConnector;
 
-namespace TaskList
+namespace Login
 {
-    internal class DBUtil
+    public class DBUtil
     {
         private readonly string connectionString = "Server=localhost; Uid=root; Pwd=atgs; Database=task_management;";
 
@@ -17,3 +17,4 @@ namespace TaskList
         }
     }
 }
+
