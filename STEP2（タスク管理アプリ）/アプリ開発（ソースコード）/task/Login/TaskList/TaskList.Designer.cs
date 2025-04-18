@@ -51,7 +51,7 @@
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.Re = new System.Windows.Forms.ToolStripLabel();
             this.logoutBtn = new System.Windows.Forms.ToolStripButton();
-            this.UserName = new System.Windows.Forms.ToolStripLabel();
+            this.UserId = new System.Windows.Forms.ToolStripLabel();
             this.TaskInformation = new System.Windows.Forms.DataGridView();
             this.TaskNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.TaskName = new System.Windows.Forms.DataGridViewLinkColumn();
@@ -74,7 +74,7 @@
             this.txtDateTo = new System.Windows.Forms.TextBox();
             this.btnDateFrom = new System.Windows.Forms.Button();
             this.btnDateDone = new System.Windows.Forms.Button();
-            this.txtDateDone = new System.Windows.Forms.TextBox();
+            this.txtDueDate = new System.Windows.Forms.TextBox();
             this.DoneBtn = new System.Windows.Forms.Button();
             this.DeleteBtn = new System.Windows.Forms.Button();
             this.bindingSource1 = new System.Windows.Forms.BindingSource(this.components);
@@ -101,10 +101,7 @@
             this.tagComboBox.Font = new System.Drawing.Font("メイリオ", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.tagComboBox.FormattingEnabled = true;
             this.tagComboBox.Items.AddRange(new object[] {
-            "全て",
-            "仕事",
-            "家事",
-            "趣味"});
+            "全て"});
             this.tagComboBox.Location = new System.Drawing.Point(299, 131);
             this.tagComboBox.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.tagComboBox.Name = "tagComboBox";
@@ -188,7 +185,7 @@
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.Re,
             this.logoutBtn,
-            this.UserName});
+            this.UserId});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
@@ -216,13 +213,12 @@
             this.logoutBtn.Text = "toolStripButton1";
             this.logoutBtn.Click += new System.EventHandler(this.logoutBtn_Click);
             // 
-            // UserName
+            // UserId
             // 
-            this.UserName.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.UserName.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.UserName.Name = "UserName";
-            this.UserName.Size = new System.Drawing.Size(82, 24);
-            this.UserName.Text = "Matsunaga";
+            this.UserId.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.UserId.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            this.UserId.Name = "UserId";
+            this.UserId.Size = new System.Drawing.Size(0, 24);
             // 
             // TaskInformation
             // 
@@ -282,6 +278,7 @@
             this.TaskInformation.RowTemplate.Height = 50;
             this.TaskInformation.Size = new System.Drawing.Size(1295, 343);
             this.TaskInformation.TabIndex = 11;
+            this.TaskInformation.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.TaskInformation_CellContentClick);
             // 
             // TaskNo
             // 
@@ -497,6 +494,7 @@
             this.txtDateFrom.Font = new System.Drawing.Font("メイリオ", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.txtDateFrom.Location = new System.Drawing.Point(502, 131);
             this.txtDateFrom.Name = "txtDateFrom";
+            this.txtDateFrom.ReadOnly = true;
             this.txtDateFrom.Size = new System.Drawing.Size(115, 30);
             this.txtDateFrom.TabIndex = 24;
             // 
@@ -505,6 +503,7 @@
             this.txtDateTo.Font = new System.Drawing.Font("メイリオ", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.txtDateTo.Location = new System.Drawing.Point(671, 132);
             this.txtDateTo.Name = "txtDateTo";
+            this.txtDateTo.ReadOnly = true;
             this.txtDateTo.Size = new System.Drawing.Size(115, 30);
             this.txtDateTo.TabIndex = 25;
             // 
@@ -534,13 +533,14 @@
             this.btnDateDone.UseVisualStyleBackColor = false;
             this.btnDateDone.Click += new System.EventHandler(this.btnDateDone_Click);
             // 
-            // txtDateDone
+            // txtDueDate
             // 
-            this.txtDateDone.Font = new System.Drawing.Font("メイリオ", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.txtDateDone.Location = new System.Drawing.Point(840, 134);
-            this.txtDateDone.Name = "txtDateDone";
-            this.txtDateDone.Size = new System.Drawing.Size(115, 30);
-            this.txtDateDone.TabIndex = 28;
+            this.txtDueDate.Font = new System.Drawing.Font("メイリオ", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.txtDueDate.Location = new System.Drawing.Point(840, 134);
+            this.txtDueDate.Name = "txtDueDate";
+            this.txtDueDate.ReadOnly = true;
+            this.txtDueDate.Size = new System.Drawing.Size(115, 30);
+            this.txtDueDate.TabIndex = 28;
             // 
             // DoneBtn
             // 
@@ -679,7 +679,7 @@
             this.Controls.Add(this.bindingNavigator1);
             this.Controls.Add(this.DeleteBtn);
             this.Controls.Add(this.DoneBtn);
-            this.Controls.Add(this.txtDateDone);
+            this.Controls.Add(this.txtDueDate);
             this.Controls.Add(this.btnDateDone);
             this.Controls.Add(this.btnDateFrom);
             this.Controls.Add(this.txtDateTo);
@@ -728,7 +728,6 @@
         private System.Windows.Forms.Label TagLabel;
         private System.Windows.Forms.ToolStrip toolStrip1;
         private System.Windows.Forms.ToolStripLabel Re;
-        private System.Windows.Forms.ToolStripLabel UserName;
         private System.Windows.Forms.ToolStripButton logoutBtn;
         private System.Windows.Forms.DataGridView TaskInformation;
         private System.Windows.Forms.Button SelectBtn;
@@ -744,7 +743,7 @@
         private System.Windows.Forms.TextBox txtDateTo;
         private System.Windows.Forms.Button btnDateFrom;
         private System.Windows.Forms.Button btnDateDone;
-        private System.Windows.Forms.TextBox txtDateDone;
+        private System.Windows.Forms.TextBox txtDueDate;
         private System.Windows.Forms.Button DoneBtn;
         private System.Windows.Forms.Button DeleteBtn;
         private System.Windows.Forms.DataGridViewTextBoxColumn TaskNo;
@@ -766,6 +765,7 @@
         private System.Windows.Forms.ToolStripButton bindingNavigatorMoveNextItem;
         private System.Windows.Forms.ToolStripButton bindingNavigatorMoveLastItem;
         private System.Windows.Forms.ToolStripSeparator bindingNavigatorSeparator2;
+        public System.Windows.Forms.ToolStripLabel UserId;
     }
 }
 

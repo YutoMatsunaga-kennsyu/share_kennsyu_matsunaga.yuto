@@ -8,7 +8,7 @@ namespace TaskManagement
 {
     internal class UsersEntity
     {
-        public int userNo { get; set; }
+        public String userId { get; set; }
         public String userName { get; set; }
         public String password { get; set; }
     }

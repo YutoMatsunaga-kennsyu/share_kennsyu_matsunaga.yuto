@@ -34,19 +34,19 @@
             this.label4 = new System.Windows.Forms.Label();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.Re = new System.Windows.Forms.ToolStripLabel();
-            this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
-            this.UserName = new System.Windows.Forms.ToolStripLabel();
-            this.linkLabel1 = new System.Windows.Forms.LinkLabel();
+            this.logoutBtn = new System.Windows.Forms.ToolStripButton();
+            this.userId = new System.Windows.Forms.ToolStripLabel();
+            this.backLink = new System.Windows.Forms.LinkLabel();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.txtDescription = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.ActiveComboBox = new System.Windows.Forms.ComboBox();
+            this.activeComboBox = new System.Windows.Forms.ComboBox();
             this.btnDate = new System.Windows.Forms.Button();
-            this.txtDate = new System.Windows.Forms.TextBox();
-            this.TagComboBox = new System.Windows.Forms.ComboBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.button3 = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
+            this.txtDueDate = new System.Windows.Forms.TextBox();
+            this.tagComboBox = new System.Windows.Forms.ComboBox();
+            this.txtTaskName = new System.Windows.Forms.TextBox();
+            this.ConfirmBtn = new System.Windows.Forms.Button();
+            this.taskDetailTitle = new System.Windows.Forms.Label();
             this.toolStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -101,8 +101,8 @@
             this.toolStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.Re,
-            this.toolStripButton1,
-            this.UserName});
+            this.logoutBtn,
+            this.userId});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
@@ -119,45 +119,46 @@
             this.Re.Size = new System.Drawing.Size(29, 24);
             this.Re.Text = "Re";
             // 
-            // toolStripButton1
+            // logoutBtn
             // 
-            this.toolStripButton1.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.toolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButton1.Image = global::Login.Properties.Resources.ログアウトイラスト1;
-            this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton1.Name = "toolStripButton1";
-            this.toolStripButton1.Size = new System.Drawing.Size(29, 24);
-            this.toolStripButton1.Text = "toolStripButton1";
+            this.logoutBtn.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.logoutBtn.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.logoutBtn.Image = global::Login.Properties.Resources.ログアウトイラスト1;
+            this.logoutBtn.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.logoutBtn.Name = "logoutBtn";
+            this.logoutBtn.Size = new System.Drawing.Size(29, 24);
+            this.logoutBtn.Text = "toolStripButton1";
+            this.logoutBtn.Click += new System.EventHandler(this.logoutBtn_Click);
             // 
-            // UserName
+            // userId
             // 
-            this.UserName.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.UserName.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.UserName.Name = "UserName";
-            this.UserName.Size = new System.Drawing.Size(82, 24);
-            this.UserName.Text = "Matsunaga";
+            this.userId.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.userId.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            this.userId.Name = "userId";
+            this.userId.Size = new System.Drawing.Size(0, 24);
             // 
-            // linkLabel1
+            // backLink
             // 
-            this.linkLabel1.AutoSize = true;
-            this.linkLabel1.Font = new System.Drawing.Font("メイリオ", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.linkLabel1.Location = new System.Drawing.Point(12, 46);
-            this.linkLabel1.Name = "linkLabel1";
-            this.linkLabel1.Size = new System.Drawing.Size(55, 23);
-            this.linkLabel1.TabIndex = 22;
-            this.linkLabel1.TabStop = true;
-            this.linkLabel1.Text = "◁戻る";
+            this.backLink.AutoSize = true;
+            this.backLink.Font = new System.Drawing.Font("メイリオ", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.backLink.Location = new System.Drawing.Point(12, 46);
+            this.backLink.Name = "backLink";
+            this.backLink.Size = new System.Drawing.Size(55, 23);
+            this.backLink.TabIndex = 22;
+            this.backLink.TabStop = true;
+            this.backLink.Text = "◁戻る";
+            this.backLink.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.backLink_LinkClicked);
             // 
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.White;
-            this.panel1.Controls.Add(this.textBox2);
+            this.panel1.Controls.Add(this.txtDescription);
             this.panel1.Controls.Add(this.label2);
-            this.panel1.Controls.Add(this.ActiveComboBox);
+            this.panel1.Controls.Add(this.activeComboBox);
             this.panel1.Controls.Add(this.btnDate);
-            this.panel1.Controls.Add(this.txtDate);
-            this.panel1.Controls.Add(this.TagComboBox);
-            this.panel1.Controls.Add(this.textBox1);
+            this.panel1.Controls.Add(this.txtDueDate);
+            this.panel1.Controls.Add(this.tagComboBox);
+            this.panel1.Controls.Add(this.txtTaskName);
             this.panel1.Controls.Add(this.NameLabel);
             this.panel1.Controls.Add(this.TagLabel);
             this.panel1.Controls.Add(this.DueDateLabel);
@@ -167,14 +168,15 @@
             this.panel1.Size = new System.Drawing.Size(583, 400);
             this.panel1.TabIndex = 23;
             // 
-            // textBox2
+            // txtDescription
             // 
-            this.textBox2.Font = new System.Drawing.Font("メイリオ", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.textBox2.Location = new System.Drawing.Point(25, 118);
-            this.textBox2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(522, 30);
-            this.textBox2.TabIndex = 30;
+            this.txtDescription.Font = new System.Drawing.Font("メイリオ", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.txtDescription.Location = new System.Drawing.Point(25, 118);
+            this.txtDescription.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.txtDescription.MaxLength = 30;
+            this.txtDescription.Name = "txtDescription";
+            this.txtDescription.Size = new System.Drawing.Size(522, 30);
+            this.txtDescription.TabIndex = 30;
             // 
             // label2
             // 
@@ -187,20 +189,19 @@
             this.label2.TabIndex = 29;
             this.label2.Text = "説明";
             // 
-            // ActiveComboBox
+            // activeComboBox
             // 
-            this.ActiveComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.ActiveComboBox.Enabled = false;
-            this.ActiveComboBox.Font = new System.Drawing.Font("メイリオ", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.ActiveComboBox.FormattingEnabled = true;
-            this.ActiveComboBox.Items.AddRange(new object[] {
+            this.activeComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.activeComboBox.Font = new System.Drawing.Font("メイリオ", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.activeComboBox.FormattingEnabled = true;
+            this.activeComboBox.Items.AddRange(new object[] {
             "未完了",
             "完了"});
-            this.ActiveComboBox.Location = new System.Drawing.Point(25, 349);
-            this.ActiveComboBox.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.ActiveComboBox.Name = "ActiveComboBox";
-            this.ActiveComboBox.Size = new System.Drawing.Size(90, 31);
-            this.ActiveComboBox.TabIndex = 28;
+            this.activeComboBox.Location = new System.Drawing.Point(25, 349);
+            this.activeComboBox.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.activeComboBox.Name = "activeComboBox";
+            this.activeComboBox.Size = new System.Drawing.Size(90, 31);
+            this.activeComboBox.TabIndex = 28;
             // 
             // btnDate
             // 
@@ -215,76 +216,74 @@
             this.btnDate.UseVisualStyleBackColor = false;
             this.btnDate.Click += new System.EventHandler(this.btnDate_Click);
             // 
-            // txtDate
+            // txtDueDate
             // 
-            this.txtDate.Font = new System.Drawing.Font("メイリオ", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.txtDate.Location = new System.Drawing.Point(25, 277);
-            this.txtDate.Name = "txtDate";
-            this.txtDate.Size = new System.Drawing.Size(120, 30);
-            this.txtDate.TabIndex = 25;
+            this.txtDueDate.Font = new System.Drawing.Font("メイリオ", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.txtDueDate.Location = new System.Drawing.Point(25, 277);
+            this.txtDueDate.Name = "txtDueDate";
+            this.txtDueDate.ReadOnly = true;
+            this.txtDueDate.Size = new System.Drawing.Size(120, 30);
+            this.txtDueDate.TabIndex = 25;
             // 
-            // TagComboBox
+            // tagComboBox
             // 
-            this.TagComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.TagComboBox.Font = new System.Drawing.Font("メイリオ", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.TagComboBox.FormattingEnabled = true;
-            this.TagComboBox.Items.AddRange(new object[] {
-            "全て",
-            "仕事",
-            "家事",
-            "趣味"});
-            this.TagComboBox.Location = new System.Drawing.Point(25, 195);
-            this.TagComboBox.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.TagComboBox.Name = "TagComboBox";
-            this.TagComboBox.Size = new System.Drawing.Size(188, 31);
-            this.TagComboBox.TabIndex = 21;
+            this.tagComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.tagComboBox.Font = new System.Drawing.Font("メイリオ", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.tagComboBox.FormattingEnabled = true;
+            this.tagComboBox.Location = new System.Drawing.Point(25, 195);
+            this.tagComboBox.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.tagComboBox.Name = "tagComboBox";
+            this.tagComboBox.Size = new System.Drawing.Size(188, 31);
+            this.tagComboBox.TabIndex = 21;
             // 
-            // textBox1
+            // txtTaskName
             // 
-            this.textBox1.Font = new System.Drawing.Font("メイリオ", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.textBox1.Location = new System.Drawing.Point(25, 47);
-            this.textBox1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(522, 30);
-            this.textBox1.TabIndex = 20;
+            this.txtTaskName.Font = new System.Drawing.Font("メイリオ", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.txtTaskName.Location = new System.Drawing.Point(25, 47);
+            this.txtTaskName.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.txtTaskName.MaxLength = 15;
+            this.txtTaskName.Name = "txtTaskName";
+            this.txtTaskName.Size = new System.Drawing.Size(522, 30);
+            this.txtTaskName.TabIndex = 20;
             // 
-            // button3
+            // ConfirmBtn
             // 
-            this.button3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button3.BackColor = System.Drawing.Color.MediumSeaGreen;
-            this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button3.Font = new System.Drawing.Font("メイリオ", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.button3.ForeColor = System.Drawing.SystemColors.Control;
-            this.button3.Location = new System.Drawing.Point(506, 521);
-            this.button3.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(96, 45);
-            this.button3.TabIndex = 30;
-            this.button3.Text = "修正";
-            this.button3.UseVisualStyleBackColor = false;
+            this.ConfirmBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.ConfirmBtn.BackColor = System.Drawing.Color.MediumSeaGreen;
+            this.ConfirmBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.ConfirmBtn.Font = new System.Drawing.Font("メイリオ", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.ConfirmBtn.ForeColor = System.Drawing.SystemColors.Control;
+            this.ConfirmBtn.Location = new System.Drawing.Point(506, 521);
+            this.ConfirmBtn.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.ConfirmBtn.Name = "ConfirmBtn";
+            this.ConfirmBtn.Size = new System.Drawing.Size(96, 45);
+            this.ConfirmBtn.TabIndex = 30;
+            this.ConfirmBtn.Text = "修正";
+            this.ConfirmBtn.UseVisualStyleBackColor = false;
+            this.ConfirmBtn.Click += new System.EventHandler(this.ConfirmBtn_Click);
             // 
-            // label1
+            // taskDetailTitle
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("メイリオ", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.label1.ForeColor = System.Drawing.SystemColors.Desktop;
-            this.label1.Location = new System.Drawing.Point(12, 69);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(158, 42);
-            this.label1.TabIndex = 20;
-            this.label1.Text = "タスク登録";
-            this.label1.Click += new System.EventHandler(this.label1_Click);
+            this.taskDetailTitle.AutoSize = true;
+            this.taskDetailTitle.Font = new System.Drawing.Font("メイリオ", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.taskDetailTitle.ForeColor = System.Drawing.SystemColors.Desktop;
+            this.taskDetailTitle.Location = new System.Drawing.Point(12, 69);
+            this.taskDetailTitle.Name = "taskDetailTitle";
+            this.taskDetailTitle.Size = new System.Drawing.Size(158, 42);
+            this.taskDetailTitle.TabIndex = 20;
+            this.taskDetailTitle.Text = "タスク登録";
+            this.taskDetailTitle.Click += new System.EventHandler(this.label1_Click);
             // 
             // TaskDetail
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(622, 576);
-            this.Controls.Add(this.button3);
+            this.Controls.Add(this.ConfirmBtn);
             this.Controls.Add(this.panel1);
-            this.Controls.Add(this.linkLabel1);
+            this.Controls.Add(this.backLink);
             this.Controls.Add(this.toolStrip1);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.taskDetailTitle);
             this.Name = "TaskDetail";
             this.Text = "タスク詳細";
             this.Load += new System.EventHandler(this.Form1_Load);
@@ -305,19 +304,19 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.ToolStrip toolStrip1;
         private System.Windows.Forms.ToolStripLabel Re;
-        private System.Windows.Forms.ToolStripButton toolStripButton1;
-        private System.Windows.Forms.ToolStripLabel UserName;
-        private System.Windows.Forms.LinkLabel linkLabel1;
+        private System.Windows.Forms.ToolStripButton logoutBtn;
+        private System.Windows.Forms.ToolStripLabel userId;
+        private System.Windows.Forms.LinkLabel backLink;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.ComboBox TagComboBox;
-        private System.Windows.Forms.TextBox txtDate;
+        private System.Windows.Forms.TextBox txtTaskName;
+        private System.Windows.Forms.ComboBox tagComboBox;
+        private System.Windows.Forms.TextBox txtDueDate;
         private System.Windows.Forms.Button btnDate;
-        private System.Windows.Forms.ComboBox ActiveComboBox;
-        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.ComboBox activeComboBox;
+        private System.Windows.Forms.TextBox txtDescription;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button ConfirmBtn;
+        private System.Windows.Forms.Label taskDetailTitle;
     }
 }
 

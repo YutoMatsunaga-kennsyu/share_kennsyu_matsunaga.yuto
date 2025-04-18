@@ -58,7 +58,7 @@ namespace TaskManagement
             {
                 calenda.monthCalendar1.MaxDate = DateTime.Today;
             }
-            else if (bt.Name.Equals("btnDate"))
+            else if (bt.Name.Equals("minBtnDate"))
             {
                 calenda.monthCalendar1.MinDate = DateTime.Today;
             }

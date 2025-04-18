@@ -22,17 +22,28 @@ namespace TaskManagement
     public partial class TaskList : Form
 
     {
-        public DataTable dataTable = new DataTable();
+
+        public DataTable tasksDataTable = new DataTable();
         public BindingSource bindingSource = new BindingSource();
         public BindingList<DataTable> tables = new BindingList<DataTable>();
 
         // 1ページで表示する行数
         public int pageSize = 5;
 
-
-        public TaskList()
+        public TaskList(String userId)
         {
             InitializeComponent();
+
+            TaskTagsDao taskTagsDao = new TaskTagsDao();
+            List<TaskTagsEntity> taskTagsList = taskTagsDao.getTaskTagsName();
+
+            foreach (var taskTag in taskTagsList)
+            {
+                tagComboBox.Items.Add(taskTag.tagName);
+            }
+
+            UserId.Text = userId;
+
             //DetaTableから列の自動生成を行なわない
             TaskInformation.AutoGenerateColumns = false;
 
@@ -44,18 +55,31 @@ namespace TaskManagement
             TasksDao tasksDao = new();
 
             // 在庫マスタの全抽出
-            var taskList = tasksDao.SelectAll();
+            var taskList = tasksDao.SelectAll(userId);
 
-            this.dataTable.Columns.Add("TaskNo", typeof(int));
-            this.dataTable.Columns.Add("TaskName", typeof(string));
-            this.dataTable.Columns.Add("Description", typeof(string));
-            this.dataTable.Columns.Add("Tag", typeof(string));
-            this.dataTable.Columns.Add("DueDate", typeof(DateTime));
-            this.dataTable.Columns.Add("IsDone", typeof(DateTime));
-            this.dataTable.Columns.Add("Updated On", typeof(DateTime));
-            this.dataTable.Columns.Add("IsActive", typeof(string));
+            this.tasksDataTable.Columns.Add("TaskNo", typeof(int));
+            this.tasksDataTable.Columns.Add("TaskName", typeof(string));
+            this.tasksDataTable.Columns.Add("Description", typeof(string));
+            this.tasksDataTable.Columns.Add("Tag", typeof(string));
+            this.tasksDataTable.Columns.Add("DueDate", typeof(DateTime));
+            this.tasksDataTable.Columns.Add("IsDone", typeof(DateTime));
+            this.tasksDataTable.Columns.Add("Updated On", typeof(DateTime));
+            this.tasksDataTable.Columns.Add("IsActive", typeof(string));
 
             SetData(taskList);
+        }
+
+        private void TaskInformation_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            DataGridView dataGridView = (DataGridView)sender;
+            //"Link"列ならば、ボタンがクリックされた
+            if (dataGridView.Columns[e.ColumnIndex].Name.Equals("TaskName"))
+            {
+
+                int linkTaskNo = (int)dataGridView["TaskNo", e.RowIndex].Value;
+                Program.Display_TaskDetail(UserId.Text, linkTaskNo);
+                this.Close();  //Form1を閉じる処理
+            }
         }
 
         private void SetData(List<TasksEntity> tasklist)
@@ -63,7 +87,7 @@ namespace TaskManagement
             DataTable newDataTable = null;
 
             TaskInformation.DataSource = newDataTable;
-            dataTable.Clear();
+            tasksDataTable.Clear();
 
             if (tasklist?.Count > 0) {
                 foreach (var task in tasklist)
@@ -79,7 +103,7 @@ namespace TaskManagement
                         active = "完了";
                     }
 
-                    dataTable.Rows.Add(
+                    tasksDataTable.Rows.Add(
                         task.taskNo,
                         task.taskName,
                         task.description,
@@ -93,7 +117,7 @@ namespace TaskManagement
             }
 
             //DataViewを取得
-            DataView dv = dataTable.DefaultView;
+            DataView dv = tasksDataTable.DefaultView;
             dv.Sort = "DueDate DESC";
 
             SetPagedDataSource();
@@ -105,11 +129,11 @@ namespace TaskManagement
             int counter = 1;
             tables.Clear();
 
-            foreach (DataRow dr in this.dataTable.Rows)
+            foreach (DataRow dr in this.tasksDataTable.Rows)
             {
                 if (counter == 1)
                 {
-                    dt = dataTable.Clone();
+                    dt = tasksDataTable.Clone();
                     tables.Add(dt);
                 }
 
@@ -163,8 +187,7 @@ namespace TaskManagement
 
                 }
 
-                // 在庫マスタの全抽出
-                var taskList = tasksDao.SelectAll();
+                var taskList = tasksDao.SelectMatch(txtTaskName.Text, tagComboBox.Text, txtDateFrom.Text, txtDateTo.Text, txtDueDate.Text, activeComboBox.Text, UserId.Text);
 
                 SetData(taskList);
             }
@@ -214,8 +237,7 @@ namespace TaskManagement
 
                 }
 
-                // 在庫マスタの全抽出
-                var taskList = tasksDao.SelectAll();
+                var taskList = tasksDao.SelectMatch(txtTaskName.Text, tagComboBox.Text, txtDateFrom.Text, txtDateTo.Text, txtDueDate.Text, activeComboBox.Text, UserId.Text);
 
                 SetData(taskList);
             }
@@ -231,14 +253,14 @@ namespace TaskManagement
             else
             {
                 TasksDao tasksDao = new();
-                var taskList = tasksDao.SelectMatch(txtTaskName.Text, tagComboBox.Text, txtDateFrom.Text, txtDateTo.Text, txtDateDone.Text, activeComboBox.Text);
+                var taskList = tasksDao.SelectMatch(txtTaskName.Text, tagComboBox.Text, txtDateFrom.Text, txtDateTo.Text, txtDueDate.Text, activeComboBox.Text, UserId.Text);
                 SetData(taskList);
             }
         }
 
         private void CreateTaskBtn_Click(object sender, EventArgs e)
         {
-            Program.Display_TaskDetail();
+            Program.Display_TaskDetail(UserId.Text, 0);
             this.Close();  //Form1を閉じる処理
         }
 
@@ -248,7 +270,7 @@ namespace TaskManagement
             tagComboBox.SelectedIndex = 0;
             txtDateFrom.Text = "";
             txtDateTo.Text = "";
-            txtDateDone.Text = "";
+            txtDueDate.Text = "";
             activeComboBox.SelectedIndex = 0;
         }
 
@@ -273,7 +295,9 @@ namespace TaskManagement
         private void btnDateDone_Click(object sender, EventArgs e)
         {
             // カレンダ表示処理
-            FormCalendar.inputCalenda(this, txtDateDone, btnDateDone);
+            FormCalendar.inputCalenda(this, txtDueDate, btnDateDone);
         }
+
+
     }
 }

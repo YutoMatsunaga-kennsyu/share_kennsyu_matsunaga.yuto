@@ -9,7 +9,7 @@ namespace TaskManagement
     public class TasksEntity
     {
         public int taskNo { get; set; }
-        public int userNo { get; set; }
+        public int userId { get; set; }
         public String taskName { get; set; }
         public String description { get; set; }
         public int tagNo { get; set; }

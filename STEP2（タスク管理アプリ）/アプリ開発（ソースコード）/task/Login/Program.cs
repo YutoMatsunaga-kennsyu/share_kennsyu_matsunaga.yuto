@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 namespace TaskManagement
 {
@@ -31,17 +32,18 @@ namespace TaskManagement
             main_form.MainForm = new Login();
             main_form.MainForm.Show();
         }
+
         //5,Form1に切り替える処理
-        public static void Display_TaskList()
+        public static void Display_TaskList(String userId)
         {
-            main_form.MainForm = new TaskList();
+            main_form.MainForm = new TaskList(userId);
             main_form.MainForm.Show();
         }
 
         //5,Form1に切り替える処理
-        public static void Display_TaskDetail()
+        public static void Display_TaskDetail(String userId, int linkTaskNo)
         {
-            main_form.MainForm = new TaskDetail();
+            main_form.MainForm = new TaskDetail(userId, linkTaskNo);
             main_form.MainForm.Show();
         }
     }

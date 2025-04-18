@@ -1,6 +1,6 @@
 CREATE TABLE tasks (
   task_no int NOT NULL AUTO_INCREMENT,
-  user_no int NOT NULL,
+  user_id VARCHAR(20) NOT NULL,
   task_name VARCHAR(15) NOT NULL,
   description VARCHAR(30),
   tag_no int NOT NULL,
@@ -9,7 +9,6 @@ CREATE TABLE tasks (
   update_date DATETIME NOT NULL,
   is_active boolean NOT NULL,
   PRIMARY KEY(task_no),
-  FOREIGN KEY (user_no) REFERENCES users(user_no),
+  FOREIGN KEY (user_id) REFERENCES users(user_id),
   FOREIGN KEY (tag_no) REFERENCES task_tags(tag_no)
 );
-

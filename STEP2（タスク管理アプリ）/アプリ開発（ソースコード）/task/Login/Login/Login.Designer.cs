@@ -130,7 +130,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
-        private WindowsFormsApplication1.TextBoxEx userNameTextBox;
+        public WindowsFormsApplication1.TextBoxEx userNameTextBox;
         private WindowsFormsApplication1.TextBoxEx passwordTextBox;
     }
 }

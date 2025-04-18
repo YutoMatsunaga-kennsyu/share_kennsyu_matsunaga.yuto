@@ -13,6 +13,7 @@ namespace TaskManagement
 {
     public partial class Login : Form
     {
+
         public Login()
         {
             InitializeComponent();
@@ -34,10 +35,9 @@ namespace TaskManagement
                 return;
             }
 
-            Program.Display_TaskList();
+            Program.Display_TaskList(userNameTextBox.Text);
             this.Close();  //Form1を閉じる処理
         }
-
 
 
         private void label3_Click(object sender, EventArgs e)

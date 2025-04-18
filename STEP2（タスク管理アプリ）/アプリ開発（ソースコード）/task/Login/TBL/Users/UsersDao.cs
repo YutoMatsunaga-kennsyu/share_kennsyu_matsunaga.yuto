@@ -11,7 +11,7 @@ namespace TaskManagement
 {
     internal class UsersDao
     {
-        public Boolean Authenticate(String userName, String passWord)
+        public Boolean Authenticate(String userId, String passWord)
         {
             DBUtil dbUtil = new DBUtil();
 
@@ -21,7 +21,7 @@ namespace TaskManagement
             // 接続確立
             connection.Open();
 
-            var commandText = "SELECT * FROM users WHERE user_name = '" + userName + "' AND password = '" + passWord + "';";
+            var commandText = "SELECT * FROM users WHERE user_id = @userId AND password = @passWord;";
 
             // ユーザーエンティティのリスト
             List<UsersEntity> users = new();
@@ -29,6 +29,8 @@ namespace TaskManagement
             try
             {
                 using var command = new MySqlCommand(commandText, connection);
+                command.Parameters.AddWithValue("@userId", userId);
+                command.Parameters.AddWithValue("@passWord", passWord);
                 // SQLを実行し、結果を取得
                 using var reader = command.ExecuteReader();
 
@@ -36,9 +38,9 @@ namespace TaskManagement
                 {
                     users.Add(new UsersEntity()
                     {
-                        userNo = (int)reader["user_no"],
-                        userName = (string)reader["user_name"],
-                        password = (string)reader["password"],
+                        userId = (String)reader["user_id"],
+                        userName = (String)reader["user_name"],
+                        password = (String)reader["password"],
                     });
                 }
 

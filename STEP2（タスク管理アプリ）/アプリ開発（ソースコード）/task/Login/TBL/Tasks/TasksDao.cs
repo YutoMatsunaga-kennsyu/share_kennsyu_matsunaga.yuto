@@ -14,12 +14,12 @@ namespace TaskManagement
     public class TasksDao
     {
 
-        public List<TasksEntity> SelectAll()
+        public List<TasksEntity> SelectAll(String userId)
         {
             DBUtil dbUtil = new DBUtil();
 
             // 実行SQL
-            var commandText = "SELECT task_no, task_name, description, tag_name, due_date, done_date, update_date, is_active FROM tasks tasks INNER JOIN task_tags tags on tasks.tag_no = tags.tag_no ORDER BY ABS(DATEDIFF(due_date, CURDATE()));";
+            var commandText = "SELECT task_no, task_name, description, tag_name, due_date, done_date, update_date, is_active FROM tasks tasks INNER JOIN task_tags tags on tasks.tag_no = tags.tag_no WHERE tasks.is_active = '1' AND tasks.user_id = @userId ORDER BY ABS(DATEDIFF(due_date, CURDATE()));";
 
             // 在庫マスタエンティティのリスト
             List<TasksEntity> tasksEntityList = new();
@@ -32,6 +32,7 @@ namespace TaskManagement
             {
 
                 using var command = new MySqlCommand(commandText, connection);
+                command.Parameters.AddWithValue("@userId", userId);
                 // SQLを実行し、結果を取得
                 using var reader = command.ExecuteReader();
                 while (reader.Read())
@@ -80,7 +81,7 @@ namespace TaskManagement
             }
         }
 
-        public List<TasksEntity> SelectMatch(String taskName, String tag, String dateFrom, String dateTo, String dateDone, String active)
+        public List<TasksEntity> SelectMatch(String taskName, String tag, String dateFrom, String dateTo, String dateDone, String active, String userId)
         {
             DBUtil dbUtil = new DBUtil();
 
@@ -91,7 +92,7 @@ namespace TaskManagement
 
             if (!String.IsNullOrEmpty(taskName))
             {
-                whereText += "task_name = @taskName AND ";
+                whereText += "task_name LIKE @taskName AND ";
             }
 
             if (!tag.Equals("全て"))
@@ -122,17 +123,10 @@ namespace TaskManagement
                 whereText += "is_active = @active AND ";
             }
 
-            var commandText = "";
+            whereText += "user_id = @userId ";
 
-            if (whereText.Equals("WHERE "))
-            {
-                commandText = commandText1 + commandText2;
-            }
-            else
-            {
-                var whereTextModified = whereText.Substring(0, whereText.Length - 4);
-                commandText = commandText1 + whereTextModified + commandText2;
-            }
+            var commandText = commandText1 + whereText + commandText2;
+ 
 
             // 在庫マスタエンティティのリスト
             List<TasksEntity> tasksEntityList = new();
@@ -148,7 +142,7 @@ namespace TaskManagement
 
                 if (!String.IsNullOrEmpty(taskName))
                 {
-                    command.Parameters.AddWithValue("@taskName", taskName);
+                    command.Parameters.AddWithValue("@taskName", "%" + taskName + "%");
                 }
 
                 if (!tag.Equals("全て"))
@@ -187,6 +181,8 @@ namespace TaskManagement
                     }
                     
                 }
+
+                command.Parameters.AddWithValue("@userId", userId);
 
                 // SQLを実行し、結果を取得
                 using var reader = command.ExecuteReader();
@@ -263,6 +259,41 @@ namespace TaskManagement
                 connection.Close();
             }
         }
+
+        public void CreateTask(String taskName, String description, int tagNo, String dueDate ,String userId)
+        {
+            DBUtil dbUtil = new DBUtil();
+
+            // 実行SQL
+            var commandText = "INSERT INTO tasks(user_id, task_name, description, tag_no, due_date, update_date, is_active) VALUES ( @userId, @taskName, @description, @tagNo, @dueDate, SYSDATE(), '1')";
+
+            using var connection = dbUtil.GetMySqlConnection();
+
+            // 接続確立
+            connection.Open();
+
+            try
+            {
+                using var command = new MySqlCommand(commandText, connection);
+                command.Parameters.AddWithValue("@userId", userId);
+                command.Parameters.AddWithValue("@taskName", taskName);
+                command.Parameters.AddWithValue("@description", description);
+                command.Parameters.AddWithValue("@tagNo", tagNo);
+                command.Parameters.AddWithValue("@dueDate", dueDate);
+
+                command.ExecuteNonQuery();
+            }
+            catch (Exception e)
+            {
+            }
+            finally
+            {
+                //コネクション終了
+                connection.Close();
+            }
+        }
+
+
 
         public void CompleteTask(int taskNo)
         {
@@ -356,6 +387,72 @@ namespace TaskManagement
             catch (Exception e)
             {
                 return false;
+            }
+            finally
+            {
+                //コネクション終了
+                connection.Close();
+            }
+        }
+
+        public List<TasksEntity> getTaskInformation(int taskNo)
+        {
+            DBUtil dbUtil = new DBUtil();
+
+            // 実行SQL
+            var commandText = "SELECT task_no, task_name, description, tag_no, due_date, done_date, update_date, is_active FROM tasks WHERE task_no = @taskNo;";
+
+            // 在庫マスタエンティティのリスト
+            List<TasksEntity> tasksEntityList = new();
+            using var connection = dbUtil.GetMySqlConnection();
+
+            // 接続確立
+            connection.Open();
+
+            try
+            {
+                using var command = new MySqlCommand(commandText, connection);
+                command.Parameters.AddWithValue("@taskNo", taskNo);
+                // SQLを実行し、結果を取得
+                using var reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    if (!reader["done_date"].Equals(DBNull.Value))
+                    {
+                        tasksEntityList.Add(new TasksEntity()
+                        {
+                            taskNo = (int)reader["task_no"],
+                            taskName = (string)reader["task_name"],
+                            description = (string)reader["description"],
+                            tagNo = (int)reader["tag_no"],
+                            dueDate = (DateTime)reader["due_date"],
+                            doneDate = (DateTime)reader["done_date"],
+                            updateDate = (DateTime)reader["update_date"],
+                            isActive = (Boolean)reader["is_active"],
+                        });
+                    }
+                    else
+                    {
+                        tasksEntityList.Add(new TasksEntity()
+                        {
+                            taskNo = (int)reader["task_no"],
+                            taskName = (string)reader["task_name"],
+                            description = (string)reader["description"],
+                            tagNo = (int)reader["tag_no"],
+                            dueDate = (DateTime)reader["due_date"],
+                            doneDate = null,
+                            updateDate = (DateTime)reader["update_date"],
+                            isActive = (Boolean)reader["is_active"],
+                        });
+                    }
+                }
+
+                // 在庫マスタエンティティのリスト
+                return tasksEntityList;
+            }
+            catch (Exception e)
+            {
+                return null;
             }
             finally
             {
