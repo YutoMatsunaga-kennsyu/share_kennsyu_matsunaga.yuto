@@ -1,12 +1,12 @@
 ﻿using System;
 
-namespace WindowsFormsApplication1 // <- 組み込む名前空間で
+namespace TaskManagement
 {
+    /// <summary>プレースホルダー付きのテキストボックス作成用クラス</summary>
     public class TextBoxEx : System.Windows.Forms.TextBox
     {
         private string _placeholder = string.Empty;
 
-        // （プロパティ）
         public string Placeholder
         {
             get { return _placeholder; }
@@ -27,7 +27,7 @@ namespace WindowsFormsApplication1 // <- 組み込む名前空間で
                 {
                     using (var g = this.CreateGraphics())
                     {
-                        // 描画を一旦消してしまう
+                        // 描画を一旦消す
                         g.FillRectangle(new System.Drawing.SolidBrush(this.BackColor), this.ClientRectangle);
 
                         // プレースホルダのテキスト色を、前景色と背景色の中間として文字列を描画する

@@ -6,9 +6,10 @@ using System.Threading.Tasks;
 
 namespace TaskManagement
 {
+    /// <summary>タスク分類テーブルのエンティティ</summary>
     internal class TaskTagsEntity
     {
-        public int tagNo { get; set; }
-        public String tagName { get; set; }
+        public int IntTagNo { get; set; }
+        public String StrTagName { get; set; }
     }
 }

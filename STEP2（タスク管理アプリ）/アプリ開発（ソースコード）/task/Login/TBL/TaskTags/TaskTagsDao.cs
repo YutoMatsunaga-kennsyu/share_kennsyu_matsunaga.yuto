@@ -8,15 +8,20 @@ using MySqlConnector;
 
 namespace TaskManagement
 {
+    /// <summary>タスク分類テーブルのDAO</summary>
     internal class TaskTagsDao
     {
-        public List<TaskTagsEntity> getTaskTagsName()
+        /// <summary>タスク分類名取得処理</summary>
+        /// <returns>タスク分類エンティティのリスト</returns>
+        public List<TaskTagsEntity> GetTaskTagsName()
         {
-            DBUtil dbUtil = new DBUtil();
+            // DB接続クラスのインスタンス作成
+            DBUtil dbUtil = new();
 
+            // タスク分類エンティティのリスト
             List<TaskTagsEntity> taskTags = new();
 
-            // 実行SQL
+            // 実行クエリ
             var commandText = "SELECT tag_no, tag_name FROM task_tags;";
 
             // MySQLへの接続
@@ -28,17 +33,20 @@ namespace TaskManagement
             try
             {
                 using var command = new MySqlCommand(commandText, connection);
+
+                // クエリ実行
                 using var reader = command.ExecuteReader();
 
-
+                // クエリの実行結果を、リストに格納
                 while (reader.Read())
                 {
                     taskTags.Add(new TaskTagsEntity()
                     {
-                        tagNo = (int)reader["tag_no"],
-                        tagName = (String)reader["tag_name"],
+                        IntTagNo = (int)reader["tag_no"],
+                        StrTagName = (String)reader["tag_name"],
                     });
                 }
+
                 return taskTags;
             }
             catch (Exception e)
@@ -51,7 +59,5 @@ namespace TaskManagement
                 connection.Close();
             }
         }
-
-
     }
 }

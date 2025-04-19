@@ -6,10 +6,11 @@ using System.Threading.Tasks;
 
 namespace TaskManagement
 {
+    /// <summary>ユーザーテーブルのエンティティ</summary>
     internal class UsersEntity
     {
-        public String userId { get; set; }
-        public String userName { get; set; }
-        public String password { get; set; }
+        public String StrUserId { get; set; }
+        public String StrUserName { get; set; }
+        public String StrPassword { get; set; }
     }
 }

@@ -1,17 +1,17 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\yuto1\\OneDrive\\\u30C9\u30AD\u30E5\u30E1\u30F3\u30C8\\share_kennsyu_matsunaga.yuto\\\u30A2\u30D7\u30EA\u958B\u767A\uFF08\u30BD\u30FC\u30B9\u30B3\u30FC\u30C9\uFF09\\calculator\\",
+  "WorkspaceRootPath": "C:\\Users\\yuto1\\OneDrive\\\u30C9\u30AD\u30E5\u30E1\u30F3\u30C8\\share_kennsyu_matsunaga.yuto\\STEP1\uFF08\u96FB\u5353\u30A2\u30D7\u30EA\uFF09\\\u30A2\u30D7\u30EA\u958B\u767A\uFF08\u30BD\u30FC\u30B9\u30B3\u30FC\u30C9\uFF09\\calculator\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{0586EC21-FE6D-45E7-B12E-97DCD7B987D4}|calculator\\calculator.csproj|c:\\users\\yuto1\\onedrive\\\u30C9\u30AD\u30E5\u30E1\u30F3\u30C8\\share_kennsyu_matsunaga.yuto\\\u30A2\u30D7\u30EA\u958B\u767A\uFF08\u30BD\u30FC\u30B9\u30B3\u30FC\u30C9\uFF09\\calculator\\calculator\\calculator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{0586EC21-FE6D-45E7-B12E-97DCD7B987D4}|calculator\\calculator.csproj|c:\\users\\yuto1\\onedrive\\\u30C9\u30AD\u30E5\u30E1\u30F3\u30C8\\share_kennsyu_matsunaga.yuto\\step1\uFF08\u96FB\u5353\u30A2\u30D7\u30EA\uFF09\\\u30A2\u30D7\u30EA\u958B\u767A\uFF08\u30BD\u30FC\u30B9\u30B3\u30FC\u30C9\uFF09\\calculator\\calculator\\calculator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{0586EC21-FE6D-45E7-B12E-97DCD7B987D4}|calculator\\calculator.csproj|solutionrelative:calculator\\calculator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{0586EC21-FE6D-45E7-B12E-97DCD7B987D4}|calculator\\calculator.csproj|C:\\Users\\yuto1\\OneDrive\\\u30C9\u30AD\u30E5\u30E1\u30F3\u30C8\\share_kennsyu_matsunaga.yuto\\\u30A2\u30D7\u30EA\u958B\u767A\uFF08\u30BD\u30FC\u30B9\u30B3\u30FC\u30C9\uFF09\\calculator\\calculator\\calculator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "AbsoluteMoniker": "D:0:0:{0586EC21-FE6D-45E7-B12E-97DCD7B987D4}|calculator\\calculator.csproj|C:\\Users\\yuto1\\OneDrive\\\u30C9\u30AD\u30E5\u30E1\u30F3\u30C8\\share_kennsyu_matsunaga.yuto\\STEP1\uFF08\u96FB\u5353\u30A2\u30D7\u30EA\uFF09\\\u30A2\u30D7\u30EA\u958B\u767A\uFF08\u30BD\u30FC\u30B9\u30B3\u30FC\u30C9\uFF09\\calculator\\calculator\\calculator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
       "RelativeMoniker": "D:0:0:{0586EC21-FE6D-45E7-B12E-97DCD7B987D4}|calculator\\calculator.csproj|solutionrelative:calculator\\calculator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{0586EC21-FE6D-45E7-B12E-97DCD7B987D4}|calculator\\calculator.csproj|C:\\Users\\yuto1\\OneDrive\\\u30C9\u30AD\u30E5\u30E1\u30F3\u30C8\\share_kennsyu_matsunaga.yuto\\\u30A2\u30D7\u30EA\u958B\u767A\uFF08\u30BD\u30FC\u30B9\u30B3\u30FC\u30C9\uFF09\\calculator\\calculator\\calculator.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{0586EC21-FE6D-45E7-B12E-97DCD7B987D4}|calculator\\calculator.csproj|C:\\Users\\yuto1\\OneDrive\\\u30C9\u30AD\u30E5\u30E1\u30F3\u30C8\\share_kennsyu_matsunaga.yuto\\STEP1\uFF08\u96FB\u5353\u30A2\u30D7\u30EA\uFF09\\\u30A2\u30D7\u30EA\u958B\u767A\uFF08\u30BD\u30FC\u30B9\u30B3\u30FC\u30C9\uFF09\\calculator\\calculator\\calculator.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{0586EC21-FE6D-45E7-B12E-97DCD7B987D4}|calculator\\calculator.csproj|solutionrelative:calculator\\calculator.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
@@ -28,11 +28,11 @@
               "$type": "Document",
               "DocumentIndex": 2,
               "Title": "calculator.Designer.cs",
-              "DocumentMoniker": "C:\\Users\\yuto1\\OneDrive\\\u30C9\u30AD\u30E5\u30E1\u30F3\u30C8\\share_kennsyu_matsunaga.yuto\\\u30A2\u30D7\u30EA\u958B\u767A\uFF08\u30BD\u30FC\u30B9\u30B3\u30FC\u30C9\uFF09\\calculator\\calculator\\calculator.Designer.cs",
+              "DocumentMoniker": "C:\\Users\\yuto1\\OneDrive\\\u30C9\u30AD\u30E5\u30E1\u30F3\u30C8\\share_kennsyu_matsunaga.yuto\\STEP1\uFF08\u96FB\u5353\u30A2\u30D7\u30EA\uFF09\\\u30A2\u30D7\u30EA\u958B\u767A\uFF08\u30BD\u30FC\u30B9\u30B3\u30FC\u30C9\uFF09\\calculator\\calculator\\calculator.Designer.cs",
               "RelativeDocumentMoniker": "calculator\\calculator.Designer.cs",
-              "ToolTip": "C:\\Users\\yuto1\\OneDrive\\\u30C9\u30AD\u30E5\u30E1\u30F3\u30C8\\share_kennsyu_matsunaga.yuto\\\u30A2\u30D7\u30EA\u958B\u767A\uFF08\u30BD\u30FC\u30B9\u30B3\u30FC\u30C9\uFF09\\calculator\\calculator\\calculator.Designer.cs",
+              "ToolTip": "C:\\Users\\yuto1\\OneDrive\\\u30C9\u30AD\u30E5\u30E1\u30F3\u30C8\\share_kennsyu_matsunaga.yuto\\STEP1\uFF08\u96FB\u5353\u30A2\u30D7\u30EA\uFF09\\\u30A2\u30D7\u30EA\u958B\u767A\uFF08\u30BD\u30FC\u30B9\u30B3\u30FC\u30C9\uFF09\\calculator\\calculator\\calculator.Designer.cs",
               "RelativeToolTip": "calculator\\calculator.Designer.cs",
-              "ViewState": "AQIAAD4BAAAAAAAAAAAqwEwBAAAlAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABYAAAAIAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-11-09T01:01:34.48Z",
               "EditorCaption": ""
@@ -41,9 +41,9 @@
               "$type": "Document",
               "DocumentIndex": 1,
               "Title": "calculator.cs [\u30C7\u30B6\u30A4\u30F3]",
-              "DocumentMoniker": "C:\\Users\\yuto1\\OneDrive\\\u30C9\u30AD\u30E5\u30E1\u30F3\u30C8\\share_kennsyu_matsunaga.yuto\\\u30A2\u30D7\u30EA\u958B\u767A\uFF08\u30BD\u30FC\u30B9\u30B3\u30FC\u30C9\uFF09\\calculator\\calculator\\calculator.cs",
+              "DocumentMoniker": "C:\\Users\\yuto1\\OneDrive\\\u30C9\u30AD\u30E5\u30E1\u30F3\u30C8\\share_kennsyu_matsunaga.yuto\\STEP1\uFF08\u96FB\u5353\u30A2\u30D7\u30EA\uFF09\\\u30A2\u30D7\u30EA\u958B\u767A\uFF08\u30BD\u30FC\u30B9\u30B3\u30FC\u30C9\uFF09\\calculator\\calculator\\calculator.cs",
               "RelativeDocumentMoniker": "calculator\\calculator.cs",
-              "ToolTip": "C:\\Users\\yuto1\\OneDrive\\\u30C9\u30AD\u30E5\u30E1\u30F3\u30C8\\share_kennsyu_matsunaga.yuto\\\u30A2\u30D7\u30EA\u958B\u767A\uFF08\u30BD\u30FC\u30B9\u30B3\u30FC\u30C9\uFF09\\calculator\\calculator\\calculator.cs [\u30C7\u30B6\u30A4\u30F3]",
+              "ToolTip": "C:\\Users\\yuto1\\OneDrive\\\u30C9\u30AD\u30E5\u30E1\u30F3\u30C8\\share_kennsyu_matsunaga.yuto\\STEP1\uFF08\u96FB\u5353\u30A2\u30D7\u30EA\uFF09\\\u30A2\u30D7\u30EA\u958B\u767A\uFF08\u30BD\u30FC\u30B9\u30B3\u30FC\u30C9\uFF09\\calculator\\calculator\\calculator.cs [\u30C7\u30B6\u30A4\u30F3]",
               "RelativeToolTip": "calculator\\calculator.cs [\u30C7\u30B6\u30A4\u30F3]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-11-09T00:59:06.471Z",
@@ -53,11 +53,11 @@
               "$type": "Document",
               "DocumentIndex": 0,
               "Title": "calculator.cs",
-              "DocumentMoniker": "C:\\Users\\yuto1\\OneDrive\\\u30C9\u30AD\u30E5\u30E1\u30F3\u30C8\\share_kennsyu_matsunaga.yuto\\\u30A2\u30D7\u30EA\u958B\u767A\uFF08\u30BD\u30FC\u30B9\u30B3\u30FC\u30C9\uFF09\\calculator\\calculator\\calculator.cs",
+              "DocumentMoniker": "C:\\Users\\yuto1\\OneDrive\\\u30C9\u30AD\u30E5\u30E1\u30F3\u30C8\\share_kennsyu_matsunaga.yuto\\STEP1\uFF08\u96FB\u5353\u30A2\u30D7\u30EA\uFF09\\\u30A2\u30D7\u30EA\u958B\u767A\uFF08\u30BD\u30FC\u30B9\u30B3\u30FC\u30C9\uFF09\\calculator\\calculator\\calculator.cs",
               "RelativeDocumentMoniker": "calculator\\calculator.cs",
-              "ToolTip": "C:\\Users\\yuto1\\OneDrive\\\u30C9\u30AD\u30E5\u30E1\u30F3\u30C8\\share_kennsyu_matsunaga.yuto\\\u30A2\u30D7\u30EA\u958B\u767A\uFF08\u30BD\u30FC\u30B9\u30B3\u30FC\u30C9\uFF09\\calculator\\calculator\\calculator.cs",
+              "ToolTip": "C:\\Users\\yuto1\\OneDrive\\\u30C9\u30AD\u30E5\u30E1\u30F3\u30C8\\share_kennsyu_matsunaga.yuto\\STEP1\uFF08\u96FB\u5353\u30A2\u30D7\u30EA\uFF09\\\u30A2\u30D7\u30EA\u958B\u767A\uFF08\u30BD\u30FC\u30B9\u30B3\u30FC\u30C9\uFF09\\calculator\\calculator\\calculator.cs",
               "RelativeToolTip": "calculator\\calculator.cs",
-              "ViewState": "AQIAAHABAAAAAAAAAAAQwHsBAAANAAAA",
+              "ViewState": "AQIAAGoAAAAAAAAAAAAUwCsAAAArAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-11-09T00:55:06.516Z",
               "EditorCaption": ""

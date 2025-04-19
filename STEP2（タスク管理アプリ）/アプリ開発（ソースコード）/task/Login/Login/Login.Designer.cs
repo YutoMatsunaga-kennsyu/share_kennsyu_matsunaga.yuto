@@ -32,8 +32,8 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.userNameTextBox = new WindowsFormsApplication1.TextBoxEx();
-            this.passwordTextBox = new WindowsFormsApplication1.TextBoxEx();
+            this.userNameTextBox = new TaskManagement.TextBoxEx();
+            this.passwordTextBox = new TaskManagement.TextBoxEx();
             this.SuspendLayout();
             // 
             // LoginBtn
@@ -82,7 +82,6 @@
             this.label3.Size = new System.Drawing.Size(113, 90);
             this.label3.TabIndex = 4;
             this.label3.Text = "Re";
-            this.label3.Click += new System.EventHandler(this.label3_Click);
             // 
             // userNameTextBox
             // 
@@ -130,8 +129,8 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
-        public WindowsFormsApplication1.TextBoxEx userNameTextBox;
-        private WindowsFormsApplication1.TextBoxEx passwordTextBox;
+        public TaskManagement.TextBoxEx userNameTextBox;
+        private TaskManagement.TextBoxEx passwordTextBox;
     }
 }
 

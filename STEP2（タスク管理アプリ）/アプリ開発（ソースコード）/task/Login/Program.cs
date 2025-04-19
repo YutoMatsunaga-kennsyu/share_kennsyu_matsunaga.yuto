@@ -7,44 +7,45 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 namespace TaskManagement
 {
+    /// <summary>タスク管理アプリのメインエントリポイント</summary>
     internal static class Program
     {
-        /// <summary>
-        /// アプリケーションのメイン エントリ ポイントです。
-        /// </summary>
-        
-        public static ApplicationContext main_form;   //1,メインフォーム用の変数
+        //メインフォーム用の変数
+        public static ApplicationContext gMain_form;
 
+        /// <summary>メイン</summary>
         [STAThread]
         static void Main()
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            //Application.Run(new Login()); コメントアウト
-            main_form = new ApplicationContext();
-            main_form.MainForm = new Login();
-            Application.Run(main_form);
+            gMain_form = new ApplicationContext();
+            gMain_form.MainForm = new Login();
+            Application.Run(gMain_form);
         }
 
-        //4,Form1に切り替える処理
+        /// <summary>ログイン画面に遷移する処理</summary>
         public static void Display_Login()
         {
-            main_form.MainForm = new Login();
-            main_form.MainForm.Show();
+            gMain_form.MainForm = new Login();
+            gMain_form.MainForm.Show();
         }
 
-        //5,Form1に切り替える処理
-        public static void Display_TaskList(String userId)
+        /// <summary>一覧画面に遷移する処理</summary>
+        /// <param name="strUserId">ログインしたユーザーのユーザーID</param>
+        public static void Display_TaskList(String strUserId)
         {
-            main_form.MainForm = new TaskList(userId);
-            main_form.MainForm.Show();
+            gMain_form.MainForm = new TaskList(strUserId);
+            gMain_form.MainForm.Show();
         }
 
-        //5,Form1に切り替える処理
-        public static void Display_TaskDetail(String userId, int linkTaskNo)
+        /// <summary>詳細画面に遷移する処理</summary>
+        /// <param name="strUserId">ログインしたユーザーのユーザーID</param>
+        /// <param name="intLinkTaskNo">一覧画面のタスク名のリンクを押下したタスクのタスク番号</param>
+        public static void Display_TaskDetail(String strUserId, int intLinkTaskNo)
         {
-            main_form.MainForm = new TaskDetail(userId, linkTaskNo);
-            main_form.MainForm.Show();
+            gMain_form.MainForm = new TaskDetail(strUserId, intLinkTaskNo);
+            gMain_form.MainForm.Show();
         }
     }
 }

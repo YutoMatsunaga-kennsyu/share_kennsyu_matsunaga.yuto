@@ -10,81 +10,91 @@ using System.Windows.Forms;
 
 namespace TaskManagement
 {
+    ///<summary>カレンダークラス</summary>
     public partial class FormCalendar : Form
     {
-        // 選択日
-        private string selectDate;
+        // カレンダー選択日
+        private String gStrSelectDate;
 
+        /// <summary>カレンダークラスのコンストラクタ</summary>
         public FormCalendar()
         {
             InitializeComponent();
         }
 
-        private void FormCalendar_Load_1(object sender, EventArgs e)
+        /// <summary>カレンダーロード時処理</summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void FormCalendar_Load(object sender, EventArgs e)
         {
-            // 本日の日付マークを非表示にする（見にくい為）
-            monthCalendar1.ShowTodayCircle = false;
+            // カレンダーの本日の日付マークを非表示
+            monthCalendar.ShowTodayCircle = false;
 
-            // 日付選択は1日のみとする
-            monthCalendar1.MaxSelectionCount = 1;
+            // カレンダーで選択可能な日付を1日のみにする
+            monthCalendar.MaxSelectionCount = 1;
 
             // 日付チェックを行い、カレンダに初期日をセットする
-            if (selectDate.Length > 0)
+            if (gStrSelectDate.Length > 0)
             {
-                DateTime d;
-                if (DateTime.TryParse(selectDate, out d))
+                DateTime initialDate;
+                if (DateTime.TryParse(this.gStrSelectDate, out initialDate))
                 {
-                    monthCalendar1.SelectionStart = d;
+                    monthCalendar.SelectionStart = initialDate;
                 }
             }
         }
 
-        /// <summary>
-        /// カレンダ表示処理
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        public static void inputCalenda(IWin32Window owner, TextBox textBox, Button bt)
+        /// <summary>カレンダー表示処理 </summary>
+        /// <param name="owner"></param>
+        /// <param name="textBox">カレンダーで選択した日付を反映させるテキストボックス</param>
+        /// <param name="pressedBtn">カレンダーを表示させる際に押下したボタン</param>
+        public static void inputCalenda(IWin32Window owner, TextBox textBox, Button pressedBtn)
         {
             // カレンダフォームのインスタンスを作成する
-            FormCalendar calenda = new FormCalendar();
+            FormCalendar calenda = new();
 
             // 引数の日付をカレンダフォームにセットする
-            calenda.selectDate = textBox.Text;
+            calenda.gStrSelectDate = textBox.Text;
 
-            calenda.Location = bt.PointToScreen(bt.ClientRectangle.Location);
+            // カレンダーが表示される箇所を押下したボタンの横に設定する
+            calenda.Location = pressedBtn.PointToScreen(pressedBtn.ClientRectangle.Location);
 
-            if (bt.Name.Equals("btnDateDone"))
+            // 押下したボタンによって、カレンダーで選択可能な日付を制限する(タスク完了日、タスク完了期限）
+            if (pressedBtn.Name.Equals("maxDateBtn"))
             {
-                calenda.monthCalendar1.MaxDate = DateTime.Today;
+                calenda.monthCalendar.MaxDate = DateTime.Today;
             }
-            else if (bt.Name.Equals("minBtnDate"))
+            else if (pressedBtn.Name.Equals("minDateBtn"))
             {
-                calenda.monthCalendar1.MinDate = DateTime.Today;
+                calenda.monthCalendar.MinDate = DateTime.Today;
             }
 
             // カレンダーフォームを表示する
             calenda.ShowDialog(owner);
 
-
-
-            // 選択された日付をtextBoxにセットする
-            if (!textBox.Text.Equals(calenda.selectDate))
+            // カレンダーで選択された日付をtextBoxにセットする
+            if (!textBox.Text.Equals(calenda.gStrSelectDate))
             {
-                textBox.Text = calenda.selectDate;
+                textBox.Text = calenda.gStrSelectDate;
             }
         }
 
-        private void btnSet_Click_1(object sender, EventArgs e)
+        /// <summary>カレンダーの選択ボタン押下時処理</summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void setBtn_Click(object sender, EventArgs e)
         {
-            // 選択された日付を
-            selectDate = monthCalendar1.SelectionStart.ToString("yyyy/MM/dd");
+            // カレンダーで選択された日付を変数に格納する
+            gStrSelectDate = monthCalendar.SelectionStart.ToString("yyyy/MM/dd");
 
             // カレンダ画面を閉じる
             this.Close();
         }
 
-        private void btnReturn_Click_1(object sender, EventArgs e)
+        /// <summary>カレンダーの戻るボタン押下時処理</summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void returnBtn_Click(object sender, EventArgs e)
         {
             // カレンダ画面を閉じる
             this.Close();

@@ -123,7 +123,7 @@
             // 
             this.logoutBtn.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
             this.logoutBtn.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.logoutBtn.Image = global::Login.Properties.Resources.ログアウトイラスト1;
+            this.logoutBtn.Image = global::TaskManagement.Properties.Resources.ログアウトイラスト1;
             this.logoutBtn.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.logoutBtn.Name = "logoutBtn";
             this.logoutBtn.Size = new System.Drawing.Size(29, 24);
@@ -272,7 +272,6 @@
             this.taskDetailTitle.Size = new System.Drawing.Size(158, 42);
             this.taskDetailTitle.TabIndex = 20;
             this.taskDetailTitle.Text = "タスク登録";
-            this.taskDetailTitle.Click += new System.EventHandler(this.label1_Click);
             // 
             // TaskDetail
             // 
@@ -286,7 +285,6 @@
             this.Controls.Add(this.taskDetailTitle);
             this.Name = "TaskDetail";
             this.Text = "タスク詳細";
-            this.Load += new System.EventHandler(this.Form1_Load);
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
             this.panel1.ResumeLayout(false);

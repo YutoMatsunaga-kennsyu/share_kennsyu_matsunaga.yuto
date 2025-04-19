@@ -15,48 +15,56 @@ using TaskManagement;
 using System.Diagnostics;
 using System.Collections.Specialized;
 
-
 namespace TaskManagement
 {
-
+    /// <summary>一覧画面クラス</summary>
     public partial class TaskList : Form
-
     {
+        // 一覧画面のタスク一覧のデータを格納する変数
+        public DataTable tasksDataTable = new();
+        public BindingSource tasksBindingSource = new();
+        public BindingList<DataTable> tasksBindingList = new();
 
-        public DataTable tasksDataTable = new DataTable();
-        public BindingSource bindingSource = new BindingSource();
-        public BindingList<DataTable> tables = new BindingList<DataTable>();
-
-        // 1ページで表示する行数
+        // タスク一覧の1ページで表示する行数
         public int pageSize = 5;
 
-        public TaskList(String userId)
+        /// <summary>一覧画面クラスのコンストラクタ</summary>
+        /// <param name="strUserId">ユーザーID</param>
+        public TaskList(String strUserId)
         {
             InitializeComponent();
 
-            TaskTagsDao taskTagsDao = new TaskTagsDao();
-            List<TaskTagsEntity> taskTagsList = taskTagsDao.getTaskTagsName();
+            // タスク分類テーブルのDAO取得
+            TaskTagsDao taskTagsDao = new();
 
+            // タスク分類テーブルの全検索結果をタスク分類エンティティリストに格納
+            List<TaskTagsEntity> taskTagsList = taskTagsDao.GetTaskTagsName();
+
+            // タスク分類検索欄にタスク分類テーブルのタスク分類名の値を設定
             foreach (var taskTag in taskTagsList)
             {
-                tagComboBox.Items.Add(taskTag.tagName);
+                tagComboBox.Items.Add(taskTag.StrTagName);
             }
 
-            UserId.Text = userId;
-
-            //DetaTableから列の自動生成を行なわない
-            TaskInformation.AutoGenerateColumns = false;
-
-            //初期値
+            // タスク分類検索欄のコンボボックスの初期値を「全て」に設定
             tagComboBox.SelectedIndex = 0;
+
+            // タスク状況検索欄のコンボボックスの初期値を「未完了」に設定
             activeComboBox.SelectedIndex = 1;
 
-            // 在庫マスタ DAO取得
+            // ヘッダーにログインしたユーザーのユーザーIDを設定
+            userId.Text = strUserId;
+
+            // タスク一覧の列の自動生成を行なわないよう設定
+            TaskInformation.AutoGenerateColumns = false;
+
+            // タスクテーブルのDAO取得
             TasksDao tasksDao = new();
 
-            // 在庫マスタの全抽出
-            var taskList = tasksDao.SelectAll(userId);
+            // タスクテーブルの全抽出
+            var taskList = tasksDao.SelectAll(strUserId);
 
+            // データテーブルにカラムを追加
             this.tasksDataTable.Columns.Add("TaskNo", typeof(int));
             this.tasksDataTable.Columns.Add("TaskName", typeof(string));
             this.tasksDataTable.Columns.Add("Description", typeof(string));
@@ -66,36 +74,30 @@ namespace TaskManagement
             this.tasksDataTable.Columns.Add("Updated On", typeof(DateTime));
             this.tasksDataTable.Columns.Add("IsActive", typeof(string));
 
+            // タスク一覧に全抽出した結果を格納
             SetData(taskList);
         }
 
-        private void TaskInformation_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-            DataGridView dataGridView = (DataGridView)sender;
-            //"Link"列ならば、ボタンがクリックされた
-            if (dataGridView.Columns[e.ColumnIndex].Name.Equals("TaskName"))
-            {
-
-                int linkTaskNo = (int)dataGridView["TaskNo", e.RowIndex].Value;
-                Program.Display_TaskDetail(UserId.Text, linkTaskNo);
-                this.Close();  //Form1を閉じる処理
-            }
-        }
-
+        /// <summary>タスク一覧に引数のタスクエンティティリストの値を格納する処理</summary>
+        /// <param name="tasklist">タスクエンティティのリスト</param>
         private void SetData(List<TasksEntity> tasklist)
         {
+            // 空のデータテーブルを初期化
             DataTable newDataTable = null;
 
+            // タスク一覧のデータソース、データテーブルを初期化
             TaskInformation.DataSource = newDataTable;
             tasksDataTable.Clear();
 
+            // 引数のタスクエンティティリストが空かNULLでない場合
             if (tasklist?.Count > 0)
             {
                 foreach (var task in tasklist)
                 {
                     String active;
 
-                    if (task.isActive == true)
+                    // タスク状況がtrueの場合 
+                    if (task.IsActive == true)
                     {
                         active = "未完了";
                     }
@@ -104,97 +106,128 @@ namespace TaskManagement
                         active = "完了";
                     }
 
+                    // データテーブルに引数のタスクエンティティリストの値を格納
                     tasksDataTable.Rows.Add(
-                        task.taskNo,
-                        task.taskName,
-                        task.description,
-                        task.tagName,
-                        task.dueDate,
-                        task.doneDate,
-                        task.updateDate,
+                        task.IntTaskNo,
+                        task.StrTaskName,
+                        task.StrDescription,
+                        task.StrTagName,
+                        task.DueDate,
+                        task.DoneDate,
+                        task.UpdateDate,
                         active
                     );
                 }
             }
 
-            //DataViewを取得
-            DataView dv = tasksDataTable.DefaultView;
-            dv.Sort = "DueDate DESC";
-
+            // タスク一覧のページング、バインド
             SetPagedDataSource();
         }
 
+        /// <summary>タスク一覧のページング、バインド処理</summary>
         private void SetPagedDataSource()
         {
-            DataTable dt = null;
-            int counter = 1;
-            tables.Clear();
+            // バインディングリストを初期化
+            tasksBindingList.Clear();
 
-            foreach (DataRow dr in this.tasksDataTable.Rows)
+            // タスク一覧のページング処理に使用する変数を初期化
+            DataTable dateTable = null;
+            int intCounter = 1;
+
+            // 1ぺージに5レコードずつ表示されるようにページング
+            foreach (DataRow dataRow in this.tasksDataTable.Rows)
             {
-                if (counter == 1)
+                if (intCounter == 1)
                 {
-                    dt = tasksDataTable.Clone();
-                    tables.Add(dt);
+                    dateTable = tasksDataTable.Clone();
+                    tasksBindingList.Add(dateTable);
                 }
 
-                dt.Rows.Add(dr.ItemArray);
+                dateTable.Rows.Add(dataRow.ItemArray);
 
-                if (pageSize < ++counter)
+                if (pageSize < ++intCounter)
                 {
-                    counter = 1;
+                    intCounter = 1;
                 }
             }
 
-            this.bindingNavigator1.BindingSource = bindingSource;
-
-            bindingSource.DataSource = tables;
-
-            bindingSource.PositionChanged += bindingSource_PositionChanged;
-
-            bindingSource_PositionChanged(bindingSource, EventArgs.Empty);
-
+            // ページング済みのデータをバインドする
+            this.tasksBindingNavigator.BindingSource = tasksBindingSource;
+            tasksBindingSource.DataSource = tasksBindingList;
+            tasksBindingSource.PositionChanged += BindingSource_PositionChanged;
+            BindingSource_PositionChanged(tasksBindingSource, EventArgs.Empty);
         }
 
-        private void bindingSource_PositionChanged(object sender, EventArgs e)
+        /// <summary>タスク一覧のページ切り替え処理</summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void BindingSource_PositionChanged(object sender, EventArgs e)
         {
-            if (tables?.Count > 0)
+            // バインディングリストが空かNULLでない場合
+            if (tasksBindingList?.Count > 0)
             {
-                this.TaskInformation.DataSource = tables[bindingSource.Position];
+                this.TaskInformation.DataSource = tasksBindingList[tasksBindingSource.Position];
             }
         }
 
+        /// <summary>タスク一覧のタスク名をクリック時の処理</summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void TaskInformation_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            DataGridView dataGridView = (DataGridView)sender;
 
+            // タスク名のカラムのセルがクリックされた場合
+            if (dataGridView.Columns[e.ColumnIndex].Name.Equals("TaskName"))
+            {
+                // クリックされたタスク名のタスク番号を取得
+                int linkTaskNo = (int)dataGridView["TaskNo", e.RowIndex].Value;
+
+                // 詳細画面に遷移
+                Program.Display_TaskDetail(userId.Text, linkTaskNo);
+
+                // 一覧画面を閉じる
+                this.Close();
+            }
+        }
+
+        /// <summary>削除ボタン押下時の処理</summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void DeleteBtn_Click(object sender, EventArgs e)
         {
-            List<int> checkedTaskNo = new List<int>();
+            List<int> checkedTaskNo = new();
 
+            // タスクテーブルのDAO取得
             TasksDao tasksDao = new();
 
+            // チェックボックスが選択されているタスクを読み込み、タスク番号をリストに格納
             for (int i = 0; i < TaskInformation.RowCount; i++)
-
             {
-                ////チェックボックスのチェックされている行を読み込み
                 if (TaskInformation.Rows[i].Cells["IsCheck"].Value != null)
                 {
-                    //セルのValueをbool型で受け取るのがポイント！
                     if ((bool)TaskInformation.Rows[i].Cells["IsCheck"].Value)
-                    { 
+                    {
                         checkedTaskNo.Add((int)TaskInformation.Rows[i].Cells["TaskNo"].Value);
                     }
                 }
-
             }
 
+            // チェックボックスが選択されている場合
             if (checkedTaskNo?.Count > 0)
             {
                 DialogResult result = MessageBox.Show("選択したタスクを削除しますか？", "タスクの削除", MessageBoxButtons.YesNo);
 
+                // Yesの場合
                 if (result == System.Windows.Forms.DialogResult.Yes)
                 {
+                    // チェックボックスが選択されていたタスクを削除
                     tasksDao.DeleteTask(checkedTaskNo);
-                    var taskList = tasksDao.SelectMatch(txtTaskName.Text, tagComboBox.Text, txtDateFrom.Text, txtDateTo.Text, txtDueDate.Text, activeComboBox.Text, UserId.Text);
 
+                    // 入力されている検索条件で検索
+                    var taskList = tasksDao.SelectMatch(txtTaskName.Text, tagComboBox.Text, txtDateFrom.Text, txtDateTo.Text, txtDueDate.Text, activeComboBox.Text, userId.Text);
+
+                    // 検索結果をタスク一覧に格納
                     SetData(taskList);
                 }
                 else
@@ -204,23 +237,26 @@ namespace TaskManagement
             }
         }
 
+        /// <summary>完了ボタン押下時の処理</summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void DoneBtn_Click(object sender, EventArgs e)
         {
-            List<int> checkedTaskNo = new List<int>();
+            List<int> checkedTaskNo = new();
 
+            // タスクテーブルのDAO取得
             TasksDao tasksDao = new();
 
+            // チェックボックスが選択されているタスクを読み込み、タスク番号をリストに格納
             for (int i = 0; i < TaskInformation.RowCount; i++)
-
             {
-                ////チェックボックスのチェックされている行を読み込み
                 if (TaskInformation.Rows[i].Cells["IsCheck"].Value != null)
                 {
-                    //セルのValueをbool型で受け取るのがポイント！
                     if ((bool)TaskInformation.Rows[i].Cells["IsCheck"].Value)
                     {
                         checkedTaskNo.Add((int)TaskInformation.Rows[i].Cells["TaskNo"].Value);
 
+                        // チェックボックスが選択されていたタスクが既に完了済みだった場合
                         if (tasksDao.IsComplete((int)TaskInformation.Rows[i].Cells["TaskNo"].Value))
                         {
                             MessageBox.Show("選択したタスクは既に完了済みです", "入力値エラー");
@@ -230,15 +266,21 @@ namespace TaskManagement
                 }
             }
 
+            // チェックボックスが選択されている場合
             if (checkedTaskNo?.Count > 0)
             {
                 DialogResult result = MessageBox.Show("選択したタスクを完了しますか？", "タスクの完了", MessageBoxButtons.YesNo);
 
+                // Yesの場合
                 if (result == System.Windows.Forms.DialogResult.Yes)
                 {
+                    // チェックボックスが選択されていたタスクを完了済みに変更
                     tasksDao.CompleteTask(checkedTaskNo);
-                    var taskList = tasksDao.SelectMatch(txtTaskName.Text, tagComboBox.Text, txtDateFrom.Text, txtDateTo.Text, txtDueDate.Text, activeComboBox.Text, UserId.Text);
 
+                    // 入力されている検索条件で検索
+                    var taskList = tasksDao.SelectMatch(txtTaskName.Text, tagComboBox.Text, txtDateFrom.Text, txtDateTo.Text, txtDueDate.Text, activeComboBox.Text, userId.Text);
+
+                    // 検索結果をタスク一覧に格納
                     SetData(taskList);
                 }
                 else
@@ -248,8 +290,12 @@ namespace TaskManagement
             }
         }
 
+        /// <summary>検索ボタン押下時の処理</summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void SelectBtn_Click(object sender, EventArgs e)
         {
+            // タスク完了期限(開始日)が、タスク完了期限(終了日)より後の日付だった場合
             if (!String.IsNullOrEmpty(txtDateTo.Text) && txtDateFrom.Text.CompareTo(txtDateTo.Text) == 1)
             {
                 MessageBox.Show("タスク完了期限(開始日)は、タスク完了期限(終了日)と同じか前の日付を設定してください", "入力値エラー");
@@ -257,20 +303,35 @@ namespace TaskManagement
             }
             else
             {
+                // タスクテーブルのDAO取得
                 TasksDao tasksDao = new();
-                var taskList = tasksDao.SelectMatch(txtTaskName.Text, tagComboBox.Text, txtDateFrom.Text, txtDateTo.Text, txtDueDate.Text, activeComboBox.Text, UserId.Text);
+
+                // 入力されている検索条件で検索
+                var taskList = tasksDao.SelectMatch(txtTaskName.Text, tagComboBox.Text, txtDateFrom.Text, txtDateTo.Text, txtDueDate.Text, activeComboBox.Text, userId.Text);
+
+                // 検索結果をタスク一覧に格納
                 SetData(taskList);
             }
         }
 
+        /// <summary>新規作成ボタン押下時の処理</summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void CreateTaskBtn_Click(object sender, EventArgs e)
         {
-            Program.Display_TaskDetail(UserId.Text, 0);
-            this.Close();  //Form1を閉じる処理
+            // 詳細画面に遷移
+            Program.Display_TaskDetail(userId.Text, 0);
+
+            // 一覧画面を閉じる
+            this.Close();
         }
 
+        /// <summary>検索条件リセットボタン押下時の処理</summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ResetBtn_Click(object sender, EventArgs e)
         {
+            // 検索欄（テキストボックス）は空欄に、検索欄（コンボボックス）は「全て」に変更
             txtTaskName.Text = "";
             tagComboBox.SelectedIndex = 0;
             txtDateFrom.Text = "";
@@ -279,30 +340,43 @@ namespace TaskManagement
             activeComboBox.SelectedIndex = 0;
         }
 
+        /// <summary>ログアウトボタン押下時の処理</summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void logoutBtn_Click(object sender, EventArgs e)
         {
+            // ログイン画面に遷移
             Program.Display_Login();
-            this.Close();  //Form1を閉じる処理
 
-        }
-        private void btnDateTo_Click(object sender, EventArgs e)
-        {
-            // カレンダ表示処理
-            FormCalendar.inputCalenda(this, txtDateTo, btnDateTo);
+            // 一覧画面を閉じる
+            this.Close();
         }
 
+        /// <summary>タスク完了期限（開始日）ボタン押下時の処理</summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnDateFrom_Click(object sender, EventArgs e)
         {
-            // カレンダ表示処理
+            // カレンダー表示処理
             FormCalendar.inputCalenda(this, txtDateFrom, btnDateFrom);
         }
 
-        private void btnDateDone_Click(object sender, EventArgs e)
+        /// <summary>タスク完了期限（終了日）ボタン押下時の処理</summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnDateTo_Click(object sender, EventArgs e)
         {
-            // カレンダ表示処理
-            FormCalendar.inputCalenda(this, txtDueDate, btnDateDone);
+            // カレンダー表示処理
+            FormCalendar.inputCalenda(this, txtDateTo, btnDateTo);
         }
 
-
+        /// <summary>タスク完了日ボタン押下時の処理</summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnDateDone_Click(object sender, EventArgs e)
+        {
+            // カレンダー表示処理
+            FormCalendar.inputCalenda(this, txtDueDate, maxDateBtn);
+        }
     }
 }

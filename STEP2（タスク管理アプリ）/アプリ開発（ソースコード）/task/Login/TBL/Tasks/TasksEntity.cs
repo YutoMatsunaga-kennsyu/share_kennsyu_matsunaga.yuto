@@ -6,17 +6,18 @@ using System.Threading.Tasks;
 
 namespace TaskManagement
 {
+    /// <summary>タスクテーブルのエンティティ</summary>
     public class TasksEntity
     {
-        public int taskNo { get; set; }
-        public int userId { get; set; }
-        public String taskName { get; set; }
-        public String description { get; set; }
-        public int tagNo { get; set; }
-        public DateTime dueDate { get; set; }
-        public DateTime? doneDate { get; set; }
-        public DateTime updateDate { get; set; }
-        public Boolean isActive { get; set; }
-        public String tagName { get; set; }
+        public int IntTaskNo { get; set; }
+        public int IntUserId { get; set; }
+        public String StrTaskName { get; set; }
+        public String StrDescription { get; set; }
+        public int IntTagNo { get; set; }
+        public DateTime DueDate { get; set; }
+        public DateTime? DoneDate { get; set; }
+        public DateTime UpdateDate { get; set; }
+        public Boolean IsActive { get; set; }
+        public String StrTagName { get; set; }
     }
 }

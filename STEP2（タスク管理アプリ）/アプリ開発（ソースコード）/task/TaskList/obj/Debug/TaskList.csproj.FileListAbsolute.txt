@@ -1,7 +1,0 @@
-C:\Users\yuto1\OneDrive\ドキュメント\share_kennsyu_matsunaga.yuto\STEP2（タスク管理アプリ）\アプリ開発（ソースコード）\task\TaskList\obj\Debug\TaskList.csproj.AssemblyReference.cache
-C:\Users\yuto1\OneDrive\ドキュメント\share_kennsyu_matsunaga.yuto\STEP2（タスク管理アプリ）\アプリ開発（ソースコード）\task\TaskList\obj\Debug\TaskList.csproj.SuggestedBindingRedirects.cache
-C:\Users\yuto1\OneDrive\ドキュメント\share_kennsyu_matsunaga.yuto\STEP2（タスク管理アプリ）\アプリ開発（ソースコード）\task\TaskList\obj\Debug\TaskList.exe.config
-C:\Users\yuto1\OneDrive\ドキュメント\share_kennsyu_matsunaga.yuto\STEP2（タスク管理アプリ）\アプリ開発（ソースコード）\task\TaskList\obj\Debug\TaskList.Properties.Resources.resources
-C:\Users\yuto1\OneDrive\ドキュメント\share_kennsyu_matsunaga.yuto\STEP2（タスク管理アプリ）\アプリ開発（ソースコード）\task\TaskList\obj\Debug\TaskList.TaskList.resources
-C:\Users\yuto1\OneDrive\ドキュメント\share_kennsyu_matsunaga.yuto\STEP2（タスク管理アプリ）\アプリ開発（ソースコード）\task\TaskList\obj\Debug\TaskList.csproj.GenerateResource.cache
-C:\Users\yuto1\OneDrive\ドキュメント\share_kennsyu_matsunaga.yuto\STEP2（タスク管理アプリ）\アプリ開発（ソースコード）\task\TaskList\obj\Debug\TaskList.csproj.CoreCompileInputs.cache

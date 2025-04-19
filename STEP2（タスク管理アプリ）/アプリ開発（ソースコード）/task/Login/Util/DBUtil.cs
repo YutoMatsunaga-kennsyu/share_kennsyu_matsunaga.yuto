@@ -7,10 +7,14 @@ using MySqlConnector;
 
 namespace TaskManagement
 {
+    ///<summary>DB接続クラス</summary>
     public class DBUtil
     {
-        private readonly string connectionString = "Server=localhost; Uid=root; Pwd=atgs; Database=task_management; Allow User Variables=true;";
+        //DB接続文字列
+        private readonly String connectionString = "Server=localhost; Uid=root; Pwd=atgs; Database=task_management; Allow User Variables=true;";
 
+        /// <summary>MySQLへの接続</summary>
+        /// <returns>connection MySQL</returns>
         public MySqlConnection GetMySqlConnection()
         {
             return new MySqlConnection(connectionString);

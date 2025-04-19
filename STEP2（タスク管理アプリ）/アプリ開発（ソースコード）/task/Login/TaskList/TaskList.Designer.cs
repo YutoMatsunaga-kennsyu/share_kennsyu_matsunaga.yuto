@@ -51,7 +51,7 @@
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.Re = new System.Windows.Forms.ToolStripLabel();
             this.logoutBtn = new System.Windows.Forms.ToolStripButton();
-            this.UserId = new System.Windows.Forms.ToolStripLabel();
+            this.userId = new System.Windows.Forms.ToolStripLabel();
             this.TaskInformation = new System.Windows.Forms.DataGridView();
             this.TaskNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.TaskName = new System.Windows.Forms.DataGridViewLinkColumn();
@@ -73,12 +73,12 @@
             this.txtDateFrom = new System.Windows.Forms.TextBox();
             this.txtDateTo = new System.Windows.Forms.TextBox();
             this.btnDateFrom = new System.Windows.Forms.Button();
-            this.btnDateDone = new System.Windows.Forms.Button();
+            this.maxDateBtn = new System.Windows.Forms.Button();
             this.txtDueDate = new System.Windows.Forms.TextBox();
             this.DoneBtn = new System.Windows.Forms.Button();
             this.DeleteBtn = new System.Windows.Forms.Button();
             this.bindingSource1 = new System.Windows.Forms.BindingSource(this.components);
-            this.bindingNavigator1 = new System.Windows.Forms.BindingNavigator(this.components);
+            this.tasksBindingNavigator = new System.Windows.Forms.BindingNavigator(this.components);
             this.bindingNavigatorCountItem = new System.Windows.Forms.ToolStripLabel();
             this.bindingNavigatorMoveFirstItem = new System.Windows.Forms.ToolStripButton();
             this.bindingNavigatorMovePreviousItem = new System.Windows.Forms.ToolStripButton();
@@ -91,8 +91,8 @@
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.TaskInformation)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bindingNavigator1)).BeginInit();
-            this.bindingNavigator1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.tasksBindingNavigator)).BeginInit();
+            this.tasksBindingNavigator.SuspendLayout();
             this.SuspendLayout();
             // 
             // tagComboBox
@@ -186,11 +186,11 @@
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.Re,
             this.logoutBtn,
-            this.UserId});
+            this.userId});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-            this.toolStrip1.Size = new System.Drawing.Size(1339, 27);
+            this.toolStrip1.Size = new System.Drawing.Size(1339, 31);
             this.toolStrip1.TabIndex = 10;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -200,26 +200,26 @@
             this.Re.BackColor = System.Drawing.Color.MediumSeaGreen;
             this.Re.Font = new System.Drawing.Font("メイリオ", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.Re.Name = "Re";
-            this.Re.Size = new System.Drawing.Size(29, 24);
+            this.Re.Size = new System.Drawing.Size(29, 28);
             this.Re.Text = "Re";
             // 
             // logoutBtn
             // 
             this.logoutBtn.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
             this.logoutBtn.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.logoutBtn.Image = global::Login.Properties.Resources.ログアウトイラスト1;
+            this.logoutBtn.Image = global::TaskManagement.Properties.Resources.ログアウトイラスト1;
             this.logoutBtn.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.logoutBtn.Name = "logoutBtn";
-            this.logoutBtn.Size = new System.Drawing.Size(29, 24);
+            this.logoutBtn.Size = new System.Drawing.Size(29, 28);
             this.logoutBtn.Text = "toolStripButton1";
             this.logoutBtn.Click += new System.EventHandler(this.logoutBtn_Click);
             // 
             // UserId
             // 
-            this.UserId.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.UserId.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.UserId.Name = "UserId";
-            this.UserId.Size = new System.Drawing.Size(0, 24);
+            this.userId.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.userId.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            this.userId.Name = "UserId";
+            this.userId.Size = new System.Drawing.Size(0, 28);
             // 
             // TaskInformation
             // 
@@ -521,18 +521,18 @@
             this.btnDateFrom.UseVisualStyleBackColor = false;
             this.btnDateFrom.Click += new System.EventHandler(this.btnDateFrom_Click);
             // 
-            // btnDateDone
+            // maxDateBtn
             // 
-            this.btnDateDone.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.btnDateDone.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnDateDone.Font = new System.Drawing.Font("メイリオ", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.btnDateDone.Location = new System.Drawing.Point(956, 135);
-            this.btnDateDone.Name = "btnDateDone";
-            this.btnDateDone.Size = new System.Drawing.Size(29, 30);
-            this.btnDateDone.TabIndex = 27;
-            this.btnDateDone.Text = "▼\r\n\r\n";
-            this.btnDateDone.UseVisualStyleBackColor = false;
-            this.btnDateDone.Click += new System.EventHandler(this.btnDateDone_Click);
+            this.maxDateBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.maxDateBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.maxDateBtn.Font = new System.Drawing.Font("メイリオ", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.maxDateBtn.Location = new System.Drawing.Point(956, 135);
+            this.maxDateBtn.Name = "maxDateBtn";
+            this.maxDateBtn.Size = new System.Drawing.Size(29, 30);
+            this.maxDateBtn.TabIndex = 27;
+            this.maxDateBtn.Text = "▼\r\n\r\n";
+            this.maxDateBtn.UseVisualStyleBackColor = false;
+            this.maxDateBtn.Click += new System.EventHandler(this.btnDateDone_Click);
             // 
             // txtDueDate
             // 
@@ -578,12 +578,12 @@
             // 
             // bindingNavigator1
             // 
-            this.bindingNavigator1.AddNewItem = null;
-            this.bindingNavigator1.CountItem = this.bindingNavigatorCountItem;
-            this.bindingNavigator1.DeleteItem = null;
-            this.bindingNavigator1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.bindingNavigator1.ImageScalingSize = new System.Drawing.Size(20, 20);
-            this.bindingNavigator1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tasksBindingNavigator.AddNewItem = null;
+            this.tasksBindingNavigator.CountItem = this.bindingNavigatorCountItem;
+            this.tasksBindingNavigator.DeleteItem = null;
+            this.tasksBindingNavigator.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.tasksBindingNavigator.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.tasksBindingNavigator.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.bindingNavigatorMoveFirstItem,
             this.bindingNavigatorMovePreviousItem,
             this.bindingNavigatorSeparator,
@@ -593,21 +593,21 @@
             this.bindingNavigatorMoveNextItem,
             this.bindingNavigatorMoveLastItem,
             this.bindingNavigatorSeparator2});
-            this.bindingNavigator1.Location = new System.Drawing.Point(0, 601);
-            this.bindingNavigator1.MoveFirstItem = this.bindingNavigatorMoveFirstItem;
-            this.bindingNavigator1.MoveLastItem = this.bindingNavigatorMoveLastItem;
-            this.bindingNavigator1.MoveNextItem = this.bindingNavigatorMoveNextItem;
-            this.bindingNavigator1.MovePreviousItem = this.bindingNavigatorMovePreviousItem;
-            this.bindingNavigator1.Name = "bindingNavigator1";
-            this.bindingNavigator1.PositionItem = this.bindingNavigatorPositionItem;
-            this.bindingNavigator1.Size = new System.Drawing.Size(1339, 27);
-            this.bindingNavigator1.TabIndex = 31;
-            this.bindingNavigator1.Text = "bindingNavigator1";
+            this.tasksBindingNavigator.Location = new System.Drawing.Point(0, 597);
+            this.tasksBindingNavigator.MoveFirstItem = this.bindingNavigatorMoveFirstItem;
+            this.tasksBindingNavigator.MoveLastItem = this.bindingNavigatorMoveLastItem;
+            this.tasksBindingNavigator.MoveNextItem = this.bindingNavigatorMoveNextItem;
+            this.tasksBindingNavigator.MovePreviousItem = this.bindingNavigatorMovePreviousItem;
+            this.tasksBindingNavigator.Name = "bindingNavigator1";
+            this.tasksBindingNavigator.PositionItem = this.bindingNavigatorPositionItem;
+            this.tasksBindingNavigator.Size = new System.Drawing.Size(1339, 31);
+            this.tasksBindingNavigator.TabIndex = 31;
+            this.tasksBindingNavigator.Text = "bindingNavigator1";
             // 
             // bindingNavigatorCountItem
             // 
             this.bindingNavigatorCountItem.Name = "bindingNavigatorCountItem";
-            this.bindingNavigatorCountItem.Size = new System.Drawing.Size(37, 24);
+            this.bindingNavigatorCountItem.Size = new System.Drawing.Size(37, 28);
             this.bindingNavigatorCountItem.Text = "/ {0}";
             this.bindingNavigatorCountItem.ToolTipText = "項目の総数";
             // 
@@ -617,7 +617,7 @@
             this.bindingNavigatorMoveFirstItem.Image = ((System.Drawing.Image)(resources.GetObject("bindingNavigatorMoveFirstItem.Image")));
             this.bindingNavigatorMoveFirstItem.Name = "bindingNavigatorMoveFirstItem";
             this.bindingNavigatorMoveFirstItem.RightToLeftAutoMirrorImage = true;
-            this.bindingNavigatorMoveFirstItem.Size = new System.Drawing.Size(29, 24);
+            this.bindingNavigatorMoveFirstItem.Size = new System.Drawing.Size(29, 28);
             this.bindingNavigatorMoveFirstItem.Text = "最初に移動";
             // 
             // bindingNavigatorMovePreviousItem
@@ -626,13 +626,13 @@
             this.bindingNavigatorMovePreviousItem.Image = ((System.Drawing.Image)(resources.GetObject("bindingNavigatorMovePreviousItem.Image")));
             this.bindingNavigatorMovePreviousItem.Name = "bindingNavigatorMovePreviousItem";
             this.bindingNavigatorMovePreviousItem.RightToLeftAutoMirrorImage = true;
-            this.bindingNavigatorMovePreviousItem.Size = new System.Drawing.Size(29, 24);
+            this.bindingNavigatorMovePreviousItem.Size = new System.Drawing.Size(29, 28);
             this.bindingNavigatorMovePreviousItem.Text = "前に戻る";
             // 
             // bindingNavigatorSeparator
             // 
             this.bindingNavigatorSeparator.Name = "bindingNavigatorSeparator";
-            this.bindingNavigatorSeparator.Size = new System.Drawing.Size(6, 27);
+            this.bindingNavigatorSeparator.Size = new System.Drawing.Size(6, 31);
             // 
             // bindingNavigatorPositionItem
             // 
@@ -647,7 +647,7 @@
             // bindingNavigatorSeparator1
             // 
             this.bindingNavigatorSeparator1.Name = "bindingNavigatorSeparator1";
-            this.bindingNavigatorSeparator1.Size = new System.Drawing.Size(6, 27);
+            this.bindingNavigatorSeparator1.Size = new System.Drawing.Size(6, 31);
             // 
             // bindingNavigatorMoveNextItem
             // 
@@ -655,7 +655,7 @@
             this.bindingNavigatorMoveNextItem.Image = ((System.Drawing.Image)(resources.GetObject("bindingNavigatorMoveNextItem.Image")));
             this.bindingNavigatorMoveNextItem.Name = "bindingNavigatorMoveNextItem";
             this.bindingNavigatorMoveNextItem.RightToLeftAutoMirrorImage = true;
-            this.bindingNavigatorMoveNextItem.Size = new System.Drawing.Size(29, 24);
+            this.bindingNavigatorMoveNextItem.Size = new System.Drawing.Size(29, 28);
             this.bindingNavigatorMoveNextItem.Text = "次に移動";
             // 
             // bindingNavigatorMoveLastItem
@@ -664,24 +664,24 @@
             this.bindingNavigatorMoveLastItem.Image = ((System.Drawing.Image)(resources.GetObject("bindingNavigatorMoveLastItem.Image")));
             this.bindingNavigatorMoveLastItem.Name = "bindingNavigatorMoveLastItem";
             this.bindingNavigatorMoveLastItem.RightToLeftAutoMirrorImage = true;
-            this.bindingNavigatorMoveLastItem.Size = new System.Drawing.Size(29, 24);
+            this.bindingNavigatorMoveLastItem.Size = new System.Drawing.Size(29, 28);
             this.bindingNavigatorMoveLastItem.Text = "最後に移動";
             // 
             // bindingNavigatorSeparator2
             // 
             this.bindingNavigatorSeparator2.Name = "bindingNavigatorSeparator2";
-            this.bindingNavigatorSeparator2.Size = new System.Drawing.Size(6, 27);
+            this.bindingNavigatorSeparator2.Size = new System.Drawing.Size(6, 31);
             // 
             // TaskList
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1339, 628);
-            this.Controls.Add(this.bindingNavigator1);
+            this.Controls.Add(this.tasksBindingNavigator);
             this.Controls.Add(this.DeleteBtn);
             this.Controls.Add(this.DoneBtn);
             this.Controls.Add(this.txtDueDate);
-            this.Controls.Add(this.btnDateDone);
+            this.Controls.Add(this.maxDateBtn);
             this.Controls.Add(this.btnDateFrom);
             this.Controls.Add(this.txtDateTo);
             this.Controls.Add(this.txtDateFrom);
@@ -710,9 +710,9 @@
             this.toolStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.TaskInformation)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bindingNavigator1)).EndInit();
-            this.bindingNavigator1.ResumeLayout(false);
-            this.bindingNavigator1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.tasksBindingNavigator)).EndInit();
+            this.tasksBindingNavigator.ResumeLayout(false);
+            this.tasksBindingNavigator.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -743,7 +743,7 @@
         private System.Windows.Forms.TextBox txtDateFrom;
         private System.Windows.Forms.TextBox txtDateTo;
         private System.Windows.Forms.Button btnDateFrom;
-        private System.Windows.Forms.Button btnDateDone;
+        private System.Windows.Forms.Button maxDateBtn;
         private System.Windows.Forms.TextBox txtDueDate;
         private System.Windows.Forms.Button DoneBtn;
         private System.Windows.Forms.Button DeleteBtn;
@@ -756,7 +756,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Updated_On;
         private System.Windows.Forms.DataGridViewTextBoxColumn Is_Active;
         private System.Windows.Forms.DataGridViewCheckBoxColumn IsCheck;
-        private System.Windows.Forms.BindingNavigator bindingNavigator1;
+        private System.Windows.Forms.BindingNavigator tasksBindingNavigator;
         private System.Windows.Forms.ToolStripLabel bindingNavigatorCountItem;
         private System.Windows.Forms.ToolStripButton bindingNavigatorMoveFirstItem;
         private System.Windows.Forms.ToolStripButton bindingNavigatorMovePreviousItem;
@@ -766,7 +766,7 @@
         private System.Windows.Forms.ToolStripButton bindingNavigatorMoveNextItem;
         private System.Windows.Forms.ToolStripButton bindingNavigatorMoveLastItem;
         private System.Windows.Forms.ToolStripSeparator bindingNavigatorSeparator2;
-        public System.Windows.Forms.ToolStripLabel UserId;
+        public System.Windows.Forms.ToolStripLabel userId;
     }
 }
 

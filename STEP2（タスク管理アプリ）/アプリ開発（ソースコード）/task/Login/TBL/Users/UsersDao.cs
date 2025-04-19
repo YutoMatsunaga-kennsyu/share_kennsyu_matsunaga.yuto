@@ -9,11 +9,23 @@ using System.Collections.Specialized;
 
 namespace TaskManagement
 {
+    /// <summary>ユーザーテーブルのDAO</summary>
     internal class UsersDao
     {
-        public Boolean Authenticate(String userId, String passWord)
+        /// <summary>ログイン認証処理</summary>
+        /// <param name="strUserId"></param>
+        /// <param name="strPassword"></param>
+        /// <returns>ログイン認証結果</returns>
+        public Boolean Authenticate(String strUserId, String strPassword)
         {
-            DBUtil dbUtil = new DBUtil();
+            // DB接続クラスのインスタンス作成
+            DBUtil dbUtil = new();
+
+            // ユーザーエンティティのリスト
+            List<UsersEntity> users = new();
+
+            // 実行クエリ
+            var commandText = "SELECT * FROM users WHERE user_id = @userId AND password = @password;";
 
             // MySQLへの接続
             using var connection = dbUtil.GetMySqlConnection();
@@ -21,29 +33,29 @@ namespace TaskManagement
             // 接続確立
             connection.Open();
 
-            var commandText = "SELECT * FROM users WHERE user_id = @userId AND password = @passWord;";
-
-            // ユーザーエンティティのリスト
-            List<UsersEntity> users = new();
-
             try
             {
                 using var command = new MySqlCommand(commandText, connection);
-                command.Parameters.AddWithValue("@userId", userId);
-                command.Parameters.AddWithValue("@passWord", passWord);
-                // SQLを実行し、結果を取得
+
+                // パラメータの設定
+                command.Parameters.AddWithValue("@userId", strUserId);
+                command.Parameters.AddWithValue("@password", strPassword);
+
+                // クエリ実行
                 using var reader = command.ExecuteReader();
 
+                // クエリの実行結果を、リストに格納
                 while (reader.Read())
                 {
                     users.Add(new UsersEntity()
                     {
-                        userId = (String)reader["user_id"],
-                        userName = (String)reader["user_name"],
-                        password = (String)reader["password"],
+                        StrUserId = (String)reader["user_id"],
+                        StrUserName = (String)reader["user_name"],
+                        StrPassword = (String)reader["password"],
                     });
                 }
 
+                // リストが空かNULLの場合は、falseを返す
                 if (users?.Count > 0)
                 {
                     return false;
