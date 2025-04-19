@@ -99,11 +99,11 @@ namespace TaskManagement
             {
                 whereText += "tag_name = @tag AND ";
             }
-            
-            if(!String.IsNullOrEmpty(dateFrom) && !String.IsNullOrEmpty(dateTo))
+
+            if (!String.IsNullOrEmpty(dateFrom) && !String.IsNullOrEmpty(dateTo))
             {
                 whereText += "due_date BETWEEN @dateFrom AND @dateTo AND ";
-            } 
+            }
             else if (!String.IsNullOrEmpty(dateFrom))
             {
                 whereText += "due_date >= @dateFrom AND ";
@@ -126,7 +126,7 @@ namespace TaskManagement
             whereText += "user_id = @userId ";
 
             var commandText = commandText1 + whereText + commandText2;
- 
+
 
             // 在庫マスタエンティティのリスト
             List<TasksEntity> tasksEntityList = new();
@@ -179,7 +179,7 @@ namespace TaskManagement
                     {
                         command.Parameters.AddWithValue("@active", 0);
                     }
-                    
+
                 }
 
                 command.Parameters.AddWithValue("@userId", userId);
@@ -232,12 +232,23 @@ namespace TaskManagement
             }
         }
 
-        public void DeleteTask(int taskNo)
+        public void DeleteTask(List<int> checkedTaskNo)
         {
             DBUtil dbUtil = new DBUtil();
 
             // 実行SQL
-            var commandText = "DELETE FROM tasks WHERE task_no = @taskNo";
+            var commandText = "DELETE FROM tasks ";
+
+            String whereText = "WHERE task_no IN(";
+
+            foreach (var taskNo in checkedTaskNo)
+            {
+                whereText += "'" + taskNo + "', ";
+            }
+
+            String modifiedWhereText = whereText.Substring(0, whereText.Length - 2) + ");";
+
+            var commandText1 = commandText + modifiedWhereText;
 
             using var connection = dbUtil.GetMySqlConnection();
 
@@ -246,8 +257,7 @@ namespace TaskManagement
 
             try
             {
-                using var command = new MySqlCommand(commandText, connection);
-                command.Parameters.AddWithValue("@taskNo", taskNo);
+                using var command = new MySqlCommand(commandText1, connection);
                 command.ExecuteNonQuery();
             }
             catch (Exception e)
@@ -260,7 +270,7 @@ namespace TaskManagement
             }
         }
 
-        public void CreateTask(String taskName, String description, int tagNo, String dueDate ,String userId)
+        public void CreateTask(String taskName, String description, int tagNo, String dueDate, String userId)
         {
             DBUtil dbUtil = new DBUtil();
 
@@ -293,14 +303,25 @@ namespace TaskManagement
             }
         }
 
-
-
-        public void CompleteTask(int taskNo)
+        public void UpdateTask(int linkTaskNo, String taskName, String description, int tagNo, String dueDate, Boolean prevIsActive, String updatedIsActive)
         {
             DBUtil dbUtil = new DBUtil();
 
-            // 実行SQL
-            var commandText = "UPDATE tasks SET done_date = SYSDATE(), update_date = SYSDATE(), is_active = 0 WHERE task_no = @taskNo";
+            String commandText;
+
+            if (prevIsActive == true && updatedIsActive.Equals("完了"))
+            {
+                commandText = "UPDATE tasks SET task_name = @taskName, description = @description, tag_no = @tagNo, due_date = @dueDate, done_date = SYSDATE(), update_date = SYSDATE(), is_active = '0' WHERE task_no = @taskNo";
+
+            }
+            else if (prevIsActive == false && updatedIsActive.Equals("未完了"))
+            {
+                commandText = "UPDATE tasks SET task_name = @taskName, description = @description, tag_no = @tagNo, due_date = @dueDate, done_date = NULL, update_date = SYSDATE(), is_active = '1' WHERE task_no = @taskNo";
+            }
+            else
+            {
+                commandText = "UPDATE tasks SET task_name = @taskName, description = @description, tag_no = @tagNo, due_date = @dueDate, update_date = SYSDATE() WHERE task_no = @taskNo";
+            }
 
             using var connection = dbUtil.GetMySqlConnection();
 
@@ -310,7 +331,53 @@ namespace TaskManagement
             try
             {
                 using var command = new MySqlCommand(commandText, connection);
-                command.Parameters.AddWithValue("@taskNo", taskNo);
+
+                command.Parameters.AddWithValue("@taskName", taskName);
+                command.Parameters.AddWithValue("@description", description);
+                command.Parameters.AddWithValue("@tagNo", tagNo);
+                command.Parameters.AddWithValue("@dueDate", dueDate);
+                command.Parameters.AddWithValue("@taskNo", linkTaskNo);
+
+                command.ExecuteNonQuery();
+            }
+            catch (Exception e)
+            {
+            }
+            finally
+            {
+                //コネクション終了
+                connection.Close();
+            }
+        }
+
+        public void CompleteTask(List<int> checkedTaskNo)
+        {
+            DBUtil dbUtil = new DBUtil();
+
+            // 実行SQL
+
+            var commandText = "UPDATE tasks SET done_date = SYSDATE(), update_date = SYSDATE(), is_active = 0 ";
+
+            String whereText = "WHERE task_no IN(";
+
+            foreach (var taskNo in checkedTaskNo)
+            {
+                whereText += "'" + taskNo + "', ";
+            }
+
+            String modifiedWhereText = whereText.Substring(0, whereText.Length - 2) + ");";
+
+            var commandText1 = commandText + modifiedWhereText;
+
+            using var connection = dbUtil.GetMySqlConnection();
+
+            // 接続確立
+            connection.Open();
+
+            try
+            {
+                using var command = new MySqlCommand(commandText1, connection);
+            
                 command.ExecuteNonQuery();
             }
             catch (Exception e)

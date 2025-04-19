@@ -89,7 +89,8 @@ namespace TaskManagement
             TaskInformation.DataSource = newDataTable;
             tasksDataTable.Clear();
 
-            if (tasklist?.Count > 0) {
+            if (tasklist?.Count > 0)
+            {
                 foreach (var task in tasklist)
                 {
                     String active;
@@ -166,40 +167,49 @@ namespace TaskManagement
 
         private void DeleteBtn_Click(object sender, EventArgs e)
         {
-            DialogResult result = MessageBox.Show("選択したタスクを削除しますか？", "タスクの削除", MessageBoxButtons.YesNo);
+            List<int> checkedTaskNo = new List<int>();
 
-            if (result == System.Windows.Forms.DialogResult.Yes)
+            TasksDao tasksDao = new();
+
+            for (int i = 0; i < TaskInformation.RowCount; i++)
+
             {
-                TasksDao tasksDao = new();
-
-                for (int i = 0; i < TaskInformation.RowCount; i++)
-
+                ////チェックボックスのチェックされている行を読み込み
+                if (TaskInformation.Rows[i].Cells["IsCheck"].Value != null)
                 {
-                    ////チェックボックスのチェックされている行を読み込み
-                    if (TaskInformation.Rows[i].Cells["IsCheck"].Value != null)
-                    {
-                        //セルのValueをbool型で受け取るのがポイント！
-                        if ((bool)TaskInformation.Rows[i].Cells["IsCheck"].Value)
-                        {
-                            tasksDao.DeleteTask((int)TaskInformation.Rows[i].Cells["TaskNo"].Value);
-                        }
+                    //セルのValueをbool型で受け取るのがポイント！
+                    if ((bool)TaskInformation.Rows[i].Cells["IsCheck"].Value)
+                    { 
+                        checkedTaskNo.Add((int)TaskInformation.Rows[i].Cells["TaskNo"].Value);
                     }
-
                 }
 
-                var taskList = tasksDao.SelectMatch(txtTaskName.Text, tagComboBox.Text, txtDateFrom.Text, txtDateTo.Text, txtDueDate.Text, activeComboBox.Text, UserId.Text);
-
-                SetData(taskList);
             }
-            else
+
+            if (checkedTaskNo?.Count > 0)
             {
-                return;
+                DialogResult result = MessageBox.Show("選択したタスクを削除しますか？", "タスクの削除", MessageBoxButtons.YesNo);
+
+                if (result == System.Windows.Forms.DialogResult.Yes)
+                {
+                    tasksDao.DeleteTask(checkedTaskNo);
+                    var taskList = tasksDao.SelectMatch(txtTaskName.Text, tagComboBox.Text, txtDateFrom.Text, txtDateTo.Text, txtDueDate.Text, activeComboBox.Text, UserId.Text);
+
+                    SetData(taskList);
+                }
+                else
+                {
+                    return;
+                }
             }
         }
 
         private void DoneBtn_Click(object sender, EventArgs e)
         {
+            List<int> checkedTaskNo = new List<int>();
+
             TasksDao tasksDao = new();
+
             for (int i = 0; i < TaskInformation.RowCount; i++)
 
             {
@@ -209,6 +219,8 @@ namespace TaskManagement
                     //セルのValueをbool型で受け取るのがポイント！
                     if ((bool)TaskInformation.Rows[i].Cells["IsCheck"].Value)
                     {
+                        checkedTaskNo.Add((int)TaskInformation.Rows[i].Cells["TaskNo"].Value);
+
                         if (tasksDao.IsComplete((int)TaskInformation.Rows[i].Cells["TaskNo"].Value))
                         {
                             MessageBox.Show("選択したタスクは既に完了済みです", "入力値エラー");
@@ -218,34 +230,27 @@ namespace TaskManagement
                 }
             }
 
-            DialogResult result = MessageBox.Show("選択したタスクを完了しますか？", "タスクの完了", MessageBoxButtons.YesNo);
-
-            if (result == System.Windows.Forms.DialogResult.Yes)
+            if (checkedTaskNo?.Count > 0)
             {
-                for (int i = 0; i < TaskInformation.RowCount; i++)
+                DialogResult result = MessageBox.Show("選択したタスクを完了しますか？", "タスクの完了", MessageBoxButtons.YesNo);
 
+                if (result == System.Windows.Forms.DialogResult.Yes)
                 {
-                    ////チェックボックスのチェックされている行を読み込み
-                    if (TaskInformation.Rows[i].Cells["IsCheck"].Value != null)
-                    {
-                        //セルのValueをbool型で受け取るのがポイント！
-                        if ((bool)TaskInformation.Rows[i].Cells["IsCheck"].Value)
-                        {
-                            tasksDao.CompleteTask((int)TaskInformation.Rows[i].Cells["TaskNo"].Value);
-                        }
-                    }
+                    tasksDao.CompleteTask(checkedTaskNo);
+                    var taskList = tasksDao.SelectMatch(txtTaskName.Text, tagComboBox.Text, txtDateFrom.Text, txtDateTo.Text, txtDueDate.Text, activeComboBox.Text, UserId.Text);
 
+                    SetData(taskList);
                 }
-
-                var taskList = tasksDao.SelectMatch(txtTaskName.Text, tagComboBox.Text, txtDateFrom.Text, txtDateTo.Text, txtDueDate.Text, activeComboBox.Text, UserId.Text);
-
-                SetData(taskList);
+                else
+                {
+                    return;
+                }
             }
         }
 
         private void SelectBtn_Click(object sender, EventArgs e)
         {
-            if(txtDateFrom.Text.CompareTo(txtDateTo.Text) == 1)
+            if (!String.IsNullOrEmpty(txtDateTo.Text) && txtDateFrom.Text.CompareTo(txtDateTo.Text) == 1)
             {
                 MessageBox.Show("タスク完了期限(開始日)は、タスク完了期限(終了日)と同じか前の日付を設定してください", "入力値エラー");
                 return;

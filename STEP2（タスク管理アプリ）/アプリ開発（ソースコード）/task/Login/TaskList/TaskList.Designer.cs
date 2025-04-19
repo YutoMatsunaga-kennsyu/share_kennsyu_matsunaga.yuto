@@ -113,6 +113,7 @@
             this.txtTaskName.Font = new System.Drawing.Font("メイリオ", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.txtTaskName.Location = new System.Drawing.Point(26, 131);
             this.txtTaskName.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.txtTaskName.MaxLength = 15;
             this.txtTaskName.Name = "txtTaskName";
             this.txtTaskName.Size = new System.Drawing.Size(257, 30);
             this.txtTaskName.TabIndex = 2;

@@ -219,7 +219,7 @@
             // txtDueDate
             // 
             this.txtDueDate.Font = new System.Drawing.Font("メイリオ", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.txtDueDate.Location = new System.Drawing.Point(25, 277);
+            this.txtDueDate.Location = new System.Drawing.Point(25, 276);
             this.txtDueDate.Name = "txtDueDate";
             this.txtDueDate.ReadOnly = true;
             this.txtDueDate.Size = new System.Drawing.Size(120, 30);

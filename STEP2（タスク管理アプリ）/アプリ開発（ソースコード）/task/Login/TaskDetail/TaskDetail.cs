@@ -14,15 +14,20 @@ namespace TaskManagement
 {
     public partial class TaskDetail : Form
     {
+        int pubLinkTaskNo;
+        Boolean prevTaskIsActive;
+
         public TaskDetail(String userId, int linkTaskNo)
         {
             InitializeComponent();
+
+            pubLinkTaskNo = linkTaskNo;
 
             TaskTagsDao taskTagsDao = new TaskTagsDao();
             List<TaskTagsEntity> taskTagsList = taskTagsDao.getTaskTagsName();
 
             TasksDao tasksDao = new TasksDao();
-            List<TasksEntity> taskList = tasksDao.getTaskInformation(linkTaskNo);
+            List<TasksEntity> taskList = tasksDao.getTaskInformation(pubLinkTaskNo);
 
             foreach (var taskTag in taskTagsList)
             {
@@ -31,7 +36,7 @@ namespace TaskManagement
 
             this.userId.Text = userId;
 
-            if (linkTaskNo == 0)
+            if (pubLinkTaskNo == 0)
             {
                 taskDetailTitle.Text = "タスク登録";
                 ConfirmBtn.Text = "登録";
@@ -53,7 +58,8 @@ namespace TaskManagement
                     txtDescription.Text = task.description;
                     tagComboBox.SelectedIndex = task.tagNo - 1;
                     txtDueDate.Text = task.dueDate.ToString("yyyy/MM/dd");
-                    if(task.isActive == true)
+                    prevTaskIsActive = task.isActive;
+                    if (task.isActive == true)
                     {
                         activeComboBox.SelectedIndex = 0;
                     }
@@ -80,7 +86,7 @@ namespace TaskManagement
         {
             
             
-            MessageBox.Show("入力した内容でタスクを修正しますか？", "タスクの修正", MessageBoxButtons.YesNo);
+            
             
         }
 
@@ -98,23 +104,48 @@ namespace TaskManagement
 
         private void ConfirmBtn_Click(object sender, EventArgs e)
         {
-            if ((string.IsNullOrEmpty(txtTaskName.Text)) || (string.IsNullOrEmpty(txtDueDate.Text)))
+
+
+            if (ConfirmBtn.Text.Equals("登録"))
             {
-                MessageBox.Show("タスク名、またはタスク完了期限が未入力です", "入力値エラー");
-                return;
+                if ((string.IsNullOrEmpty(txtTaskName.Text)) || (string.IsNullOrEmpty(txtDueDate.Text)))
+                {
+                    MessageBox.Show("タスク名、またはタスク完了期限が未入力です", "入力値エラー");
+                    return;
+                }
+
+                DialogResult result = MessageBox.Show("入力した内容でタスクを登録しますか？", "タスクの登録", MessageBoxButtons.YesNo);
+
+                if (result == System.Windows.Forms.DialogResult.Yes)
+                {
+                    TasksDao tasksDao = new TasksDao();
+                    tasksDao.CreateTask(txtTaskName.Text, txtDescription.Text, tagComboBox.SelectedIndex + 1, txtDueDate.Text, this.userId.Text);
+                    txtTaskName.Text = "";
+                    tagComboBox.SelectedIndex = 0;
+                    txtDueDate.Text = "";
+                    txtDescription.Text = "";
+                    activeComboBox.SelectedIndex = 0;
+                }
+            }
+            else if (ConfirmBtn.Text.Equals("修正"))
+            {
+                if ((string.IsNullOrEmpty(txtTaskName.Text)))
+                {
+                    MessageBox.Show("タスク名が未入力です", "入力値エラー");
+                    return;
+                }
+
+                DialogResult result = MessageBox.Show("入力した内容でタスクを修正しますか？", "タスクの修正", MessageBoxButtons.YesNo);
+
+                if (result == System.Windows.Forms.DialogResult.Yes)
+                {
+                    TasksDao tasksDao = new TasksDao();
+                    tasksDao.UpdateTask(pubLinkTaskNo ,txtTaskName.Text, txtDescription.Text, tagComboBox.SelectedIndex + 1, txtDueDate.Text, prevTaskIsActive, activeComboBox.Text);
+                    Program.Display_TaskList(userId.Text);
+                    this.Close();  //Form1を閉じる処理
+                }
             }
 
-            DialogResult result = MessageBox.Show("入力した内容でタスクを登録しますか？", "タスクの登録", MessageBoxButtons.YesNo);
-
-            if (result == System.Windows.Forms.DialogResult.Yes)
-            {
-                TasksDao tasksDao = new TasksDao();
-                tasksDao.CreateTask(txtTaskName.Text, txtDescription.Text, tagComboBox.SelectedIndex + 1, txtDueDate.Text, this.userId.Text);
-                txtTaskName.Text = "";
-                tagComboBox.SelectedIndex = 0;
-                txtDueDate.Text = "";
-                activeComboBox.SelectedIndex = 0;
-            }
         }
 
         private void logoutBtn_Click(object sender, EventArgs e)
