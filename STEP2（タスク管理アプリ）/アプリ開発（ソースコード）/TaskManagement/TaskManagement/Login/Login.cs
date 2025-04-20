@@ -26,9 +26,9 @@ namespace TaskManagement
         private void LoginBtn_Click(object sender, EventArgs e)
         {
             // ユーザー名、またはパスワードが空かNULLの場合
-            if ((string.IsNullOrEmpty(userNameTextBox.Text)) || (string.IsNullOrEmpty(passwordTextBox.Text)))
+            if ((string.IsNullOrEmpty(userIdTextBox.Text)) || (string.IsNullOrEmpty(passwordTextBox.Text)))
             {
-                MessageBox.Show("ユーザー名、またはパスワードが未入力です", "入力値エラー");
+                MessageBox.Show("ユーザーID、またはパスワードが未入力です", "入力値エラー");
                 return;
             }
 
@@ -36,14 +36,14 @@ namespace TaskManagement
             UsersDao usersDao = new();
 
             // ログイン認証処理
-            if (usersDao.Authenticate(userNameTextBox.Text, passwordTextBox.Text))
+            if (usersDao.Authenticate(userIdTextBox.Text, passwordTextBox.Text))
             {
-                MessageBox.Show("ユーザー名、またはパスワードが間違っています", "ログインエラー");
+                MessageBox.Show("ユーザーID、またはパスワードが間違っています", "ログインエラー");
                 return;
             }
 
             // 一覧画面に遷移
-            Program.Display_TaskList(userNameTextBox.Text);
+            Program.Display_TaskList(userIdTextBox.Text);
 
             // ログイン画面を閉じる
             this.Close();

@@ -32,7 +32,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.userNameTextBox = new TaskManagement.TextBoxEx();
+            this.userIdTextBox = new TaskManagement.TextBoxEx();
             this.passwordTextBox = new TaskManagement.TextBoxEx();
             this.SuspendLayout();
             // 
@@ -85,13 +85,13 @@
             // 
             // userNameTextBox
             // 
-            this.userNameTextBox.Font = new System.Drawing.Font("MS UI Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.userNameTextBox.Location = new System.Drawing.Point(44, 307);
-            this.userNameTextBox.MaxLength = 20;
-            this.userNameTextBox.Name = "userNameTextBox";
-            this.userNameTextBox.Placeholder = "Username";
-            this.userNameTextBox.Size = new System.Drawing.Size(387, 27);
-            this.userNameTextBox.TabIndex = 5;
+            this.userIdTextBox.Font = new System.Drawing.Font("MS UI Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.userIdTextBox.Location = new System.Drawing.Point(44, 307);
+            this.userIdTextBox.MaxLength = 20;
+            this.userIdTextBox.Name = "userNameTextBox";
+            this.userIdTextBox.Placeholder = "UserID";
+            this.userIdTextBox.Size = new System.Drawing.Size(387, 27);
+            this.userIdTextBox.TabIndex = 5;
             // 
             // passwordTextBox
             // 
@@ -111,7 +111,7 @@
             this.BackColor = System.Drawing.Color.Azure;
             this.ClientSize = new System.Drawing.Size(482, 653);
             this.Controls.Add(this.passwordTextBox);
-            this.Controls.Add(this.userNameTextBox);
+            this.Controls.Add(this.userIdTextBox);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
@@ -129,7 +129,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
-        public TaskManagement.TextBoxEx userNameTextBox;
+        public TaskManagement.TextBoxEx userIdTextBox;
         private TaskManagement.TextBoxEx passwordTextBox;
     }
 }
