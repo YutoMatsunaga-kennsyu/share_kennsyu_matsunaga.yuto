@@ -38,6 +38,7 @@
             this.userId = new System.Windows.Forms.ToolStripLabel();
             this.backLink = new System.Windows.Forms.LinkLabel();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.panel2 = new System.Windows.Forms.Panel();
             this.txtDescription = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.activeComboBox = new System.Windows.Forms.ComboBox();
@@ -47,8 +48,10 @@
             this.txtTaskName = new System.Windows.Forms.TextBox();
             this.ConfirmBtn = new System.Windows.Forms.Button();
             this.taskDetailTitle = new System.Windows.Forms.Label();
+            this.panel3 = new System.Windows.Forms.Panel();
             this.toolStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
+            this.panel3.SuspendLayout();
             this.SuspendLayout();
             // 
             // NameLabel
@@ -152,6 +155,7 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.White;
+            this.panel1.Controls.Add(this.panel2);
             this.panel1.Controls.Add(this.txtDescription);
             this.panel1.Controls.Add(this.label2);
             this.panel1.Controls.Add(this.activeComboBox);
@@ -167,6 +171,13 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(583, 400);
             this.panel1.TabIndex = 23;
+            // 
+            // panel2
+            // 
+            this.panel2.Location = new System.Drawing.Point(487, 406);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(96, 46);
+            this.panel2.TabIndex = 31;
             // 
             // txtDescription
             // 
@@ -248,12 +259,12 @@
             // 
             // ConfirmBtn
             // 
-            this.ConfirmBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.ConfirmBtn.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.ConfirmBtn.BackColor = System.Drawing.Color.MediumSeaGreen;
             this.ConfirmBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.ConfirmBtn.Font = new System.Drawing.Font("メイリオ", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.ConfirmBtn.ForeColor = System.Drawing.SystemColors.Control;
-            this.ConfirmBtn.Location = new System.Drawing.Point(506, 521);
+            this.ConfirmBtn.Location = new System.Drawing.Point(34, 1);
             this.ConfirmBtn.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.ConfirmBtn.Name = "ConfirmBtn";
             this.ConfirmBtn.Size = new System.Drawing.Size(96, 45);
@@ -273,12 +284,20 @@
             this.taskDetailTitle.TabIndex = 20;
             this.taskDetailTitle.Text = "タスク登録";
             // 
+            // panel3
+            // 
+            this.panel3.Controls.Add(this.ConfirmBtn);
+            this.panel3.Location = new System.Drawing.Point(469, 523);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(130, 45);
+            this.panel3.TabIndex = 31;
+            // 
             // TaskDetail
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(622, 576);
-            this.Controls.Add(this.ConfirmBtn);
+            this.Controls.Add(this.panel3);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.backLink);
             this.Controls.Add(this.toolStrip1);
@@ -289,6 +308,7 @@
             this.toolStrip1.PerformLayout();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            this.panel3.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -315,6 +335,8 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button ConfirmBtn;
         private System.Windows.Forms.Label taskDetailTitle;
+        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.Panel panel3;
     }
 }
 

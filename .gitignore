@@ -1,0 +1,42 @@
+# ビルド生成物
+bin/
+obj/
+*.exe
+*.dll
+*.pdb
+*.cache
+*.log
+*.vspscc
+*.vssscc
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Visual Studio の一時フォルダ
+.vs/
+*.dbmdl
+*.bak
+*.vsidx
+*.VC.db
+*.VC.opendb
+*.sdf
+
+# リソース生成物
+*.resources
+*.resx.dll
+
+# 一時作業ファイル
+*.tmp
+*.temp
+*.~*
+*.DS_Store
+Thumbs.db
+
+# 自動生成されるコード
+*.Designer.cs.dll
+
+# その他Gitに不要なもの
+*.log
+*.orig
+*.rej
