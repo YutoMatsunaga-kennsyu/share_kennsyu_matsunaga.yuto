@@ -104,18 +104,6 @@ namespace TaskManagement
             FormCalendar.inputCalenda(this, txtDueDate, btnDate);
         }
 
-        /// <summary>戻るリンク押下時</summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void backLink_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            // 一覧画面に遷移
-            Program.Display_TaskList(userId.Text);
-
-            // 詳細画面を閉じる
-            this.Close();
-        }
-
         /// <summary>登録/修正ボタン押下時</summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -184,6 +172,18 @@ namespace TaskManagement
         {
             // ログイン画面に遷移
             Program.Display_Login();
+
+            // 詳細画面を閉じる
+            this.Close();
+        }
+
+        /// <summary>戻るリンク押下時</summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void BackBtn_Click(object sender, EventArgs e)
+        {
+            // 一覧画面に遷移
+            Program.Display_TaskList(userId.Text);
 
             // 詳細画面を閉じる
             this.Close();

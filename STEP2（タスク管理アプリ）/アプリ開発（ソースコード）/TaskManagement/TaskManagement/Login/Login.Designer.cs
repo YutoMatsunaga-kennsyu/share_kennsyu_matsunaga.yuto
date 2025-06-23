@@ -83,12 +83,12 @@
             this.label3.TabIndex = 4;
             this.label3.Text = "Re";
             // 
-            // userNameTextBox
+            // userIdTextBox
             // 
             this.userIdTextBox.Font = new System.Drawing.Font("MS UI Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.userIdTextBox.Location = new System.Drawing.Point(44, 307);
             this.userIdTextBox.MaxLength = 20;
-            this.userIdTextBox.Name = "userNameTextBox";
+            this.userIdTextBox.Name = "userIdTextBox";
             this.userIdTextBox.Placeholder = "UserID";
             this.userIdTextBox.Size = new System.Drawing.Size(387, 27);
             this.userIdTextBox.TabIndex = 5;
@@ -116,6 +116,8 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.LoginBtn);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
             this.Name = "Login";
             this.Text = "ログイン";
             this.ResumeLayout(false);

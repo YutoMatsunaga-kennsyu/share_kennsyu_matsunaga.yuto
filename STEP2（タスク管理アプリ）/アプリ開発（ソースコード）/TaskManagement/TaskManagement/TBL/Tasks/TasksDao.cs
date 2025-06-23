@@ -6,6 +6,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using MySqlConnector;
 using TaskManagement;
 
@@ -198,92 +199,76 @@ namespace TaskManagement
 
         /// <summary>一覧画面でチェックしたタスクを削除する処理</summary>
         /// <param name="checkedTaskNo">タスク番号</param>
-        public void DeleteTask(List<int> checkedTaskNo)
+        public int DeleteTask(List<int> checkedTaskNo)
         {
+            if (checkedTaskNo == null || checkedTaskNo.Count == 0) return 0;
             // DB接続クラスのインスタンス作成
             DBUtil dbUtil = new();
-
-            // 実行クエリ
-            var commandTextDelete = "DELETE FROM tasks ";
-            var commandTextWhere = "WHERE task_no IN(";
-
-            // 引数のタスク番号を抽出条件に加える
-            foreach (var taskNo in checkedTaskNo)
-            {
-                commandTextWhere += "'" + taskNo + "', ";
-            }
-
-            // 抽出条件の末尾の不要なカンマ、半角スペースを削除する
-            var modifiedTextWhere = commandTextWhere.Substring(0, commandTextWhere.Length - 2) + ");";
-
-            // 実行クエリ
-            var commandText = commandTextDelete + modifiedTextWhere;
-
+            
             // MySQLへの接続
             using var connection = dbUtil.GetMySqlConnection();
 
             // 接続確立
             connection.Open();
 
-            try
-            {
-                using var command = new MySqlCommand(commandText, connection);
+            string placeholders = string.Join(",", checkedTaskNo.Select((_, i) => $"@id{i}"));
+            string query = $"DELETE FROM tasks WHERE task_no IN ({placeholders})";
 
-                // クエリ実行
-                command.ExecuteNonQuery();
-            }
-            catch (Exception e)
+            using var cmd = new MySqlCommand(query, connection);
+            for (int i = 0; i < checkedTaskNo.Count; i++)
             {
+                cmd.Parameters.AddWithValue($"@id{i}", checkedTaskNo[i]);
             }
-            finally
-            {
-                //コネクション終了
-                connection.Close();
-            }
+
+            return cmd.ExecuteNonQuery(); // ← 削除件数を返す
         }
 
         /// <summary>一覧画面でチェックしたタスクを完了済みにする処理</summary>
         /// <param name="checkedTaskNo">タスク番号</param>
         public void CompleteTask(List<int> checkedTaskNo)
         {
+            if (checkedTaskNo == null || checkedTaskNo.Count == 0)
+                return;
+
             // DB接続クラスのインスタンス作成
             DBUtil dbUtil = new();
 
-            // 実行クエリ
-            var commandTextUpdate = "UPDATE tasks SET done_date = SYSDATE(), update_date = SYSDATE(), is_active = 0 ";
-            var commandTextWhere = "WHERE task_no IN(";
+            // クエリ構築
+            string commandTextUpdate = "UPDATE tasks SET done_date = SYSDATE(), update_date = SYSDATE(), is_active = 0 ";
+            string commandTextWhere = "WHERE task_no IN (";
 
-            // 引数のタスク番号を抽出条件に加える
-            foreach (var taskNo in checkedTaskNo)
+            // プレースホルダーを作成（@p0, @p1, ...）
+            List<string> placeholders = new();
+            for (int i = 0; i < checkedTaskNo.Count; i++)
             {
-                commandTextWhere += "'" + taskNo + "', ";
+                placeholders.Add($"@p{i}");
             }
 
-            // 抽出条件の末尾の不要なカンマ、半角スペースを削除する
-            var modifiedTextWhere = commandTextWhere.Substring(0, commandTextWhere.Length - 2) + ");";
+            commandTextWhere += string.Join(",", placeholders) + ")";
+            string commandText = commandTextUpdate + commandTextWhere;
 
-            // 実行クエリ
-            var commandText = commandTextUpdate + modifiedTextWhere;
-
-            // MySQLへの接続
             using var connection = dbUtil.GetMySqlConnection();
-
-            // 接続確立
             connection.Open();
 
             try
             {
                 using var command = new MySqlCommand(commandText, connection);
 
-                // クエリ実行
+                // 各パラメータに値を追加
+                for (int i = 0; i < checkedTaskNo.Count; i++)
+                {
+                    command.Parameters.AddWithValue($"@p{i}", checkedTaskNo[i]);
+                }
+
                 command.ExecuteNonQuery();
             }
             catch (Exception e)
             {
+                // ログや通知処理など適宜追加してください
+                MessageBox.Show("タスク完了処理中にエラーが発生しました", "エラー");
             }
             finally
             {
-                //コネクション終了
                 connection.Close();
             }
         }

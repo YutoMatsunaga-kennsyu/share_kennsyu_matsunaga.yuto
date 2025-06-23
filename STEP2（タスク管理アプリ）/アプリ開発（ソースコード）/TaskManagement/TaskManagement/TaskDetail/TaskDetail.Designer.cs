@@ -36,7 +36,6 @@
             this.Re = new System.Windows.Forms.ToolStripLabel();
             this.logoutBtn = new System.Windows.Forms.ToolStripButton();
             this.userId = new System.Windows.Forms.ToolStripLabel();
-            this.backLink = new System.Windows.Forms.LinkLabel();
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
             this.txtDescription = new System.Windows.Forms.TextBox();
@@ -48,10 +47,9 @@
             this.txtTaskName = new System.Windows.Forms.TextBox();
             this.ConfirmBtn = new System.Windows.Forms.Button();
             this.taskDetailTitle = new System.Windows.Forms.Label();
-            this.panel3 = new System.Windows.Forms.Panel();
+            this.BackBtn = new System.Windows.Forms.Button();
             this.toolStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
-            this.panel3.SuspendLayout();
             this.SuspendLayout();
             // 
             // NameLabel
@@ -109,7 +107,7 @@
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-            this.toolStrip1.Size = new System.Drawing.Size(622, 31);
+            this.toolStrip1.Size = new System.Drawing.Size(622, 27);
             this.toolStrip1.TabIndex = 21;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -119,7 +117,7 @@
             this.Re.BackColor = System.Drawing.Color.MediumSeaGreen;
             this.Re.Font = new System.Drawing.Font("メイリオ", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.Re.Name = "Re";
-            this.Re.Size = new System.Drawing.Size(29, 28);
+            this.Re.Size = new System.Drawing.Size(29, 24);
             this.Re.Text = "Re";
             // 
             // logoutBtn
@@ -129,7 +127,7 @@
             this.logoutBtn.Image = global::TaskManagement.Properties.Resources.ログアウトイラスト1;
             this.logoutBtn.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.logoutBtn.Name = "logoutBtn";
-            this.logoutBtn.Size = new System.Drawing.Size(29, 28);
+            this.logoutBtn.Size = new System.Drawing.Size(29, 24);
             this.logoutBtn.Text = "ログアウト";
             this.logoutBtn.Click += new System.EventHandler(this.logoutBtn_Click);
             // 
@@ -138,19 +136,7 @@
             this.userId.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
             this.userId.ForeColor = System.Drawing.SystemColors.WindowFrame;
             this.userId.Name = "userId";
-            this.userId.Size = new System.Drawing.Size(0, 28);
-            // 
-            // backLink
-            // 
-            this.backLink.AutoSize = true;
-            this.backLink.Font = new System.Drawing.Font("メイリオ", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.backLink.Location = new System.Drawing.Point(12, 46);
-            this.backLink.Name = "backLink";
-            this.backLink.Size = new System.Drawing.Size(55, 23);
-            this.backLink.TabIndex = 22;
-            this.backLink.TabStop = true;
-            this.backLink.Text = "◁戻る";
-            this.backLink.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.backLink_LinkClicked);
+            this.userId.Size = new System.Drawing.Size(0, 24);
             // 
             // panel1
             // 
@@ -167,7 +153,7 @@
             this.panel1.Controls.Add(this.TagLabel);
             this.panel1.Controls.Add(this.DueDateLabel);
             this.panel1.Controls.Add(this.label4);
-            this.panel1.Location = new System.Drawing.Point(19, 114);
+            this.panel1.Location = new System.Drawing.Point(19, 84);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(583, 400);
             this.panel1.TabIndex = 23;
@@ -229,6 +215,7 @@
             // 
             // txtDueDate
             // 
+            this.txtDueDate.BackColor = System.Drawing.SystemColors.Window;
             this.txtDueDate.Font = new System.Drawing.Font("メイリオ", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.txtDueDate.Location = new System.Drawing.Point(25, 276);
             this.txtDueDate.Name = "txtDueDate";
@@ -264,7 +251,7 @@
             this.ConfirmBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.ConfirmBtn.Font = new System.Drawing.Font("メイリオ", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.ConfirmBtn.ForeColor = System.Drawing.SystemColors.Control;
-            this.ConfirmBtn.Location = new System.Drawing.Point(34, 1);
+            this.ConfirmBtn.Location = new System.Drawing.Point(506, 496);
             this.ConfirmBtn.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.ConfirmBtn.Name = "ConfirmBtn";
             this.ConfirmBtn.Size = new System.Drawing.Size(96, 45);
@@ -278,37 +265,47 @@
             this.taskDetailTitle.AutoSize = true;
             this.taskDetailTitle.Font = new System.Drawing.Font("メイリオ", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.taskDetailTitle.ForeColor = System.Drawing.SystemColors.Desktop;
-            this.taskDetailTitle.Location = new System.Drawing.Point(12, 69);
+            this.taskDetailTitle.Location = new System.Drawing.Point(12, 39);
             this.taskDetailTitle.Name = "taskDetailTitle";
             this.taskDetailTitle.Size = new System.Drawing.Size(158, 42);
             this.taskDetailTitle.TabIndex = 20;
             this.taskDetailTitle.Text = "タスク登録";
             // 
-            // panel3
+            // BackBtn
             // 
-            this.panel3.Controls.Add(this.ConfirmBtn);
-            this.panel3.Location = new System.Drawing.Point(469, 523);
-            this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(130, 45);
-            this.panel3.TabIndex = 31;
+            this.BackBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.BackBtn.BackColor = System.Drawing.Color.White;
+            this.BackBtn.FlatAppearance.BorderColor = System.Drawing.Color.MediumSeaGreen;
+            this.BackBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BackBtn.Font = new System.Drawing.Font("メイリオ", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.BackBtn.ForeColor = System.Drawing.Color.MediumSeaGreen;
+            this.BackBtn.Location = new System.Drawing.Point(390, 496);
+            this.BackBtn.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.BackBtn.Name = "BackBtn";
+            this.BackBtn.Size = new System.Drawing.Size(96, 44);
+            this.BackBtn.TabIndex = 32;
+            this.BackBtn.Text = "戻る";
+            this.BackBtn.UseVisualStyleBackColor = false;
+            this.BackBtn.Click += new System.EventHandler(this.BackBtn_Click);
             // 
             // TaskDetail
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(622, 576);
-            this.Controls.Add(this.panel3);
+            this.ClientSize = new System.Drawing.Size(622, 553);
+            this.Controls.Add(this.ConfirmBtn);
+            this.Controls.Add(this.BackBtn);
             this.Controls.Add(this.panel1);
-            this.Controls.Add(this.backLink);
             this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.taskDetailTitle);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
             this.Name = "TaskDetail";
             this.Text = "タスク詳細";
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
-            this.panel3.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -324,7 +321,6 @@
         private System.Windows.Forms.ToolStripLabel Re;
         private System.Windows.Forms.ToolStripButton logoutBtn;
         private System.Windows.Forms.ToolStripLabel userId;
-        private System.Windows.Forms.LinkLabel backLink;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.TextBox txtTaskName;
         private System.Windows.Forms.ComboBox tagComboBox;
@@ -336,7 +332,7 @@
         private System.Windows.Forms.Button ConfirmBtn;
         private System.Windows.Forms.Label taskDetailTitle;
         private System.Windows.Forms.Panel panel2;
-        private System.Windows.Forms.Panel panel3;
+        private System.Windows.Forms.Button BackBtn;
     }
 }
 

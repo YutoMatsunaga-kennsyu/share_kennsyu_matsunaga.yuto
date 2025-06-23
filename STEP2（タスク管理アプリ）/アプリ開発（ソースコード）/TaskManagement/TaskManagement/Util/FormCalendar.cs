@@ -13,6 +13,8 @@ namespace TaskManagement
     ///<summary>カレンダークラス</summary>
     public partial class FormCalendar : Form
     {
+        public TextBox TargetTextBox { get; set; }
+
         // カレンダー選択日
         private String gStrSelectDate;
 
@@ -27,6 +29,9 @@ namespace TaskManagement
         /// <param name="e"></param>
         private void FormCalendar_Load(object sender, EventArgs e)
         {
+            // カレンダーフォームの外をクリックした際の処理
+            this.Deactivate += FormCalendar_Deactivate;
+
             // カレンダーの本日の日付マークを非表示
             monthCalendar.ShowTodayCircle = false;
 
@@ -55,6 +60,7 @@ namespace TaskManagement
 
             // 引数の日付をカレンダフォームにセットする
             calenda.gStrSelectDate = textBox.Text;
+            calenda.TargetTextBox = textBox;
 
             // カレンダーが表示される箇所を押下したボタンの横に設定する
             calenda.Location = pressedBtn.PointToScreen(pressedBtn.ClientRectangle.Location);
@@ -70,7 +76,8 @@ namespace TaskManagement
             }
 
             // カレンダーフォームを表示する
-            calenda.ShowDialog(owner);
+            calenda.TopMost = true;  
+            calenda.Show(owner);     
 
             // カレンダーで選択された日付をtextBoxにセットする
             if (!textBox.Text.Equals(calenda.gStrSelectDate))
@@ -87,6 +94,11 @@ namespace TaskManagement
             // カレンダーで選択された日付を変数に格納する
             gStrSelectDate = monthCalendar.SelectionStart.ToString("yyyy/MM/dd");
 
+            if (TargetTextBox != null)
+            {
+                TargetTextBox.Text = gStrSelectDate;  // 画面側のTextBoxにセット！
+            }
+
             // カレンダ画面を閉じる
             this.Close();
         }
@@ -95,6 +107,15 @@ namespace TaskManagement
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void returnBtn_Click(object sender, EventArgs e)
+        {
+            // カレンダ画面を閉じる
+            this.Close();
+        }
+
+        /// <summary>カレンダーフォームの外をクリックした際の処理</summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void FormCalendar_Deactivate(object sender, EventArgs e)
         {
             // カレンダ画面を閉じる
             this.Close();

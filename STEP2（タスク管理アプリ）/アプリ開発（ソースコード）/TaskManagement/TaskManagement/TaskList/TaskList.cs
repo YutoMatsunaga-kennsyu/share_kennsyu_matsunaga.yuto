@@ -20,6 +20,8 @@ namespace TaskManagement
     /// <summary>一覧画面クラス</summary>
     public partial class TaskList : Form
     {
+        private Dictionary<int, bool> taskCheckStates = new();
+
         // 一覧画面のタスク一覧のデータを格納する変数
         public DataTable tasksDataTable = new();
         public BindingSource tasksBindingSource = new();
@@ -73,6 +75,7 @@ namespace TaskManagement
             this.tasksDataTable.Columns.Add("IsDone", typeof(DateTime));
             this.tasksDataTable.Columns.Add("Updated On", typeof(DateTime));
             this.tasksDataTable.Columns.Add("IsActive", typeof(string));
+            this.tasksDataTable.Columns.Add("IsCheck", typeof(bool));
 
             // タスク一覧に全抽出した結果を格納
             SetData(taskList);
@@ -82,6 +85,8 @@ namespace TaskManagement
         /// <param name="tasklist">タスクエンティティのリスト</param>
         private void SetData(List<TasksEntity> tasklist)
         {
+            SaveCheckStates();
+
             // 空のデータテーブルを初期化
             DataTable newDataTable = null;
 
@@ -106,6 +111,8 @@ namespace TaskManagement
                         active = "完了";
                     }
 
+                    bool isChecked = taskCheckStates.ContainsKey(task.IntTaskNo) ? taskCheckStates[task.IntTaskNo] : false;
+
                     // データテーブルに引数のタスクエンティティリストの値を格納
                     tasksDataTable.Rows.Add(
                         task.IntTaskNo,
@@ -115,9 +122,14 @@ namespace TaskManagement
                         task.DueDate,
                         task.DoneDate,
                         task.UpdateDate,
-                        active
+                        active,
+                        isChecked
                     );
                 }
+            }
+            else
+            {
+                MessageBox.Show("検索条件に一致するタスクはありませんでした", "検索結果");
             }
 
             // タスク一覧のページング、バインド
@@ -127,6 +139,8 @@ namespace TaskManagement
         /// <summary>タスク一覧のページング、バインド処理</summary>
         private void SetPagedDataSource()
         {
+            SaveCheckStates();
+
             // バインディングリストを初期化
             tasksBindingList.Clear();
 
@@ -154,6 +168,7 @@ namespace TaskManagement
             // ページング済みのデータをバインドする
             this.tasksBindingNavigator.BindingSource = tasksBindingSource;
             tasksBindingSource.DataSource = tasksBindingList;
+            tasksBindingSource.PositionChanged -= BindingSource_PositionChanged;
             tasksBindingSource.PositionChanged += BindingSource_PositionChanged;
             BindingSource_PositionChanged(tasksBindingSource, EventArgs.Empty);
         }
@@ -163,10 +178,46 @@ namespace TaskManagement
         /// <param name="e"></param>
         private void BindingSource_PositionChanged(object sender, EventArgs e)
         {
+            SaveCheckStates();
+
             // バインディングリストが空かNULLでない場合
             if (tasksBindingList?.Count > 0)
             {
                 this.TaskInformation.DataSource = tasksBindingList[tasksBindingSource.Position];
+                RestoreCheckStates();
+
+
+                if (TaskInformation.Columns.Contains("TaskNo"))
+                {
+                    TaskInformation.Columns["TaskNo"].Visible = false;
+                }
+            }
+        }
+
+        private void SaveCheckStates()
+        {
+            taskCheckStates.Clear();
+
+            foreach (DataTable pageTable in tasksBindingList)
+            {
+                foreach (DataRow row in pageTable.Rows)
+                {
+                    if (row["TaskNo"] is int taskNo && row["IsCheck"] != DBNull.Value)
+                    {
+                        taskCheckStates[taskNo] = (bool)row["IsCheck"];
+                    }
+                }
+            }
+        }
+
+        private void RestoreCheckStates()
+        {
+            foreach (DataGridViewRow row in TaskInformation.Rows)
+            {
+                if (row.Cells["TaskNo"].Value is int taskNo && taskCheckStates.TryGetValue(taskNo, out bool isChecked))
+                {
+                    row.Cells["IsCheck"].Value = isChecked;
+                }
             }
         }
 
@@ -195,98 +246,103 @@ namespace TaskManagement
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void DeleteBtn_Click(object sender, EventArgs e)
-        {
-            List<int> checkedTaskNo = new();
+        {    // まず現在ページのチェック状態を保存
+            SaveCheckStates();
 
-            // タスクテーブルのDAO取得
-            TasksDao tasksDao = new();
+            // チェックされた全タスク番号を取得（全ページ分）
+            List<int> checkedTaskNo = taskCheckStates
+                .Where(kvp => kvp.Value)
+                .Select(kvp => kvp.Key)
+                .ToList();
 
-            // チェックボックスが選択されているタスクを読み込み、タスク番号をリストに格納
-            for (int i = 0; i < TaskInformation.RowCount; i++)
-            {
-                if (TaskInformation.Rows[i].Cells["IsCheck"].Value != null)
-                {
-                    if ((bool)TaskInformation.Rows[i].Cells["IsCheck"].Value)
-                    {
-                        checkedTaskNo.Add((int)TaskInformation.Rows[i].Cells["TaskNo"].Value);
-                    }
-                }
-            }
-
-            // チェックボックスが選択されている場合
-            if (checkedTaskNo?.Count > 0)
+            if (checkedTaskNo.Count > 0)
             {
                 DialogResult result = MessageBox.Show("選択したタスクを削除しますか？", "タスクの削除", MessageBoxButtons.YesNo);
 
-                // Yesの場合
-                if (result == System.Windows.Forms.DialogResult.Yes)
+                if (result == DialogResult.Yes)
                 {
-                    // チェックボックスが選択されていたタスクを削除
-                    tasksDao.DeleteTask(checkedTaskNo);
+                    // 削除実行
+                    TasksDao tasksDao = new();
+                    int deletedCount = tasksDao.DeleteTask(checkedTaskNo); // ←戻り値を使う
 
-                    // 入力されている検索条件で検索
-                    var taskList = tasksDao.SelectMatch(txtTaskName.Text, tagComboBox.Text, txtDateFrom.Text, txtDateTo.Text, txtDueDate.Text, activeComboBox.Text, userId.Text);
+                    // 正常に削除された分だけチェック状態からも削除
+                    if (deletedCount > 0)
+                    {
+                        foreach (int taskNo in checkedTaskNo)
+                        {
+                            taskCheckStates.Remove(taskNo);
+                        }
+                    }
 
-                    // 検索結果をタスク一覧に格納
+                    // 最新のタスク一覧を取得・表示
+                    var taskList = tasksDao.SelectMatch(
+                        txtTaskName.Text, tagComboBox.Text,
+                        txtDateFrom.Text, txtDateTo.Text, txtDueDate.Text,
+                        activeComboBox.Text, userId.Text);
+
                     SetData(taskList);
                 }
-                else
-                {
-                    return;
-                }
             }
+            else
+            {
+                MessageBox.Show("タスクが選択されていません", "タスクの削除");
+            }
+
         }
+
 
         /// <summary>完了ボタン押下時の処理</summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void DoneBtn_Click(object sender, EventArgs e)
         {
-            List<int> checkedTaskNo = new();
+            // 全ページ分のチェック状態を保存
+            SaveCheckStates();
+
+            // チェック状態から、完了対象のタスク番号を取得
+            List<int> checkedTaskNo = taskCheckStates
+                .Where(kv => kv.Value)  // チェックされている
+                .Select(kv => kv.Key)   // タスク番号のみ
+                .ToList();
+
+            if (checkedTaskNo.Count == 0)
+            {
+                MessageBox.Show("タスクが選択されていません", "タスクの完了");
+                return;
+            }
 
             // タスクテーブルのDAO取得
             TasksDao tasksDao = new();
 
-            // チェックボックスが選択されているタスクを読み込み、タスク番号をリストに格納
-            for (int i = 0; i < TaskInformation.RowCount; i++)
+            // 既に完了しているタスクがあるかチェック
+            List<int> alreadyCompleted = new();
+            foreach (int taskNo in checkedTaskNo)
             {
-                if (TaskInformation.Rows[i].Cells["IsCheck"].Value != null)
+                if (tasksDao.IsComplete(taskNo))
                 {
-                    if ((bool)TaskInformation.Rows[i].Cells["IsCheck"].Value)
-                    {
-                        checkedTaskNo.Add((int)TaskInformation.Rows[i].Cells["TaskNo"].Value);
-
-                        // チェックボックスが選択されていたタスクが既に完了済みだった場合
-                        if (tasksDao.IsComplete((int)TaskInformation.Rows[i].Cells["TaskNo"].Value))
-                        {
-                            MessageBox.Show("選択したタスクは既に完了済みです", "入力値エラー");
-                            return;
-                        }
-                    }
+                    alreadyCompleted.Add(taskNo);
                 }
             }
 
-            // チェックボックスが選択されている場合
-            if (checkedTaskNo?.Count > 0)
+            if (alreadyCompleted.Count > 0)
             {
-                DialogResult result = MessageBox.Show("選択したタスクを完了しますか？", "タスクの完了", MessageBoxButtons.YesNo);
+                MessageBox.Show("選択したタスクの中に既に完了済みのものがあります", "入力値エラー");
+                return;
+            }
 
-                // Yesの場合
-                if (result == System.Windows.Forms.DialogResult.Yes)
-                {
-                    // チェックボックスが選択されていたタスクを完了済みに変更
-                    tasksDao.CompleteTask(checkedTaskNo);
+            // ユーザー確認
+            DialogResult result = MessageBox.Show("選択したタスクを完了しますか？", "タスクの完了", MessageBoxButtons.YesNo);
+            if (result == DialogResult.Yes)
+            {
+                // 選択されたタスクを完了に更新
+                tasksDao.CompleteTask(checkedTaskNo);
 
-                    // 入力されている検索条件で検索
-                    var taskList = tasksDao.SelectMatch(txtTaskName.Text, tagComboBox.Text, txtDateFrom.Text, txtDateTo.Text, txtDueDate.Text, activeComboBox.Text, userId.Text);
+                // チェック状態リセット
+                taskCheckStates.Clear();
 
-                    // 検索結果をタスク一覧に格納
-                    SetData(taskList);
-                }
-                else
-                {
-                    return;
-                }
+                // 検索条件で再読み込み
+                var taskList = tasksDao.SelectMatch(txtTaskName.Text, tagComboBox.Text, txtDateFrom.Text, txtDateTo.Text, txtDueDate.Text, activeComboBox.Text, userId.Text);
+                SetData(taskList);
             }
         }
 
@@ -298,7 +354,7 @@ namespace TaskManagement
             // タスク完了期限(開始日)が、タスク完了期限(終了日)より後の日付だった場合
             if (!String.IsNullOrEmpty(txtDateTo.Text) && txtDateFrom.Text.CompareTo(txtDateTo.Text) == 1)
             {
-                MessageBox.Show("タスク完了期限(開始日)は、タスク完了期限(終了日)と同じか前の日付を設定してください", "入力値エラー");
+                MessageBox.Show("タスク完了期限(開始日)は、タスク完了期限(終了日)と\n同じか前の日付を設定してください", "入力値エラー");
                 return;
             }
             else
@@ -331,13 +387,22 @@ namespace TaskManagement
         /// <param name="e"></param>
         private void ResetBtn_Click(object sender, EventArgs e)
         {
-            // 検索欄（テキストボックス）は空欄に、検索欄（コンボボックス）は「全て」に変更
+            // タスク一覧画面の初期表示時の検索条件にリセット
             txtTaskName.Text = "";
             tagComboBox.SelectedIndex = 0;
             txtDateFrom.Text = "";
             txtDateTo.Text = "";
             txtDueDate.Text = "";
-            activeComboBox.SelectedIndex = 0;
+            activeComboBox.SelectedIndex = 1;
+
+            // タスクテーブルのDAO取得
+            TasksDao tasksDao = new();
+
+            // 入力されている検索条件で検索
+            var taskList = tasksDao.SelectMatch(txtTaskName.Text, tagComboBox.Text, txtDateFrom.Text, txtDateTo.Text, txtDueDate.Text, activeComboBox.Text, userId.Text);
+
+            // 検索結果をタスク一覧に格納
+            SetData(taskList);
         }
 
         /// <summary>ログアウトボタン押下時の処理</summary>
