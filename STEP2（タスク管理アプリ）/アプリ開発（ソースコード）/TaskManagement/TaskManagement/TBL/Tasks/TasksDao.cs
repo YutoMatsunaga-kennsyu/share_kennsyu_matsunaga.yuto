@@ -211,9 +211,11 @@ namespace TaskManagement
             // 接続確立
             connection.Open();
 
+            // 実行クエリ
             string placeholders = string.Join(",", checkedTaskNo.Select((_, i) => $"@id{i}"));
             string query = $"DELETE FROM tasks WHERE task_no IN ({placeholders})";
 
+            // クエリ実行
             using var cmd = new MySqlCommand(query, connection);
             for (int i = 0; i < checkedTaskNo.Count; i++)
             {
@@ -233,11 +235,10 @@ namespace TaskManagement
             // DB接続クラスのインスタンス作成
             DBUtil dbUtil = new();
 
-            // クエリ構築
+            // 実行クエリ
             string commandTextUpdate = "UPDATE tasks SET done_date = SYSDATE(), update_date = SYSDATE(), is_active = 0 ";
             string commandTextWhere = "WHERE task_no IN (";
 
-            // プレースホルダーを作成（@p0, @p1, ...）
             List<string> placeholders = new();
             for (int i = 0; i < checkedTaskNo.Count; i++)
             {
@@ -247,11 +248,15 @@ namespace TaskManagement
             commandTextWhere += string.Join(",", placeholders) + ")";
             string commandText = commandTextUpdate + commandTextWhere;
 
+            // MySQLへの接続
             using var connection = dbUtil.GetMySqlConnection();
+
+            // 接続確立
             connection.Open();
 
             try
-            {
+            { 
+                // クエリ実行
                 using var command = new MySqlCommand(commandText, connection);
 
                 // 各パラメータに値を追加
@@ -264,7 +269,7 @@ namespace TaskManagement
             }
             catch (Exception e)
             {
-                // ログや通知処理など適宜追加してください
+                // エラー処理
                 MessageBox.Show("タスク完了処理中にエラーが発生しました", "エラー");
             }
             finally

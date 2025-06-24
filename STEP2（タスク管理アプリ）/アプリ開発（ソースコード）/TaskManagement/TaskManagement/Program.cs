@@ -35,7 +35,7 @@ namespace TaskManagement
         /// <param name="strUserId">ログインしたユーザーのユーザーID</param>
         public static void Display_TaskList(String strUserId)
         {
-            gMain_form.MainForm = new TaskList(strUserId);
+            gMain_form.MainForm = new TaskList(strUserId, isFromLogin: true);
             gMain_form.MainForm.Show();
         }
 

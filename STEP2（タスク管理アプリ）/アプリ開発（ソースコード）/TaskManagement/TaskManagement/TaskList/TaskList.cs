@@ -20,7 +20,11 @@ namespace TaskManagement
     /// <summary>一覧画面クラス</summary>
     public partial class TaskList : Form
     {
+        // チェックボックスの選択状態保存用
         private Dictionary<int, bool> taskCheckStates = new();
+
+        // ログイン画面から遷移したかどうか
+        private bool _isFromLogin;
 
         // 一覧画面のタスク一覧のデータを格納する変数
         public DataTable tasksDataTable = new();
@@ -32,8 +36,10 @@ namespace TaskManagement
 
         /// <summary>一覧画面クラスのコンストラクタ</summary>
         /// <param name="strUserId">ユーザーID</param>
-        public TaskList(String strUserId)
+        public TaskList(String strUserId, bool isFromLogin = false)
         {
+            _isFromLogin = isFromLogin;
+
             InitializeComponent();
 
             // タスク分類テーブルのDAO取得
@@ -78,14 +84,14 @@ namespace TaskManagement
             this.tasksDataTable.Columns.Add("IsCheck", typeof(bool));
 
             // タスク一覧に全抽出した結果を格納
-            SetData(taskList);
+            SetData(taskList, _isFromLogin);
         }
 
         /// <summary>タスク一覧に引数のタスクエンティティリストの値を格納する処理</summary>
         /// <param name="tasklist">タスクエンティティのリスト</param>
-        private void SetData(List<TasksEntity> tasklist)
+        private void SetData(List<TasksEntity> tasklist, bool isFromLogin)
         {
-            SaveCheckStates();
+            _isFromLogin = isFromLogin;
 
             // 空のデータテーブルを初期化
             DataTable newDataTable = null;
@@ -129,7 +135,15 @@ namespace TaskManagement
             }
             else
             {
-                MessageBox.Show("検索条件に一致するタスクはありませんでした", "検索結果");
+                if (_isFromLogin == false)
+                {
+                    MessageBox.Show("検索条件に一致するタスクはありませんでした", "検索結果");
+                }
+                else
+                {
+                    //ログイン画面、タスク詳細画面から一覧画面に遷移した場合の処理を記載
+                }
+               
             }
 
             // タスク一覧のページング、バインド
@@ -194,6 +208,7 @@ namespace TaskManagement
             }
         }
 
+        /// <summary>タスクのチェックボックスの選択状態を保存する処理</summary>
         private void SaveCheckStates()
         {
             taskCheckStates.Clear();
@@ -210,6 +225,7 @@ namespace TaskManagement
             }
         }
 
+        /// <summary>タスクのチェックボックスの選択状態を反映する処理</summary>
         private void RestoreCheckStates()
         {
             foreach (DataGridViewRow row in TaskInformation.Rows)
@@ -263,7 +279,7 @@ namespace TaskManagement
                 {
                     // 削除実行
                     TasksDao tasksDao = new();
-                    int deletedCount = tasksDao.DeleteTask(checkedTaskNo); // ←戻り値を使う
+                    int deletedCount = tasksDao.DeleteTask(checkedTaskNo); 
 
                     // 正常に削除された分だけチェック状態からも削除
                     if (deletedCount > 0)
@@ -280,7 +296,7 @@ namespace TaskManagement
                         txtDateFrom.Text, txtDateTo.Text, txtDueDate.Text,
                         activeComboBox.Text, userId.Text);
 
-                    SetData(taskList);
+                    SetData(taskList, false);
                 }
             }
             else
@@ -326,7 +342,7 @@ namespace TaskManagement
 
             if (alreadyCompleted.Count > 0)
             {
-                MessageBox.Show("選択したタスクの中に既に完了済みのものがあります", "入力値エラー");
+                MessageBox.Show("選択したタスクは既に完了済みです", "入力値エラー");
                 return;
             }
 
@@ -342,7 +358,7 @@ namespace TaskManagement
 
                 // 検索条件で再読み込み
                 var taskList = tasksDao.SelectMatch(txtTaskName.Text, tagComboBox.Text, txtDateFrom.Text, txtDateTo.Text, txtDueDate.Text, activeComboBox.Text, userId.Text);
-                SetData(taskList);
+                SetData(taskList, false);
             }
         }
 
@@ -351,6 +367,8 @@ namespace TaskManagement
         /// <param name="e"></param>
         private void SelectBtn_Click(object sender, EventArgs e)
         {
+            SaveCheckStates();
+
             // タスク完了期限(開始日)が、タスク完了期限(終了日)より後の日付だった場合
             if (!String.IsNullOrEmpty(txtDateTo.Text) && txtDateFrom.Text.CompareTo(txtDateTo.Text) == 1)
             {
@@ -366,7 +384,7 @@ namespace TaskManagement
                 var taskList = tasksDao.SelectMatch(txtTaskName.Text, tagComboBox.Text, txtDateFrom.Text, txtDateTo.Text, txtDueDate.Text, activeComboBox.Text, userId.Text);
 
                 // 検索結果をタスク一覧に格納
-                SetData(taskList);
+                SetData(taskList, false);
             }
         }
 
@@ -395,6 +413,9 @@ namespace TaskManagement
             txtDueDate.Text = "";
             activeComboBox.SelectedIndex = 1;
 
+            // チェック状態をリセット
+            taskCheckStates.Clear();
+
             // タスクテーブルのDAO取得
             TasksDao tasksDao = new();
 
@@ -402,7 +423,7 @@ namespace TaskManagement
             var taskList = tasksDao.SelectMatch(txtTaskName.Text, tagComboBox.Text, txtDateFrom.Text, txtDateTo.Text, txtDueDate.Text, activeComboBox.Text, userId.Text);
 
             // 検索結果をタスク一覧に格納
-            SetData(taskList);
+            SetData(taskList, false);
         }
 
         /// <summary>ログアウトボタン押下時の処理</summary>

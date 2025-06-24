@@ -13,6 +13,7 @@ namespace TaskManagement
     ///<summary>カレンダークラス</summary>
     public partial class FormCalendar : Form
     {
+        // 日付が入力されるテキストボックス
         public TextBox TargetTextBox { get; set; }
 
         // カレンダー選択日
@@ -94,10 +95,23 @@ namespace TaskManagement
             // カレンダーで選択された日付を変数に格納する
             gStrSelectDate = monthCalendar.SelectionStart.ToString("yyyy/MM/dd");
 
+            // テキストボックスに日付をセットする
             if (TargetTextBox != null)
             {
-                TargetTextBox.Text = gStrSelectDate;  // 画面側のTextBoxにセット！
+                TargetTextBox.Text = gStrSelectDate;  
             }
+
+            // カレンダ画面を閉じる
+            this.Close();
+        }
+
+        /// <summary>カレンダーの削除ボタン押下時処理</summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void DeleteBtn_Click(object sender, EventArgs e)
+        {
+            // テキストボックスに入力されている日付を削除
+            TargetTextBox.Text = "";
 
             // カレンダ画面を閉じる
             this.Close();

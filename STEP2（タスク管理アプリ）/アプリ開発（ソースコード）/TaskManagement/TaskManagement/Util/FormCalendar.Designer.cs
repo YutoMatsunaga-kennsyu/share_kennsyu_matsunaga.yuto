@@ -31,6 +31,7 @@
             this.monthCalendar = new System.Windows.Forms.MonthCalendar();
             this.setBtn = new System.Windows.Forms.Button();
             this.returnBtn = new System.Windows.Forms.Button();
+            this.DeleteBtn = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // monthCalendar
@@ -42,7 +43,7 @@
             // setBtn
             // 
             this.setBtn.Font = new System.Drawing.Font("メイリオ", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.setBtn.Location = new System.Drawing.Point(44, 214);
+            this.setBtn.Location = new System.Drawing.Point(7, 213);
             this.setBtn.Name = "setBtn";
             this.setBtn.Size = new System.Drawing.Size(75, 29);
             this.setBtn.TabIndex = 1;
@@ -53,7 +54,7 @@
             // returnBtn
             // 
             this.returnBtn.Font = new System.Drawing.Font("メイリオ", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.returnBtn.Location = new System.Drawing.Point(157, 214);
+            this.returnBtn.Location = new System.Drawing.Point(196, 213);
             this.returnBtn.Name = "returnBtn";
             this.returnBtn.Size = new System.Drawing.Size(75, 29);
             this.returnBtn.TabIndex = 2;
@@ -61,12 +62,25 @@
             this.returnBtn.UseVisualStyleBackColor = true;
             this.returnBtn.Click += new System.EventHandler(this.returnBtn_Click);
             // 
+            // DeleteBtn
+            // 
+            this.DeleteBtn.BackColor = System.Drawing.Color.White;
+            this.DeleteBtn.Font = new System.Drawing.Font("メイリオ", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.DeleteBtn.Location = new System.Drawing.Point(103, 213);
+            this.DeleteBtn.Name = "DeleteBtn";
+            this.DeleteBtn.Size = new System.Drawing.Size(75, 29);
+            this.DeleteBtn.TabIndex = 3;
+            this.DeleteBtn.Text = "削除";
+            this.DeleteBtn.UseVisualStyleBackColor = false;
+            this.DeleteBtn.Click += new System.EventHandler(this.DeleteBtn_Click);
+            // 
             // FormCalendar
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlLight;
             this.ClientSize = new System.Drawing.Size(278, 252);
+            this.Controls.Add(this.DeleteBtn);
             this.Controls.Add(this.returnBtn);
             this.Controls.Add(this.setBtn);
             this.Controls.Add(this.monthCalendar);
@@ -84,5 +98,6 @@
         private System.Windows.Forms.MonthCalendar monthCalendar;
         private System.Windows.Forms.Button setBtn;
         private System.Windows.Forms.Button returnBtn;
+        private System.Windows.Forms.Button DeleteBtn;
     }
 }
