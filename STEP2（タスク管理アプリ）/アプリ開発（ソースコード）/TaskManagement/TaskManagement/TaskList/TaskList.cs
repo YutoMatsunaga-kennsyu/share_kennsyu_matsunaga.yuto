@@ -66,6 +66,9 @@ namespace TaskManagement
             // タスク一覧の列の自動生成を行なわないよう設定
             TaskInformation.AutoGenerateColumns = false;
 
+            // ユーザーがタスク一覧の列の幅を変更できるように設定
+            TaskInformation.AllowUserToResizeColumns = true;
+
             // タスクテーブルのDAO取得
             TasksDao tasksDao = new();
 
