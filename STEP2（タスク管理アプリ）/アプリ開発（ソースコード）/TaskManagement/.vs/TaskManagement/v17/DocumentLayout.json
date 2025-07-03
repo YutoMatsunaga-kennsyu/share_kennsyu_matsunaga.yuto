@@ -7,7 +7,7 @@
       "RelativeMoniker": "D:0:0:{B70E9D45-E520-452A-A12F-F1E6CFC003E2}|TaskManagement\\TaskManagement.csproj|solutionrelative:taskmanagement\\tasklist\\tasklist.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{B70E9D45-E520-452A-A12F-F1E6CFC003E2}|TaskManagement\\TaskManagement.csproj|c:\\users\\yuto1\\onedrive\\\u30C9\u30AD\u30E5\u30E1\u30F3\u30C8\\share_kennsyu_matsunaga.yuto\\step2\uFF08\u30BF\u30B9\u30AF\u7BA1\u7406\u30A2\u30D7\u30EA\uFF09\\\u30A2\u30D7\u30EA\u958B\u767A\uFF08\u30BD\u30FC\u30B9\u30B3\u30FC\u30C9\uFF09\\taskmanagement\\taskmanagement\\tasklist\\tasklist.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "AbsoluteMoniker": "D:0:0:{B70E9D45-E520-452A-A12F-F1E6CFC003E2}|TaskManagement\\TaskManagement.csproj|C:\\Users\\yuto1\\OneDrive\\\u30C9\u30AD\u30E5\u30E1\u30F3\u30C8\\share_kennsyu_matsunaga.yuto\\STEP2\uFF08\u30BF\u30B9\u30AF\u7BA1\u7406\u30A2\u30D7\u30EA\uFF09\\\u30A2\u30D7\u30EA\u958B\u767A\uFF08\u30BD\u30FC\u30B9\u30B3\u30FC\u30C9\uFF09\\TaskManagement\\taskmanagement\\tasklist\\tasklist.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
       "RelativeMoniker": "D:0:0:{B70E9D45-E520-452A-A12F-F1E6CFC003E2}|TaskManagement\\TaskManagement.csproj|solutionrelative:taskmanagement\\tasklist\\tasklist.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     }
   ],
@@ -28,7 +28,7 @@
               "RelativeDocumentMoniker": "TaskManagement\\TaskList\\TaskList.cs",
               "ToolTip": "C:\\Users\\yuto1\\OneDrive\\\u30C9\u30AD\u30E5\u30E1\u30F3\u30C8\\share_kennsyu_matsunaga.yuto\\STEP2\uFF08\u30BF\u30B9\u30AF\u7BA1\u7406\u30A2\u30D7\u30EA\uFF09\\\u30A2\u30D7\u30EA\u958B\u767A\uFF08\u30BD\u30FC\u30B9\u30B3\u30FC\u30C9\uFF09\\TaskManagement\\TaskManagement\\TaskList\\TaskList.cs",
               "RelativeToolTip": "TaskManagement\\TaskList\\TaskList.cs",
-              "ViewState": "AQIAACsAAAAAAAAAAAAAwEQAAAAoAAAA",
+              "ViewState": "AQIAACsAAAAAAAAAAAAAwD4AAAAoAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-07-02T08:03:03.223Z",
               "EditorCaption": ""
@@ -42,8 +42,7 @@
               "ToolTip": "C:\\Users\\yuto1\\OneDrive\\\u30C9\u30AD\u30E5\u30E1\u30F3\u30C8\\share_kennsyu_matsunaga.yuto\\STEP2\uFF08\u30BF\u30B9\u30AF\u7BA1\u7406\u30A2\u30D7\u30EA\uFF09\\\u30A2\u30D7\u30EA\u958B\u767A\uFF08\u30BD\u30FC\u30B9\u30B3\u30FC\u30C9\uFF09\\TaskManagement\\TaskManagement\\TaskList\\TaskList.cs [\u30C7\u30B6\u30A4\u30F3]",
               "RelativeToolTip": "TaskManagement\\TaskList\\TaskList.cs [\u30C7\u30B6\u30A4\u30F3]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-02T08:03:00.666Z",
-              "EditorCaption": " [\u30C7\u30B6\u30A4\u30F3]"
+              "WhenOpened": "2025-07-02T08:03:00.666Z"
             }
           ]
         }
