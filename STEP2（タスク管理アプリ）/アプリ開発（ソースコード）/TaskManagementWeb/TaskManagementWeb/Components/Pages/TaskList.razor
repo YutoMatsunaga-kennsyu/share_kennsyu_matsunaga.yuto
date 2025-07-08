@@ -5,6 +5,7 @@
 @inject TaskService TaskService
 
 <h3 class="text-xl font-bold mb-4">タスク一覧（即時保存）</h3>
+<div class="bg-red-500 text-white p-2">Tailwindテスト</div>
 
 @if (Tasks == null)
 {
@@ -12,42 +13,38 @@
 }
 else
 {
-        <table class="table-auto w-full border">
-            <thead class="bg-gray-100">
-                <tr>
-                    <th class="p-2 border">タスク名</th>
-                    <th class="p-2 border">説明</th>
-                    <th class="p-2 border">期限</th>
-                    <th class="p-2 border text-center">削除/完了選択</th>
-                </tr>
-            </thead>
-            <tbody>
+    <table class="table-auto w-full border">
+        <thead class="bg-gray-100">
+            <tr>
+                <th class="p-2 border">タスク名</th>
+                <th class="p-2 border">説明</th>
+                <th class="p-2 border">期限</th>
+                <th class="p-2 border text-center">削除/完了選択</th>
+            </tr>
+        </thead>
+        <tbody>
             @foreach (var task in PagedTasks)
             {
-                        <tr>
-                            <td class="p-2 border">
-                                <InputText @bind-Value="task.TaskName"
-                                           class="w-full border rounded px-1 py-0.5"
-                                           @onblur="async () => await SaveTaskAsync(task)" />
-                            </td>
-                            <td class="p-2 border">
-                                <InputText @bind-Value="task.Description"
-                                           class="w-full border rounded px-1 py-0.5"
-                                           @onblur="async () => await SaveTaskAsync(task)" />
-                            </td>
-                            <td class="p-2 border">
-                                <InputDate @bind-Value="task.DueDate"
-                                           class="w-full border rounded px-1 py-0.5"
-                                           @onblur="async () => await SaveTaskAsync(task)" />
-                            </td>
-                            <td class="p-2 border text-center">
-                                <input type="checkbox" @bind="task.IsChecked" />
-                            </td>
-                        </tr>
+                <tr>
+        <td class="p-2 border">
+            <InputText @bind-Value="task.TaskName"
+                       class="w-full bg-transparent border border-transparent hover:border-gray-300 focus:border-blue-500 focus:bg-white focus:ring-2 focus:ring-blue-200 rounded transition duration-200"
+                       @onblur="async () => await SaveTaskAsync(task)" />
+        </td>
+        <td class="p-2 border">
+            <InputText @bind-Value="task.Description"
+                       class="w-full bg-transparent border border-transparent hover:border-gray-300 focus:border-blue-500 focus:bg-white focus:ring-2 focus:ring-blue-200 rounded transition duration-200"
+                       @onblur="async () => await SaveTaskAsync(task)" />
+        </td>
+        <td class="p-2 border">
+            <InputDate @bind-Value="task.DueDate"
+                       class="w-full bg-transparent border border-transparent hover:border-gray-300 focus:border-blue-500 focus:bg-white focus:ring-2 focus:ring-blue-200 rounded transition duration-200"
+                       @onblur="async () => await SaveTaskAsync(task)" />
+        </td>
+                </tr>
             }
-            </tbody>
-        </table>
-
+        </tbody>
+    </table>
         <div class="mt-4 flex justify-between">
             <button class="px-4 py-2 bg-gray-300 rounded" @onclick="PreviousPage" disabled="@(PageIndex == 0)">前へ</button>
             <button class="px-4 py-2 bg-gray-300 rounded" @onclick="NextPage" disabled="@((PageIndex + 1) * PageSize >= Tasks.Count)">次へ</button>
@@ -76,7 +73,7 @@ else
 
     protected override void OnInitialized()
     {
-        Tasks = TaskService.LoadTasks("X"); // "X"はユーザーIDなどに置き換えてください
+        Tasks = TaskService.LoadTasks("X"); // 仮のユーザーID
         UpdatePage();
     }
 
@@ -113,7 +110,6 @@ else
         catch (Exception ex)
         {
             LogMessage = $"保存失敗: {ex.GetType().Name} - {ex.Message}";
-            // 例: 内部例外もあるならそれも出す
             if (ex.InnerException != null)
             {
                 LogMessage += $" | Inner: {ex.InnerException.Message}";
