@@ -1,0 +1,28 @@
+﻿@page "/blur-test"
+
+<h3>フォーカス外れイベントテスト</h3>
+
+<p>入力値: <strong>@InputValue</strong></p>
+<p>イベントログ: <strong>@EventLog</strong></p>
+
+<InputText @bind-Value="InputValue" @onblur="OnBlur" class="border p-1" />
+
+<button class="mt-2 px-3 py-1 bg-blue-500 text-white rounded" @onclick="Clear">
+    クリア
+</button>
+
+@code {
+    private string InputValue = "";
+    private string EventLog = "まだフォーカス外れイベントは発生していません";
+
+    private void OnBlur()
+    {
+        EventLog = $"フォーカスが外れました！ 時刻: {DateTime.Now:HH:mm:ss}";
+    }
+
+    private void Clear()
+    {
+        InputValue = "";
+        EventLog = "まだフォーカス外れイベントは発生していません";
+    }
+}

@@ -1,0 +1,10 @@
+﻿@page "/test"
+@rendermode InteractiveServer
+
+<h1>テスト</h1>
+<input @bind="name" />
+<p>こんにちは、@name さん！</p>
+
+@code {
+    private string name = string.Empty;
+}

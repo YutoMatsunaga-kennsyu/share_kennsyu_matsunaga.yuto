@@ -1,0 +1,140 @@
+﻿@page "/"
+
+@using WebTaskManagement.Models
+@using WebTaskManagement.Services
+@inject TaskService TaskService
+
+<h3 class="text-xl font-bold mb-4">タスク一覧（即時保存）</h3>
+
+@if (Tasks == null)
+{
+        <p>読み込み中...</p>
+}
+else
+{
+        <table class="table-auto w-full border">
+            <thead class="bg-gray-100">
+                <tr>
+                    <th class="p-2 border">タスク名</th>
+                    <th class="p-2 border">説明</th>
+                    <th class="p-2 border">期限</th>
+                    <th class="p-2 border text-center">削除/完了選択</th>
+                </tr>
+            </thead>
+            <tbody>
+            @foreach (var task in PagedTasks)
+            {
+                        <tr>
+                            <td class="p-2 border">
+                                <InputText @bind-Value="task.TaskName"
+                                           class="w-full border rounded px-1 py-0.5"
+                                           @onblur="async () => await SaveTaskAsync(task)" />
+                            </td>
+                            <td class="p-2 border">
+                                <InputText @bind-Value="task.Description"
+                                           class="w-full border rounded px-1 py-0.5"
+                                           @onblur="async () => await SaveTaskAsync(task)" />
+                            </td>
+                            <td class="p-2 border">
+                                <InputDate @bind-Value="task.DueDate"
+                                           class="w-full border rounded px-1 py-0.5"
+                                           @onblur="async () => await SaveTaskAsync(task)" />
+                            </td>
+                            <td class="p-2 border text-center">
+                                <input type="checkbox" @bind="task.IsChecked" />
+                            </td>
+                        </tr>
+            }
+            </tbody>
+        </table>
+
+        <div class="mt-4 flex justify-between">
+            <button class="px-4 py-2 bg-gray-300 rounded" @onclick="PreviousPage" disabled="@(PageIndex == 0)">前へ</button>
+            <button class="px-4 py-2 bg-gray-300 rounded" @onclick="NextPage" disabled="@((PageIndex + 1) * PageSize >= Tasks.Count)">次へ</button>
+        </div>
+
+        <div class="mt-4 flex gap-4">
+            <button class="px-4 py-2 bg-green-500 text-white rounded" @onclick="MarkDone">完了</button>
+            <button class="px-4 py-2 bg-red-500 text-white rounded" @onclick="DeleteTasks">削除</button>
+        </div>
+
+    @if (!string.IsNullOrEmpty(LogMessage))
+    {
+                <div class="mt-4 p-2 bg-green-100 text-green-700 border border-green-400 rounded">
+            @LogMessage
+                </div>
+    }
+}
+
+@code {
+    private List<TaskModel> Tasks;
+    private List<TaskModel> PagedTasks;
+    private int PageSize = 5;
+    private int PageIndex = 0;
+
+    private string LogMessage = string.Empty;
+
+    protected override void OnInitialized()
+    {
+        Tasks = TaskService.LoadTasks("X"); // "X"はユーザーIDなどに置き換えてください
+        UpdatePage();
+    }
+
+    private void UpdatePage()
+    {
+        PagedTasks = TaskService.GetPagedTasks(Tasks, PageIndex, PageSize);
+    }
+
+    private void NextPage()
+    {
+        if ((PageIndex + 1) * PageSize < Tasks.Count)
+        {
+            PageIndex++;
+            UpdatePage();
+        }
+    }
+
+    private void PreviousPage()
+    {
+        if (PageIndex > 0)
+        {
+            PageIndex--;
+            UpdatePage();
+        }
+    }
+
+    private async Task SaveTaskAsync(TaskModel task)
+    {
+        try
+        {
+            await TaskService.UpdateTask(task);
+            LogMessage = $"保存成功: {task.TaskName}（{DateTime.Now:HH:mm:ss}）";
+        }
+        catch (Exception ex)
+        {
+            LogMessage = $"保存失敗: {ex.GetType().Name} - {ex.Message}";
+            // 例: 内部例外もあるならそれも出す
+            if (ex.InnerException != null)
+            {
+                LogMessage += $" | Inner: {ex.InnerException.Message}";
+            }
+        }
+        StateHasChanged();
+    }
+
+    private void MarkDone()
+    {
+        var selected = Tasks.Where(t => t.IsChecked).ToList();
+        TaskService.CompleteTasks(selected);
+        Tasks = TaskService.LoadTasks("X");
+        UpdatePage();
+    }
+
+    private void DeleteTasks()
+    {
+        var selected = Tasks.Where(t => t.IsChecked).ToList();
+        TaskService.DeleteTasks(selected);
+        Tasks = TaskService.LoadTasks("X");
+        UpdatePage();
+    }
+}
