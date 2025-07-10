@@ -1,5 +1,5 @@
-using WebTaskManagement.Repositories;
-using WebTaskManagement.Services;
+using TaskManagementWeb.Repositories;
+using TaskManagementWeb.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -7,11 +7,10 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 
-// TaskRepository ‚Ì“o˜^iÚ‘±•¶Žš—ñ•t‚«j© ‚±‚ê‚¾‚¯‚ÅOKI
-builder.Services.AddScoped(sp =>
-    new TaskRepository(builder.Configuration.GetConnectionString("DefaultConnection")));
-
+builder.Services.AddScoped<TaskRepository>();
 builder.Services.AddScoped<TaskService>();
+builder.Services.AddScoped<TaskTagRepository>();
+builder.Services.AddSingleton<TaskTagService>();
 
 var app = builder.Build();
 

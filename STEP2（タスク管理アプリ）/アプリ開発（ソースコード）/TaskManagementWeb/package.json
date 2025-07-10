@@ -4,7 +4,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build:css": "tailwindcss -i ./TaskManagementWeb/src/input.css -o ./TaskManagementWeb/wwwroot/css/output.css --minify"
+    "build:css": "tailwindcss -i ./TaskManagementWeb/src/input.css -o ./TaskManagementWeb/wwwroot/css/output.css --minify",
+    "watch:css": "tailwindcss -i ./TaskManagementWeb/src/input.css -o ./TaskManagementWeb/wwwroot/css/output.css --watch"
   },
   "keywords": [],
   "author": "",

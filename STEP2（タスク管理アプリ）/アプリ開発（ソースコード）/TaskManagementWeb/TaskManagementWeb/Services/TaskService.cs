@@ -1,40 +1,55 @@
-﻿using WebTaskManagement.Models;
-using WebTaskManagement.Repositories;
+﻿using TaskManagementWeb.Models;
+using TaskManagementWeb.Repositories;
 
-namespace WebTaskManagement.Services
+namespace TaskManagementWeb.Services
 {
     public class TaskService
     {
-        private readonly TaskRepository _taskRepository;
+        private readonly TaskRepository _taskRepo;
+        private readonly TaskTagRepository _tagRepo;
 
-        public TaskService(TaskRepository taskRepository)
+        public TaskService(TaskRepository taskRepo, TaskTagRepository tagRepo)
         {
-            _taskRepository = taskRepository;
+            _taskRepo = taskRepo;
+            _tagRepo = tagRepo;
         }
 
         public List<TaskModel> LoadTasks(string userId)
         {
-            return _taskRepository.GetTasks(userId);
+            var tasks = _taskRepo.GetTasksByUserId(userId);
+            var tagDict = _tagRepo.GetAllTags();
+
+            foreach (var task in tasks)
+            {
+                task.TagName = tagDict.ContainsKey(task.TagNo) ? tagDict[task.TagNo] : "未分類";
+            }
+
+            return tasks;
         }
 
-        public List<TaskModel> GetPagedTasks(List<TaskModel> allTasks, int pageIndex, int pageSize)
+		public async Task<TaskModel?> LoadTaskByIdAsync(int taskNo)
+		{
+			return await _taskRepo.LoadTaskByIdAsync(taskNo);
+		}
+
+		public List<TaskModel> GetPagedTasks(List<TaskModel> allTasks, int pageIndex, int pageSize)
         {
             return allTasks.Skip(pageIndex * pageSize).Take(pageSize).ToList();
         }
 
         public async Task UpdateTask(TaskModel task)
         {
-            await _taskRepository.UpdateTaskAsync(task);
+            await _taskRepo.UpdateTaskAsync(task);
         }
 
-        public void CompleteTasks(List<TaskModel> tasks)
+		public void CompleteTasks(List<TaskModel> tasks)
         {
-            _taskRepository.CompleteTasks(tasks);
+            _taskRepo.CompleteTasks(tasks);
         }
 
         public void DeleteTasks(List<TaskModel> tasks)
         {
-            _taskRepository.DeleteTasks(tasks);
+            _taskRepo.DeleteTasks(tasks);
         }
     }
 }
