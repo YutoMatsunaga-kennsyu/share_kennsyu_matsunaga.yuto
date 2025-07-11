@@ -6,140 +6,131 @@
 @inject TaskService TaskService
 @inject TaskTagService TaskTagService
 
-<h3 class="text-xl font-bold mb-4">タスク一覧</h3>
+<div class="flex flex-col h-screen">
+	<!-- ヘッダー -->
+	<div class="px-4 py-2">
+		<h3 class="text-xl font-bold mb-4">タスク一覧</h3>
+	</div>
 
-@if (Tasks == null)
-{
-				<p>読み込み中...</p>
-}
-else
-{
-		   <div class="max-w-screen-2xl mx-auto px-4">
+	<!-- タスクリスト：スクロール領域 -->
+	<!-- タスクリストの親div -->
+	<div class="flex-grow overflow-auto px-4 relative">
+		@if (Tasks == null)
+		{
+			<p>読み込み中...</p>
+		}
+		else
+		{
+			<div class="max-w-screen-2xl mx-auto">
 				<table class="table-auto w-full border-4 border-black border-collapse rounded-lg">
-				<thead class="bg-gray-100">
-					<tr>
-						<th class="p-2 border border-gray-300">タスク名</th>
-						<th class="p-2 border border-gray-300">説明</th>
-						<th class="p-2 border border-gray-300">タスク分類</th>
-						<th class="p-2 border border-gray-300">タスク完了期限</th>
-						<th class="p-2 border border-gray-300">タスク完了日時</th>
-						<th class="p-2 border border-gray-300">タスク更新日時</th>
-						<th class="p-2 border border-gray-300">タスク状況</th>
-						<th class="p-2 border border-gray-300 text-center">削除/完了選択</th>
-					</tr>
-				</thead>
-				<tbody>
-			@foreach (var task in PagedTasks)
-			{
-				<tr>
-					<!-- タスク名 -->
-				    <td class="p-2 border border-gray-300">
-		               <textarea id="taskName-@task.TaskNo"
-		                  value="@task.TempTaskName"
-		                  @oninput="(e) => OnTaskNameInput(task, e)"
-		                  @onblur="async () => await ValidateAndSaveTaskAsync(task)"
-		                  class="w-full font-normal bg-transparent border border-transparent hover:border-gray-300 focus:border-blue-500 focus:bg-white focus:ring-2 focus:ring-blue-200 rounded transition duration-200">
-		            </textarea>
-				    </td>
+					<thead class="bg-gray-100">
+						<tr>
+							<th class="p-2 border border-gray-300">タスク名</th>
+							<th class="p-2 border border-gray-300">説明</th>
+							<th class="p-2 border border-gray-300">タスク分類</th>
+							<th class="p-2 border border-gray-300">タスク完了期限</th>
+							<th class="p-2 border border-gray-300">タスク完了日時</th>
+							<th class="p-2 border border-gray-300">タスク更新日時</th>
+							<th class="p-2 border border-gray-300">タスク状況</th>
+							<th class="p-2 border border-gray-300 text-center">削除/完了選択</th>
+						</tr>
+					</thead>
+					<tbody>
+						@foreach (var task in Tasks)
+						{
+							<tr>
+								<td class="p-2 border border-gray-300">
+									<textarea id="taskName-@task.TaskNo"
+											  value="@task.TempTaskName"
+											  @oninput="(e) => OnTaskNameInput(task, e)"
+											  @onblur="async () => await ValidateAndSaveTaskAsync(task)"
+											  class="w-full font-normal bg-transparent border border-transparent hover:border-gray-300 focus:border-blue-500 focus:bg-white focus:ring-2 focus:ring-blue-200 rounded transition duration-200">
+													</textarea>
+								</td>
+								<td class="p-2 border border-gray-300">
+									<textarea id="description-@task.TaskNo"
+											  value="@task.TempDescription"
+											  @oninput="(e) => OnDescriptionInput(task, e)"
+											  @onblur="async () => await SaveDescriptionAsync(task)"
+											  class="w-full font-normal bg-transparent border border-transparent hover:border-gray-300 focus:border-blue-500 focus:bg-white focus:ring-2 focus:ring-blue-200 rounded transition duration-200">
+													</textarea>
+								</td>
+								<td class="p-2 border border-gray-300">
+									<InputSelect TValue="int"
+												 Value="@task.TagNo"
+												 ValueChanged="@(v => OnTagChanged(task, v))"
+												 ValueExpression="(() => task.TagNo)"
+												 class="w-full font-normal bg-transparent border border-transparent hover:border-gray-300 focus:border-blue-500 focus:bg-white focus:ring-2 focus:ring-blue-200 rounded transition duration-200">
+										@foreach (var tag in TagDictionary)
+										{
+											<option value="@tag.Key">@tag.Value</option>
+										}
+									</InputSelect>
+								</td>
+								<td class="p-2 border border-gray-300">
+									<input type="datetime-local"
+										   value="@task.DueDateString"
+										   @oninput="(ChangeEventArgs e) => { task.DueDateString = e.Value?.ToString() ?? string.Empty; }"
+										   @onchange="async (ChangeEventArgs e) => await OnDueDateChangedAsync(task, e)"
+										   class="w-full font-normal bg-transparent border border-transparent hover:border-gray-300 focus:border-blue-500 focus:bg-white focus:ring-2 focus:ring-blue-200 rounded transition duration-200" />
+								</td>
+								<td class="p-2 border border-gray-300">
+									<input type="datetime-local"
+										   class="w-full font-normal bg-transparent border border-transparent hover:border-gray-300 focus:border-blue-500 focus:bg-white focus:ring-2 focus:ring-blue-200 rounded transition duration-200"
+										   value="@task.DoneDateString"
+										   @onchange="async (ChangeEventArgs e) => await OnDoneDateChangedAsync(task, e)" />
+								</td>
+								<td class="p-2 border border-gray-300 text-gray-700">
+									@task.UpdateDate?.ToString("yyyy/MM/dd HH:mm")
+								</td>
+								<td class="p-2 border border-gray-300">
+									<InputSelect TValue="int"
+												 Value="@task.IsActive"
+												 ValueChanged="@(v => OnStatusChanged(task, v))"
+												 ValueExpression="(() => task.IsActive)"
+												 class="w-full font-normal bg-transparent border border-transparent hover:border-gray-300 focus:border-blue-500 focus:bg-white focus:ring-2 focus:ring-blue-200 rounded transition duration-200">
+										@foreach (var status in TaskStatusHelper.StatusMap)
+										{
+											<option value="@status.Key">@status.Value</option>
+										}
+									</InputSelect>
+								</td>
+								<td class="p-2 border border-gray-300 text-center">
+									<input type="checkbox" @bind="task.IsChecked" />
+								</td>
+							</tr>
+						}
+					</tbody>
+				</table>
+			</div>
+		}
+	</div>
 
-					<!-- 説明 -->
-					<td class="p-2 border border-gray-300">
-					   <textarea id="description-@task.TaskNo"
-						  value="@task.TempDescription"
-						  @oninput="(e) => OnDescriptionInput(task, e)"
-						  @onblur="async () => await SaveDescriptionAsync(task)"
-						  class="w-full font-normal bg-transparent border border-transparent hover:border-gray-300 focus:border-blue-500 focus:bg-white focus:ring-2 focus:ring-blue-200 rounded transition duration-200">
-			        </textarea>
-				    </td>
+	<!-- フッター -->
+	<div class="bg-white border-t border-gray-300 px-4 py-3 flex items-center justify-between relative">
 
-					<!-- タスク分類 -->
-				    <td class="p-2 border border-gray-300">
-				       <InputSelect TValue="int"
-				       	   Value="@task.TagNo"
-				       	   ValueChanged="@(v => OnTagChanged(task, v))"
-				       	   ValueExpression="(() => task.TagNo)"
-				       	   class="w-full font-normal bg-transparent border border-transparent hover:border-gray-300 focus:border-blue-500 focus:bg-white focus:ring-2 focus:ring-blue-200 rounded transition duration-200">
-				       	   @foreach (var tag in TagDictionary)
-				       	   {
-				       	   	 <option value="@tag.Key">@tag.Value</option>
-				       	   }
-				       </InputSelect>
-				    </td>
+		<!-- メッセージ表示領域（左寄せ） -->
+		@if (!string.IsNullOrEmpty(LogMessage))
+		{
+			<div class="text-sm
+			@(IsErrorMessage
+				? "text-red-700 bg-red-100 border border-red-400 rounded p-2"
+				: "text-green-700 bg-green-100 border border-green-400 rounded p-2")
+				">
+				@LogMessage
+			</div>
+		}
 
-					<!-- タスク完了期限 -->
-		            <td class="p-2 border border-gray-300">
-		                <input type="datetime-local"
-		                    value="@task.DueDateString"
-		                    @oninput="(ChangeEventArgs e) => { task.DueDateString = e.Value?.ToString() ?? string.Empty; }"
-		                    @onchange="async (ChangeEventArgs e) => await OnDueDateChangedAsync(task, e)"
-		                    class="w-full font-normal bg-transparent border border-transparent hover:border-gray-300
-                            focus:border-blue-500 focus:bg-white focus:ring-2 focus:ring-blue-200 rounded transition duration-200" />
-
-		            </td>
-
-					<!-- タスク完了日時 -->
-		            <td class="p-2 border border-gray-300">
-		            	<input type="datetime-local"
-		            		class="w-full font-normal bg-transparent border border-transparent hover:border-gray-300 focus:border-blue-500 focus:bg-white focus:ring-2 focus:ring-blue-200 rounded transition duration-200"
-		            		value="@task.DoneDateString"
-		            		@onchange="async (ChangeEventArgs e) => await OnDoneDateChangedAsync(task, e)" />
-		            </td>
-
-					<!-- タスク更新日時 -->
-                    <td class="p-2 border border-gray-300 text-gray-700">
-						@task.UpdateDate?.ToString("yyyy/MM/dd HH:mm")
-                    </td>
-
-					<!-- タスク状況 -->
-		            <td class="p-2 border border-gray-300">
-		                <InputSelect TValue="int"
-		        		   Value="@task.IsActive"
-		        		   ValueChanged="@(v => OnStatusChanged(task, v))"
-		        		   ValueExpression="(() => task.IsActive)"
-		        		   class="w-full font-normal bg-transparent border border-transparent hover:border-gray-300 focus:border-blue-500 focus:bg-white focus:ring-2 focus:ring-blue-200 rounded transition duration-200">
-		        	        @foreach (var status in TaskStatusHelper.StatusMap)
-		        			{
-		        			   <option value="@status.Key">@status.Value</option>
-		        			}
-						</InputSelect>
-		            </td>
-
-					<!-- 削除/完了選択 -->
-		            <td class="p-2 border border-gray-300 text-center">
-		            	<input type="checkbox" @bind="task.IsChecked" />
-		            </td>
-				</tr>
-			}
-				</tbody>
-			</table>
-
-				<div class="mt-4 flex justify-between">
-					<button class="px-4 py-2 bg-gray-300 rounded" @onclick="PreviousPage" disabled="@(PageIndex == 0)">前へ</button>
-					<button class="px-4 py-2 bg-gray-300 rounded" @onclick="NextPage" disabled="@((PageIndex + 1) * PageSize >= Tasks.Count)">次へ</button>
-				</div>
-
-				<div class="mt-4 flex gap-4">
-					<button class="px-4 py-2 bg-green-500 text-white rounded" @onclick="MarkDone">完了</button>
-					<button class="px-4 py-2 bg-red-500 text-white rounded" @onclick="DeleteTasks">削除</button>
-				</div>
-		 </div>
-
-	@if (!string.IsNullOrEmpty(LogMessage))
-	{
-		<div class="mt-4 p-2 border rounded @(
-		IsErrorMessage
-		? "bg-red-100 text-red-800 border-red-400"
-		: "bg-green-100 text-green-700 border-green-400")">
-			@LogMessage
+		<!-- ボタン群（右端に固定表示） -->
+		<div class="flex gap-4 ml-auto">
+			<button class="px-4 py-2 bg-green-500 text-white rounded" @onclick="MarkDone">完了</button>
+			<button class="px-4 py-2 bg-red-500 text-white rounded" @onclick="DeleteTasks">削除</button>
 		</div>
-	}
-}
+	</div>
+</div>
 
 @code {
 	private List<TaskModel> Tasks;
-	private List<TaskModel> PagedTasks;
-	private int PageSize = 5;
-	private int PageIndex = 0;
 	private bool IsErrorMessage = false;
 	private string LogMessage = string.Empty;
 
@@ -369,41 +360,15 @@ else
 	protected override void OnInitialized()
 	{
 		TagDictionary = TaskTagService.GetTagDictionary();
-		Tasks = TaskService.LoadTasks("X"); // 仮のユーザーID
+		Tasks = TaskService.LoadTasks("X");
 
-		// Temp系に値をコピーしておく（初期表示用）
 		foreach (var task in Tasks)
 		{
 			task.TempTaskName = task.TaskName;
 			task.TempDescription = task.Description ?? "";
 		}
-
-		UpdatePage();
 	}
 
-	private void UpdatePage()
-	{
-		PagedTasks = TaskService.GetPagedTasks(Tasks, PageIndex, PageSize);
-		StateHasChanged();
-	}
-
-	private void NextPage()
-	{
-		if ((PageIndex + 1) * PageSize < Tasks.Count)
-		{
-			PageIndex++;
-			UpdatePage();
-		}
-	}
-
-	private void PreviousPage()
-	{
-		if (PageIndex > 0)
-		{
-			PageIndex--;
-			UpdatePage();
-		}
-	}
 
 	private async Task ValidateAndSaveTaskAsync(TaskModel task)
 	{
@@ -496,21 +461,55 @@ else
 	{
 		var input = task.TempDescription?.Trim() ?? "";
 
+		// 31文字以上なら条件に応じて処理
 		if (input.Length > 30)
 		{
-			LogMessage = "説明は30文字以内で入力してください。";
-			IsErrorMessage = true;
-
 			var dbTask = await TaskService.LoadTaskByIdAsync(task.TaskNo);
-			if (dbTask != null)
+			if (dbTask == null)
 			{
+				LogMessage = "対象タスクが見つかりませんでした。";
+				IsErrorMessage = true;
+				StateHasChanged();
+				return;
+			}
+
+			if (string.IsNullOrWhiteSpace(dbTask.Description))
+			{
+				// 元が未設定 → 説明を未設定として保存する
+				task.Description = null;
+				task.TempDescription = "";
+				try
+				{
+					await TaskService.UpdateTask(task);
+
+					var updated = await TaskService.LoadTaskByIdAsync(task.TaskNo);
+					if (updated != null)
+					{
+						task.UpdateDate = updated.UpdateDate;
+					}
+
+					LogMessage = "説明は30文字以内で入力してください。";
+					IsErrorMessage = true;
+				}
+				catch (Exception ex)
+				{
+					LogMessage = $"保存失敗: {ex.Message}";
+					IsErrorMessage = true;
+				}
+			}
+			else
+			{
+				// 元が設定済み → 差し戻して保存はしない
 				task.TempDescription = dbTask.Description ?? "";
+				LogMessage = "説明は30文字以内で入力してください。";
+				IsErrorMessage = true;
 			}
 
 			StateHasChanged();
 			return;
 		}
 
+		// 正常な入力なら保存処理を続行
 		task.Description = string.IsNullOrWhiteSpace(input) ? null : input;
 
 		try
@@ -519,10 +518,12 @@ else
 			if (dbTask == null)
 			{
 				LogMessage = "対象タスクが見つかりませんでした。";
+				IsErrorMessage = true;
+				StateHasChanged();
 				return;
 			}
 
-			// 変更がなければメッセージをクリアして何もしない
+			// 変更なければ何もしない
 			if ((dbTask.Description ?? "") == input)
 			{
 				LogMessage = "";
@@ -612,7 +613,11 @@ else
 		var selected = Tasks.Where(t => t.IsChecked).ToList();
 		TaskService.CompleteTasks(selected);
 		Tasks = TaskService.LoadTasks("X");
-		UpdatePage();
+		foreach (var task in Tasks)
+		{
+			task.TempTaskName = task.TaskName;
+			task.TempDescription = task.Description ?? "";
+		}
 	}
 
 	private void DeleteTasks()
@@ -620,6 +625,10 @@ else
 		var selected = Tasks.Where(t => t.IsChecked).ToList();
 		TaskService.DeleteTasks(selected);
 		Tasks = TaskService.LoadTasks("X");
-		UpdatePage();
+		foreach (var task in Tasks)
+		{
+			task.TempTaskName = task.TaskName;
+			task.TempDescription = task.Description ?? "";
+		}
 	}
 }
