@@ -34,23 +34,22 @@ else
 				<tr>
 					<!-- タスク名 -->
 				    <td class="p-2 border border-gray-300">
-		<textarea
-		  id="taskName-@task.TaskNo"
-		  value="@task.TempTaskName"
-		  @oninput="(e) => OnTaskNameInput(task, e)"
-		  @onblur="async () => await ValidateAndSaveTaskAsync(task)"
-		  class="w-full font-normal bg-transparent border border-transparent hover:border-gray-300 focus:border-blue-500 focus:bg-white focus:ring-2 focus:ring-blue-200 rounded transition duration-200">
-		</textarea>				   
-		</td>
+		               <textarea id="taskName-@task.TaskNo"
+		                  value="@task.TempTaskName"
+		                  @oninput="(e) => OnTaskNameInput(task, e)"
+		                  @onblur="async () => await ValidateAndSaveTaskAsync(task)"
+		                  class="w-full font-normal bg-transparent border border-transparent hover:border-gray-300 focus:border-blue-500 focus:bg-white focus:ring-2 focus:ring-blue-200 rounded transition duration-200">
+		            </textarea>
+				    </td>
 
 					<!-- 説明 -->
-				    <td class="p-2 border border-gray-300">
-		               <InputTextArea
-		               	   @bind-Value="task.TempDescription"
-		                   maxlength="30"
-				    	   class="w-full font-normal bg-transparent border border-transparent hover:border-gray-300 focus:border-blue-500 focus:bg-white focus:ring-2 focus:ring-blue-200 rounded transition duration-200"
-				    	   @oninput="(e) => OnDescriptionInput(task, e)"
-						   @onblur="async () => await SaveDescriptionAsync(task)" />
+					<td class="p-2 border border-gray-300">
+					   <textarea id="description-@task.TaskNo"
+						  value="@task.TempDescription"
+						  @oninput="(e) => OnDescriptionInput(task, e)"
+						  @onblur="async () => await SaveDescriptionAsync(task)"
+						  class="w-full font-normal bg-transparent border border-transparent hover:border-gray-300 focus:border-blue-500 focus:bg-white focus:ring-2 focus:ring-blue-200 rounded transition duration-200">
+			        </textarea>
 				    </td>
 
 					<!-- タスク分類 -->
@@ -127,7 +126,10 @@ else
 
 	@if (!string.IsNullOrEmpty(LogMessage))
 	{
-		<div class="mt-4 p-2 bg-green-100 text-green-700 border border-green-400 rounded">
+		<div class="mt-4 p-2 border rounded @(
+		IsErrorMessage
+		? "bg-red-100 text-red-800 border-red-400"
+		: "bg-green-100 text-green-700 border-green-400")">
 			@LogMessage
 		</div>
 	}
@@ -138,55 +140,17 @@ else
 	private List<TaskModel> PagedTasks;
 	private int PageSize = 5;
 	private int PageIndex = 0;
-
+	private bool IsErrorMessage = false;
 	private string LogMessage = string.Empty;
 
 	private Dictionary<int, string> TagDictionary = new();
 
-	private ElementReference taskNameInputRef;
-
-	[Inject] private IJSRuntime JS { get; set; }
-
-	protected override async Task OnAfterRenderAsync(bool firstRender)
-	{
-		if (firstRender)
-		{
-			foreach (var task in PagedTasks)
-			{
-				await JS.InvokeVoidAsync("initTextareaLimiter", $"taskName-{task.TaskNo}", 15);
-			}
-		}
-	}
-
-	private async void OnTaskNameInput(TaskModel task, ChangeEventArgs e)
+	private void OnTaskNameInput(TaskModel task, ChangeEventArgs e)
 	{
 		var input = e.Value?.ToString() ?? "";
-
-		if (input.Length > 15)
-		{
-			var dbTask = await TaskService.LoadTaskByIdAsync(task.TaskNo);
-			if (dbTask != null)
-			{
-				task.TempTaskName = dbTask.TaskName;
-				LogMessage = "タスク名は15文字以内で入力してください。";
-
-				// テキストエリアの値をDB値に戻す（JSで強制的に上書き）
-				await JS.InvokeVoidAsync("setTextareaValue", $"taskName-{task.TaskNo}", task.TempTaskName);
-
-				// フォーカスを外す
-				await JS.InvokeVoidAsync("blurElementById", $"taskName-{task.TaskNo}");
-
-				StateHasChanged();
-			}
-			return;
-		}
-
-		if (task.TempTaskName != input)
-		{
-			task.TempTaskName = input;
-			LogMessage = "";
-			StateHasChanged();
-		}
+		task.TempTaskName = input;
+		LogMessage = "";  // 入力中はエラー表示なし
+		StateHasChanged();
 	}
 
 	private void OnDescriptionInput(TaskModel task, ChangeEventArgs e)
@@ -195,12 +159,13 @@ else
 
 		if (input.Length > 30)
 		{
-			input = input.Substring(0, 30);
 			LogMessage = "説明は30文字以内で入力してください。";
+			IsErrorMessage = true;
 		}
 		else
 		{
 			LogMessage = "";
+			IsErrorMessage = false;
 		}
 
 		task.TempDescription = input;
@@ -217,7 +182,9 @@ else
 		if (dbTask.TaskName != currentTask.TaskName)
 			messages.Add($"タスク名：{FromOrBlank(dbTask.TaskName)} ⇒ {FromOrBlank(currentTask.TaskName)}");
 
-		if (dbTask.Description != currentTask.Description)
+		string NormalizeDescription(string? desc) => string.IsNullOrWhiteSpace(desc) ? "" : desc;
+
+		if (NormalizeDescription(dbTask.Description) != NormalizeDescription(currentTask.Description))
 			messages.Add($"説明：{FromOrBlank(dbTask.Description)} ⇒ {FromOrBlank(currentTask.Description)}");
 
 		if (dbTask.TagNo != currentTask.TagNo)
@@ -245,6 +212,7 @@ else
 		if (string.IsNullOrWhiteSpace(newValue))
 		{
 			LogMessage = "タスク完了期限は必須です。";
+			IsErrorMessage = true;
 			var dbTask = await TaskService.LoadTaskByIdAsync(task.TaskNo);
 			if (dbTask != null)
 			{
@@ -258,6 +226,7 @@ else
 		if (!DateTime.TryParse(newValue, out var dueDate))
 		{
 			LogMessage = "タスク完了期限の形式が正しくありません。";
+			IsErrorMessage = true;
 			StateHasChanged();
 			return;
 		}
@@ -287,11 +256,13 @@ else
 			if (hasChanges)
 			{
 				LogMessage = $"「{task.TaskName}」の変更を保存しました。変更内容【{changeMessage}】";
+				IsErrorMessage = false;
 			}
 		}
 		catch (Exception ex)
 		{
 			LogMessage = $"保存失敗: {ex.Message}";
+			IsErrorMessage = true;
 			var dbTask = await TaskService.LoadTaskByIdAsync(task.TaskNo);
 			if (dbTask != null)
 			{
@@ -320,6 +291,7 @@ else
 		if (!DateTime.TryParse(newValue, out var doneDate) && !string.IsNullOrWhiteSpace(newValue))
 		{
 			LogMessage = "タスク完了日時の形式が正しくありません。";
+			IsErrorMessage = true;
 			StateHasChanged();
 			return;
 		}
@@ -349,11 +321,14 @@ else
 			if (hasChanges)
 			{
 				LogMessage = $"「{task.TaskName}」の変更を保存しました。変更内容【{changeMessage}】";
+				IsErrorMessage = false;
+
 			}
 		}
 		catch (Exception ex)
 		{
 			LogMessage = $"保存失敗: {ex.Message}";
+			IsErrorMessage = true;
 
 			// DB値で復元
 			var dbTask = await TaskService.LoadTaskByIdAsync(task.TaskNo);
@@ -409,6 +384,7 @@ else
 	private void UpdatePage()
 	{
 		PagedTasks = TaskService.GetPagedTasks(Tasks, PageIndex, PageSize);
+		StateHasChanged();
 	}
 
 	private void NextPage()
@@ -431,120 +407,111 @@ else
 
 	private async Task ValidateAndSaveTaskAsync(TaskModel task)
 	{
-
-		if (task.TempTaskName.Length > 15)
-		{
-			LogMessage = "タスク名は15文字以内で入力してください。";
-			task.TempTaskName = task.TempTaskName.Substring(0, 15);
-			StateHasChanged();
-			return;
-		}
-
-		// 空チェック
 		if (string.IsNullOrWhiteSpace(task.TempTaskName))
 		{
 			LogMessage = "タスク名は必須です。";
+			IsErrorMessage = true;
 
-			// DBの最新値で戻す（TempTaskNameも更新）
 			var dbTask = await TaskService.LoadTaskByIdAsync(task.TaskNo);
 			if (dbTask != null)
 			{
 				task.TempTaskName = dbTask.TaskName;
 			}
+
 			StateHasChanged();
 			return;
 		}
 
-		// 文字数チェック（maxlength=15）
 		if (task.TempTaskName.Length > 15)
 		{
 			LogMessage = "タスク名は15文字以内で入力してください。";
-			// maxlength超過時はDB最新値で戻す（TempTaskNameも更新）
+			IsErrorMessage = true;
+
 			var dbTask = await TaskService.LoadTaskByIdAsync(task.TaskNo);
 			if (dbTask != null)
 			{
 				task.TempTaskName = dbTask.TaskName;
 			}
+
 			StateHasChanged();
-			return;
+			return;  // 保存はしない
 		}
 
 		try
 		{
-			TaskModel? dbTask = await TaskService.LoadTaskByIdAsync(task.TaskNo);
-
+			var dbTask = await TaskService.LoadTaskByIdAsync(task.TaskNo);
 			if (dbTask == null)
 			{
 				LogMessage = "対象タスクが見つかりませんでした。";
+				StateHasChanged();
 				return;
 			}
 
-			var change = "";
-			var changeFlag = true;
-			if (dbTask.TaskName != task.TempTaskName)
+			// 変更がなければ何もしない（メッセージもクリア）
+			if (dbTask.TaskName == task.TempTaskName)
 			{
-				change = $"タスク名：{dbTask.TaskName} ⇒ {task.TempTaskName}";
-			}
-			else
-			{
-				changeFlag = false;
+				LogMessage = "";
+				IsErrorMessage = false;
+				StateHasChanged();
+				return;
 			}
 
-			// 実際のモデルに反映
+			// 保存処理
 			task.TaskName = task.TempTaskName;
-
-			// DB更新
 			await TaskService.UpdateTask(task);
 
-			if (changeFlag)
-			{
-				LogMessage = $"「{task.TaskName}」の変更を保存しました。変更内容【{change}】";
-			}
-
+			// 更新日時をDBから再取得
 			var updated = await TaskService.LoadTaskByIdAsync(task.TaskNo);
 			if (updated != null)
 			{
 				task.UpdateDate = updated.UpdateDate;
 			}
+
+			// 変更内容のメッセージ作成
+			var (hasChanges, changeMessage) = GetChangeMessage(dbTask, task);
+
+			if (hasChanges)
+			{
+				LogMessage = $"「{task.TaskName}」の変更を保存しました。変更内容【{changeMessage}】";
+				IsErrorMessage = false;
+			}
+			else
+			{
+				LogMessage = "";
+				IsErrorMessage = false;
+			}
 		}
 		catch (Exception ex)
 		{
 			LogMessage = $"保存失敗: {ex.Message}";
-
-			// 保存失敗時もDB最新値で戻す
-			var dbTask = await TaskService.LoadTaskByIdAsync(task.TaskNo);
-			if (dbTask != null)
-			{
-				task.TaskName = dbTask.TaskName;
-				task.TempTaskName = dbTask.TaskName;
-			}
+			IsErrorMessage = true;
 		}
+
 		StateHasChanged();
 	}
 
+
+
 	private async Task SaveDescriptionAsync(TaskModel task)
 	{
-		// 空なら未設定にしたいなら
-		if (string.IsNullOrWhiteSpace(task.TempDescription))
-		{
-			task.Description = null;
-		}
-		else if (task.TempDescription.Length > 30)
+		var input = task.TempDescription?.Trim() ?? "";
+
+		if (input.Length > 30)
 		{
 			LogMessage = "説明は30文字以内で入力してください。";
+			IsErrorMessage = true;
 
 			var dbTask = await TaskService.LoadTaskByIdAsync(task.TaskNo);
 			if (dbTask != null)
 			{
 				task.TempDescription = dbTask.Description ?? "";
 			}
+
 			StateHasChanged();
 			return;
 		}
-		else
-		{
-			task.Description = task.TempDescription;
-		}
+
+		task.Description = string.IsNullOrWhiteSpace(input) ? null : input;
 
 		try
 		{
@@ -552,6 +519,15 @@ else
 			if (dbTask == null)
 			{
 				LogMessage = "対象タスクが見つかりませんでした。";
+				return;
+			}
+
+			// 変更がなければメッセージをクリアして何もしない
+			if ((dbTask.Description ?? "") == input)
+			{
+				LogMessage = "";
+				IsErrorMessage = false;
+				StateHasChanged();
 				return;
 			}
 
@@ -568,11 +544,14 @@ else
 			if (hasChanges)
 			{
 				LogMessage = $"「{task.TaskName}」の変更を保存しました。変更内容【{changeMessage}】";
+				IsErrorMessage = false;
 			}
 		}
 		catch (Exception ex)
 		{
 			LogMessage = $"保存失敗: {ex.Message}";
+			IsErrorMessage = true;
+
 			var dbTask = await TaskService.LoadTaskByIdAsync(task.TaskNo);
 			if (dbTask != null)
 			{
@@ -592,6 +571,7 @@ else
 			if (dbTask == null)
 			{
 				LogMessage = "対象タスクが見つかりませんでした。";
+				IsErrorMessage = true;
 				return;
 			}
 
@@ -611,11 +591,14 @@ else
 			if (hasChanges)
 			{
 				LogMessage = $"「{task.TaskName}」の変更を保存しました。変更内容【{changeMessage}】";
+				IsErrorMessage = false;
+
 			}
 		}
 		catch (Exception ex)
 		{
 			LogMessage = $"保存失敗: {ex.GetType().Name} - {ex.Message}";
+			IsErrorMessage = true;
 			if (ex.InnerException != null)
 			{
 				LogMessage += $" | Inner: {ex.InnerException.Message}";
