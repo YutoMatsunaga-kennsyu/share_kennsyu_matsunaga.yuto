@@ -6,7 +6,7 @@
 		{
 			{ 0, "完了" },
 			{ 1, "着手中" },
-			{ 2, "未実施" }
+			{ 2, "未着手" }
 		};
 
 		public static string GetStatusName(int statusValue)

@@ -5,15 +5,100 @@
 @using TaskManagementWeb.Helpers
 @inject TaskService TaskService
 @inject TaskTagService TaskTagService
+@inject IJSRuntime JS
 
 <!-- 全体コンテナ -->
 <div class="flex flex-col h-screen">
 
-	<!-- ヘッダー＋テーブルヘッダーをまとめてsticky固定 -->
-	<div class="sticky top-0 z-50 bg-white pt-2 pb-0">
+	<!-- タイトル -->
+	<div class="flex items-center mb-2 border-b border-gray-300 pb-1 justify-between">
+		<div class="flex items-center">
+			<img src="images/task.png" alt="タスクアイコン" class="w-6 h-6 mr-2" />
+			<h3 class="text-xl font-semibold text-gray-800 m-0">
+				タスク一覧
+			</h3>
+		</div>
 
-		<!-- タイトル -->
-		<h3 class="text-xl font-bold mb-1">タスク一覧</h3>
+		<div class="flex items-center gap-2">
+			<span class="text-gray-700 font-medium">@CurrentUserId</span>
+			<button class="bg-transparent border-none cursor-pointer p-0" title="ログアウト" @onclick="OnLogoutClicked" style="width: 28px; height: 28px;">
+				<img src="images/logout.svg" alt="ログアウト" style="width: 100%; height: 100%;" />
+			</button>
+		</div>
+	</div>
+
+	<div class="mb-1 px-6 py-4 bg-gray-100 border border-gray-300 rounded-lg shadow-sm">
+		<div class="flex flex-wrap items-end gap-x-6 gap-y-4">
+
+			<!-- タスク名 -->
+			<div class="flex flex-col w-48">
+				<label for="txtTaskName" class="text-sm font-medium text-gray-700 mb-1">タスク名</label>
+				<InputText id="txtTaskName"
+						   class="border border-gray-300 rounded px-2 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-blue-300"
+						   @bind-Value="SearchTaskName"
+						   maxlength="15" />
+			</div>
+
+			<!-- タスク分類 -->
+			<div class="flex flex-col w-48">
+				<label for="tagComboBox" class="text-sm font-medium text-gray-700 mb-1">タスク分類</label>
+				<InputSelect id="tagComboBox" class="border border-gray-300 rounded px-2 py-1 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-blue-300" @bind-Value="SearchTag">
+					<option value="">全て</option>
+					@foreach (var tag in TaskTags)
+					{
+						<option value="@tag">@tag</option>
+					}
+				</InputSelect>
+			</div>
+
+			<!-- 完了期限（開始） -->
+			<div class="flex flex-col w-48">
+				<label for="txtDateFrom" class="text-sm font-medium text-gray-700 mb-1">タスク完了期限（開始）</label>
+				<InputDate id="txtDateFrom" class="border border-gray-300 rounded px-2 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-blue-300" @bind-Value="SearchDateFrom" />
+			</div>
+
+			<!-- 完了期限（終了） -->
+			<div class="flex flex-col w-48">
+				<label for="txtDateTo" class="text-sm font-medium text-gray-700 mb-1">タスク完了期限（終了）</label>
+				<InputDate id="txtDateTo" class="border border-gray-300 rounded px-2 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-blue-300" @bind-Value="SearchDateTo" />
+			</div>
+
+			<!-- タスク完了日 -->
+			<div class="flex flex-col w-48">
+				<label for="txtDueDate" class="text-sm font-medium text-gray-700 mb-1">タスク完了日</label>
+				<InputDate id="txtDueDate" class="border border-gray-300 rounded px-2 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-blue-300" @bind-Value="SearchDueDate" />
+			</div>
+
+			<!-- タスク状況 -->
+			<div class="flex flex-col w-36">
+				<label for="activeComboBox" class="text-sm font-medium text-gray-700 mb-1">タスク状況</label>
+				<InputSelect id="activeComboBox" class="border border-gray-300 rounded px-2 py-1 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-blue-300" @bind-Value="SearchActiveStatus">
+					<option value="">全て</option>
+					<option value="完了">完了</option>
+					<option value="着手中">着手中</option>
+					<option value="未着手">未着手</option>
+				</InputSelect>
+			</div>
+
+			<!-- ボタン -->
+			<div class="flex gap-3 mt-1">
+				<button class="px-4 py-1.5 bg-blue-600 text-white text-sm rounded hover:bg-blue-700 transition" @onclick="OnSearchClicked">検索</button>
+				<button class="px-4 py-1.5 bg-gray-400 text-white text-sm rounded hover:bg-gray-500 transition" @onclick="OnResetClicked">リセット</button>
+			</div>
+
+		</div>
+	</div>
+
+	@if (!string.IsNullOrEmpty(SearchLogMessage))
+	{
+		<div class="text-sm @(IsErrorSearchLogMessage ? "text-red-700 bg-red-100 border border-red-400 rounded p-2" : "text-green-700 bg-green-100 border border-green-400 rounded p-2")">
+			@SearchLogMessage
+		</div>
+	}
+
+
+	<!-- ヘッダー＋テーブルヘッダーをまとめてsticky固定 -->
+	<div class="sticky top-0 z-50 bg-white pt-1 pb-0">
 
 		<!-- テーブル ヘッダー行だけ -->
 		<table class="table-auto w-full border-collapse border-spacing-0 table-fixed">
@@ -29,14 +114,14 @@
 			</colgroup>
 			<thead>
 				<tr class="h-14 leading-6 border-t-2 border-b-2 border-black">
-					<th class="p-2 bg-white">タスク名</th>
-					<th class="p-2 bg-white">説明</th>
-					<th class="p-2 bg-white">タスク分類</th>
-					<th class="p-2 bg-white">タスク完了期限</th>
-					<th class="p-2 bg-white">タスク完了日時</th>
-					<th class="p-2 bg-white">タスク更新日時</th>
-					<th class="p-2 bg-white">タスク状況</th>
-					<th class="p-2 text-center bg-white">
+					<th class="p-1 bg-white">タスク名</th>
+					<th class="p-1 bg-white">説明</th>
+					<th class="p-1 bg-white">タスク分類</th>
+					<th class="p-1 bg-white">タスク完了期限</th>
+					<th class="p-1 bg-white">タスク完了日時</th>
+					<th class="p-1 bg-white">タスク更新日時</th>
+					<th class="p-1 bg-white">タスク状況</th>
+					<th class="p-1 text-center bg-white">
 						<span class="inline-block text-center w-full" style="position: relative; left: -0.2cm;">選択</span>
 					</th>
 				</tr>
@@ -134,15 +219,15 @@
 
 	<!-- フッター -->
 	<div class="bg-white border-t border-gray-300 px-4 py-3 flex items-center justify-between relative">
-		@if (!string.IsNullOrEmpty(LogMessage))
+		@if (!string.IsNullOrEmpty(EditLogMessage))
 		{
-			<div class="text-sm @(IsErrorMessage ? "text-red-700 bg-red-100 border border-red-400 rounded p-2" : "text-green-700 bg-green-100 border border-green-400 rounded p-2")">
-				@LogMessage
+			<div class="text-sm @(IsErrorEditLogMessage ? "text-red-700 bg-red-100 border border-red-400 rounded p-2" : "text-green-700 bg-green-100 border border-green-400 rounded p-2")">
+				@EditLogMessage
 			</div>
 		}
 		<div class="flex gap-4 ml-auto">
-			<button class="px-4 py-2 bg-green-500 text-white rounded" @onclick="MarkDone">完了</button>
-			<button class="px-4 py-2 bg-red-500 text-white rounded" @onclick="DeleteTasks">削除</button>
+			<button class="px-4 py-2 bg-green-500 text-white rounded" @onclick="OnClickMarkDoneAsync">完了</button>
+			<button class="px-4 py-2 bg-red-500 text-white rounded" @onclick="OnClickDeleteTasksAsync">削除</button>
 		</div>
 	</div>
 
@@ -150,16 +235,132 @@
 
 @code {
 	private List<TaskModel> Tasks;
-	private bool IsErrorMessage = false;
-	private string LogMessage = string.Empty;
+	private bool IsErrorEditLogMessage = false;
+	private string EditLogMessage = string.Empty;
+	private bool IsErrorSearchLogMessage = false;
+	private string SearchLogMessage = string.Empty;
+	// --- ログインユーザーID（仮に固定） ---
+	private string CurrentUserId = "X";
 
 	private Dictionary<int, string> TagDictionary = new();
+
+	private string SearchTaskName { get; set; } = "";
+	private string SearchTag { get; set; } = "";
+	private DateTime? SearchDateFrom { get; set; }
+	private DateTime? SearchDateTo { get; set; }
+	private DateTime? SearchDueDate { get; set; }
+	private string SearchActiveStatus { get; set; } = "";
+
+	private List<string> TaskTags = new();
+
+	protected override async Task OnInitializedAsync()
+	{
+		// タグ情報取得
+		TagDictionary = TaskTagService.GetTagDictionary();
+		TaskTags = TagDictionary.Values.ToList();
+
+		// 初期表示は検索条件を全件取得に合わせて指定
+		Tasks = await TaskService.SearchTasksAsync(
+			taskName: "",
+			tagName: "全て",
+			dateFrom: "",
+			dateTo: "",
+			dateDone: "",
+			active: "全て",
+			userId: CurrentUserId);
+
+		foreach (var task in Tasks)
+		{
+			task.TempTaskName = task.TaskName;
+			task.TempDescription = task.Description ?? "";
+		}
+
+		IsErrorSearchLogMessage = false;
+		SearchLogMessage = $"{Tasks.Count} 件のタスクが見つかりました。";
+	}
+
+	private async Task OnSearchClicked()
+	{
+		if (SearchDateFrom.HasValue && SearchDateTo.HasValue && SearchDateFrom > SearchDateTo)
+		{
+			IsErrorSearchLogMessage = true;
+			SearchLogMessage = "タスク完了期限(開始日)は、タスク完了期限(終了日)と\n同じか前の日付を設定してください";
+			return;
+		}
+
+		await ReloadTasksWithSearchConditionAsync();
+	}
+
+	private async Task ReloadTasksWithSearchConditionAsync()
+	{
+		string doneDateStr = SearchDueDate.HasValue
+			? SearchDueDate.Value.ToString("yyyy/MM/dd")
+			: "";
+
+		string isActiveStr = SearchActiveStatus switch
+		{
+			"完了" => "完了",
+			"着手中" => "着手中",
+			"未着手" => "未着手",
+			_ => "全て"
+		};
+
+		Tasks = await TaskService.SearchTasksAsync(
+			taskName: SearchTaskName,
+			tagName: string.IsNullOrEmpty(SearchTag) ? "全て" : SearchTag,
+			dateFrom: SearchDateFrom?.ToString("yyyy-MM-dd") ?? "",
+			dateTo: SearchDateTo?.ToString("yyyy-MM-dd") ?? "",
+			dateDone: doneDateStr,
+			active: isActiveStr,
+			userId: CurrentUserId);
+
+		foreach (var task in Tasks)
+		{
+			task.TempTaskName = task.TaskName;
+			task.TempDescription = task.Description ?? "";
+		}
+
+		IsErrorSearchLogMessage = false;
+		SearchLogMessage = $"{Tasks.Count} 件のタスクが見つかりました。";
+
+		StateHasChanged();
+	}
+
+	private async Task OnResetClicked()
+	{
+		SearchTaskName = "";
+		SearchTag = "";
+		SearchDateFrom = null;
+		SearchDateTo = null;
+		SearchDueDate = null;
+		SearchActiveStatus = "";
+
+		Tasks = await TaskService.SearchTasksAsync(
+			taskName: "",
+			tagName: "全て",
+			dateFrom: "",
+			dateTo: "",
+			dateDone: "",
+			active: "全て",
+			userId: CurrentUserId);
+
+		foreach (var task in Tasks)
+		{
+			task.TempTaskName = task.TaskName;
+			task.TempDescription = task.Description ?? "";
+		}
+
+		IsErrorSearchLogMessage = false;
+		SearchLogMessage = $"{Tasks.Count} 件のタスクが見つかりました。";
+
+		StateHasChanged();
+	}
 
 	private void OnTaskNameInput(TaskModel task, ChangeEventArgs e)
 	{
 		var input = e.Value?.ToString() ?? "";
 		task.TempTaskName = input;
-		LogMessage = "";  // 入力中はエラー表示なし
+		EditLogMessage = "";  // 入力中はエラー表示なし
 		StateHasChanged();
 	}
 
@@ -169,13 +370,13 @@
 
 		if (input.Length > 30)
 		{
-			LogMessage = "説明は30文字以内で入力してください。";
-			IsErrorMessage = true;
+			EditLogMessage = "説明は30文字以内で入力してください。";
+			IsErrorEditLogMessage = true;
 		}
 		else
 		{
-			LogMessage = "";
-			IsErrorMessage = false;
+			EditLogMessage = "";
+			IsErrorEditLogMessage = false;
 		}
 
 		task.TempDescription = input;
@@ -221,8 +422,8 @@
 
 		if (string.IsNullOrWhiteSpace(newValue))
 		{
-			LogMessage = "タスク完了期限は必須です。";
-			IsErrorMessage = true;
+			EditLogMessage = "タスク完了期限は必須です。";
+			IsErrorEditLogMessage = true;
 			var dbTask = await TaskService.LoadTaskByIdAsync(task.TaskNo);
 			if (dbTask != null)
 			{
@@ -235,8 +436,8 @@
 
 		if (!DateTime.TryParse(newValue, out var dueDate))
 		{
-			LogMessage = "タスク完了期限の形式が正しくありません。";
-			IsErrorMessage = true;
+			EditLogMessage = "タスク完了期限の形式が正しくありません。";
+			IsErrorEditLogMessage = true;
 			StateHasChanged();
 			return;
 		}
@@ -249,7 +450,7 @@
 			var dbTask = await TaskService.LoadTaskByIdAsync(task.TaskNo);
 			if (dbTask == null)
 			{
-				LogMessage = "対象タスクが見つかりませんでした。";
+				EditLogMessage = "対象タスクが見つかりませんでした。";
 				return;
 			}
 
@@ -265,14 +466,14 @@
 
 			if (hasChanges)
 			{
-				LogMessage = $"「{task.TaskName}」の変更を保存しました。変更内容【{changeMessage}】";
-				IsErrorMessage = false;
+				EditLogMessage = $"「{task.TaskName}」の変更を保存しました。変更内容【{changeMessage}】";
+				IsErrorEditLogMessage = false;
 			}
 		}
 		catch (Exception ex)
 		{
-			LogMessage = $"保存失敗: {ex.Message}";
-			IsErrorMessage = true;
+			EditLogMessage = $"保存失敗: {ex.Message}";
+			IsErrorEditLogMessage = true;
 			var dbTask = await TaskService.LoadTaskByIdAsync(task.TaskNo);
 			if (dbTask != null)
 			{
@@ -300,8 +501,8 @@
 		// 日付のパース
 		if (!DateTime.TryParse(newValue, out var doneDate) && !string.IsNullOrWhiteSpace(newValue))
 		{
-			LogMessage = "タスク完了日時の形式が正しくありません。";
-			IsErrorMessage = true;
+			EditLogMessage = "タスク完了日時の形式が正しくありません。";
+			IsErrorEditLogMessage = true;
 			StateHasChanged();
 			return;
 		}
@@ -314,7 +515,7 @@
 			var dbTask = await TaskService.LoadTaskByIdAsync(task.TaskNo);
 			if (dbTask == null)
 			{
-				LogMessage = "対象タスクが見つかりませんでした。";
+				EditLogMessage = "対象タスクが見つかりませんでした。";
 				return;
 			}
 
@@ -330,15 +531,15 @@
 
 			if (hasChanges)
 			{
-				LogMessage = $"「{task.TaskName}」の変更を保存しました。変更内容【{changeMessage}】";
-				IsErrorMessage = false;
+				EditLogMessage = $"「{task.TaskName}」の変更を保存しました。変更内容【{changeMessage}】";
+				IsErrorEditLogMessage = false;
 
 			}
 		}
 		catch (Exception ex)
 		{
-			LogMessage = $"保存失敗: {ex.Message}";
-			IsErrorMessage = true;
+			EditLogMessage = $"保存失敗: {ex.Message}";
+			IsErrorEditLogMessage = true;
 
 			// DB値で復元
 			var dbTask = await TaskService.LoadTaskByIdAsync(task.TaskNo);
@@ -376,25 +577,13 @@
 		await SaveTaskAsync(task);
 	}
 
-	protected override void OnInitialized()
-	{
-		TagDictionary = TaskTagService.GetTagDictionary();
-		Tasks = TaskService.LoadTasks("X");
-
-		foreach (var task in Tasks)
-		{
-			task.TempTaskName = task.TaskName;
-			task.TempDescription = task.Description ?? "";
-		}
-	}
-
 
 	private async Task ValidateAndSaveTaskAsync(TaskModel task)
 	{
 		if (string.IsNullOrWhiteSpace(task.TempTaskName))
 		{
-			LogMessage = "タスク名は必須です。";
-			IsErrorMessage = true;
+			EditLogMessage = "タスク名は必須です。";
+			IsErrorEditLogMessage = true;
 
 			var dbTask = await TaskService.LoadTaskByIdAsync(task.TaskNo);
 			if (dbTask != null)
@@ -408,8 +597,8 @@
 
 		if (task.TempTaskName.Length > 15)
 		{
-			LogMessage = "タスク名は15文字以内で入力してください。";
-			IsErrorMessage = true;
+			EditLogMessage = "タスク名は15文字以内で入力してください。";
+			IsErrorEditLogMessage = true;
 
 			var dbTask = await TaskService.LoadTaskByIdAsync(task.TaskNo);
 			if (dbTask != null)
@@ -426,7 +615,7 @@
 			var dbTask = await TaskService.LoadTaskByIdAsync(task.TaskNo);
 			if (dbTask == null)
 			{
-				LogMessage = "対象タスクが見つかりませんでした。";
+				EditLogMessage = "対象タスクが見つかりませんでした。";
 				StateHasChanged();
 				return;
 			}
@@ -434,8 +623,8 @@
 			// 変更がなければ何もしない（メッセージもクリア）
 			if (dbTask.TaskName == task.TempTaskName)
 			{
-				LogMessage = "";
-				IsErrorMessage = false;
+				EditLogMessage = "";
+				IsErrorEditLogMessage = false;
 				StateHasChanged();
 				return;
 			}
@@ -456,19 +645,19 @@
 
 			if (hasChanges)
 			{
-				LogMessage = $"「{task.TaskName}」の変更を保存しました。変更内容【{changeMessage}】";
-				IsErrorMessage = false;
+				EditLogMessage = $"「{task.TaskName}」の変更を保存しました。変更内容【{changeMessage}】";
+				IsErrorEditLogMessage = false;
 			}
 			else
 			{
-				LogMessage = "";
-				IsErrorMessage = false;
+				EditLogMessage = "";
+				IsErrorEditLogMessage = false;
 			}
 		}
 		catch (Exception ex)
 		{
-			LogMessage = $"保存失敗: {ex.Message}";
-			IsErrorMessage = true;
+			EditLogMessage = $"保存失敗: {ex.Message}";
+			IsErrorEditLogMessage = true;
 		}
 
 		StateHasChanged();
@@ -486,8 +675,8 @@
 			var dbTask = await TaskService.LoadTaskByIdAsync(task.TaskNo);
 			if (dbTask == null)
 			{
-				LogMessage = "対象タスクが見つかりませんでした。";
-				IsErrorMessage = true;
+				EditLogMessage = "対象タスクが見つかりませんでした。";
+				IsErrorEditLogMessage = true;
 				StateHasChanged();
 				return;
 			}
@@ -507,21 +696,21 @@
 						task.UpdateDate = updated.UpdateDate;
 					}
 
-					LogMessage = "説明は30文字以内で入力してください。";
-					IsErrorMessage = true;
+					EditLogMessage = "説明は30文字以内で入力してください。";
+					IsErrorEditLogMessage = true;
 				}
 				catch (Exception ex)
 				{
-					LogMessage = $"保存失敗: {ex.Message}";
-					IsErrorMessage = true;
+					EditLogMessage = $"保存失敗: {ex.Message}";
+					IsErrorEditLogMessage = true;
 				}
 			}
 			else
 			{
 				// 元が設定済み → 差し戻して保存はしない
 				task.TempDescription = dbTask.Description ?? "";
-				LogMessage = "説明は30文字以内で入力してください。";
-				IsErrorMessage = true;
+				EditLogMessage = "説明は30文字以内で入力してください。";
+				IsErrorEditLogMessage = true;
 			}
 
 			StateHasChanged();
@@ -536,8 +725,8 @@
 			var dbTask = await TaskService.LoadTaskByIdAsync(task.TaskNo);
 			if (dbTask == null)
 			{
-				LogMessage = "対象タスクが見つかりませんでした。";
-				IsErrorMessage = true;
+				EditLogMessage = "対象タスクが見つかりませんでした。";
+				IsErrorEditLogMessage = true;
 				StateHasChanged();
 				return;
 			}
@@ -545,8 +734,8 @@
 			// 変更なければ何もしない
 			if ((dbTask.Description ?? "") == input)
 			{
-				LogMessage = "";
-				IsErrorMessage = false;
+				EditLogMessage = "";
+				IsErrorEditLogMessage = false;
 				StateHasChanged();
 				return;
 			}
@@ -563,14 +752,14 @@
 
 			if (hasChanges)
 			{
-				LogMessage = $"「{task.TaskName}」の変更を保存しました。変更内容【{changeMessage}】";
-				IsErrorMessage = false;
+				EditLogMessage = $"「{task.TaskName}」の変更を保存しました。変更内容【{changeMessage}】";
+				IsErrorEditLogMessage = false;
 			}
 		}
 		catch (Exception ex)
 		{
-			LogMessage = $"保存失敗: {ex.Message}";
-			IsErrorMessage = true;
+			EditLogMessage = $"保存失敗: {ex.Message}";
+			IsErrorEditLogMessage = true;
 
 			var dbTask = await TaskService.LoadTaskByIdAsync(task.TaskNo);
 			if (dbTask != null)
@@ -591,8 +780,8 @@
 			TaskModel? dbTask = await TaskService.LoadTaskByIdAsync(task.TaskNo);
 			if (dbTask == null)
 			{
-				LogMessage = "対象タスクが見つかりませんでした。";
-				IsErrorMessage = true;
+				EditLogMessage = "対象タスクが見つかりませんでした。";
+				IsErrorEditLogMessage = true;
 				return;
 			}
 
@@ -611,44 +800,97 @@
 			// ログメッセージ
 			if (hasChanges)
 			{
-				LogMessage = $"「{task.TaskName}」の変更を保存しました。変更内容【{changeMessage}】";
-				IsErrorMessage = false;
+				EditLogMessage = $"「{task.TaskName}」の変更を保存しました。変更内容【{changeMessage}】";
+				IsErrorEditLogMessage = false;
 
 			}
 		}
 		catch (Exception ex)
 		{
-			LogMessage = $"保存失敗: {ex.GetType().Name} - {ex.Message}";
-			IsErrorMessage = true;
+			EditLogMessage = $"保存失敗: {ex.GetType().Name} - {ex.Message}";
+			IsErrorEditLogMessage = true;
 			if (ex.InnerException != null)
 			{
-				LogMessage += $" | Inner: {ex.InnerException.Message}";
+				EditLogMessage += $" | Inner: {ex.InnerException.Message}";
 			}
 		}
 		StateHasChanged();
 	}
 
-	private void MarkDone()
+	private async Task OnClickMarkDoneAsync()
 	{
 		var selected = Tasks.Where(t => t.IsChecked).ToList();
-		TaskService.CompleteTasks(selected);
-		Tasks = TaskService.LoadTasks("X");
-		foreach (var task in Tasks)
+
+		if (selected.Count == 0)
 		{
-			task.TempTaskName = task.TaskName;
-			task.TempDescription = task.Description ?? "";
+			await JS.InvokeVoidAsync("alert", "タスクが選択されていません。");
+			return;
+		}
+
+		if (await JS.InvokeAsync<bool>("showConfirm", "選択されたタスクを完了にしますか？"))
+		{
+			await MarkDoneAsync();
 		}
 	}
 
-	private void DeleteTasks()
+	private async Task OnClickDeleteTasksAsync()
 	{
 		var selected = Tasks.Where(t => t.IsChecked).ToList();
-		TaskService.DeleteTasks(selected);
-		Tasks = TaskService.LoadTasks("X");
-		foreach (var task in Tasks)
+
+		if (selected.Count == 0)
 		{
-			task.TempTaskName = task.TaskName;
-			task.TempDescription = task.Description ?? "";
+			await JS.InvokeVoidAsync("alert", "タスクが選択されていません。");
+			return;
 		}
+
+		if (await JS.InvokeAsync<bool>("showConfirm", "選択されたタスクを削除しますか？\nこの操作は元に戻せません。"))
+		{
+			await DeleteTasksAsync();
+		}
+	}
+
+	private async Task MarkDoneAsync()
+	{
+		var selected = Tasks.Where(t => t.IsChecked).ToList();
+		if (selected.Count == 0) return;
+
+		// 既に完了済みのタスクを抽出
+		var alreadyCompleted = selected.Where(t => t.IsActive == 0).ToList();
+
+		if (alreadyCompleted.Any())
+		{
+			EditLogMessage = "完了済みのタスクが選択されていたため、完了できませんでした。";
+			IsErrorEditLogMessage = true;
+			StateHasChanged();
+			return;
+		}
+
+		// 完了処理
+		TaskService.CompleteTasks(selected);
+		await ReloadTasksWithSearchConditionAsync();
+
+		// ✅ 成功メッセージ追加
+		EditLogMessage = "選択されたタスクを完了しました。";
+		IsErrorEditLogMessage = false;
+		StateHasChanged();
+	}
+
+	private async Task DeleteTasksAsync()
+	{
+		var selected = Tasks.Where(t => t.IsChecked).ToList();
+		if (selected.Count == 0) return;
+
+		TaskService.DeleteTasks(selected);
+		await ReloadTasksWithSearchConditionAsync();
+
+		// ✅ 成功メッセージ追加
+		EditLogMessage = "選択されたタスクを削除しました。";
+		IsErrorEditLogMessage = false;
+		StateHasChanged();
+	}
+
+	private void OnLogoutClicked()
+	{
+		
 	}
 }

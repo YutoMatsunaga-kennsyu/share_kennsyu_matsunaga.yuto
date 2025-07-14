@@ -32,12 +32,29 @@ namespace TaskManagementWeb.Services
 			return await _taskRepo.LoadTaskByIdAsync(taskNo);
 		}
 
-		public List<TaskModel> GetPagedTasks(List<TaskModel> allTasks, int pageIndex, int pageSize)
-        {
-            return allTasks.Skip(pageIndex * pageSize).Take(pageSize).ToList();
-        }
+		public async Task<List<TaskModel>> SearchTasksAsync(
+	string taskName,
+	string tagName,
+	string dateFrom,
+	string dateTo,
+	string dateDone,
+	string active,
+	string userId)
+		{
+			var tasks = await _taskRepo.GetTasksByConditionsAsync(
+				taskName, tagName, dateFrom, dateTo, dateDone, active, userId);
 
-        public async Task UpdateTask(TaskModel task)
+			var tagDict = _tagRepo.GetAllTags();
+
+			foreach (var task in tasks)
+			{
+				task.TagName = tagDict.ContainsKey(task.TagNo) ? tagDict[task.TagNo] : "未分類";
+			}
+
+			return tasks;
+		}
+
+		public async Task UpdateTask(TaskModel task)
         {
             await _taskRepo.UpdateTaskAsync(task);
         }
