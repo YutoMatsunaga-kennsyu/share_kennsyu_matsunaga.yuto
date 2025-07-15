@@ -235,5 +235,46 @@ namespace TaskManagementWeb.Repositories
                 cmd.ExecuteNonQuery();
             }
         }
-    }
+
+		/// <summary>新規タスクの登録を行う処理（非同期）</summary>
+		/// <param name="taskName">タスク名</param>
+		/// <param name="description">説明</param>
+		/// <param name="tagNo">タスク分類番号</param>
+		/// <param name="dueDate">タスク完了期限（文字列で受け取る場合は適宜変換してください）</param>
+		/// <param name="userId">ユーザーID</param>
+		public async Task CreateTaskAsync(string taskName, string description, int tagNo, string dueDate, string userId)
+		{
+			var commandText = @"
+                INSERT INTO tasks(user_id, task_name, description, tag_no, due_date, update_date, is_active) 
+                VALUES (@userId, @taskName, @description, @tagNo, @dueDate, NOW(), 1)";
+
+			using var connection = new MySqlConnection(_config.GetConnectionString("DefaultConnection"));
+			await connection.OpenAsync();
+
+			try
+			{
+				using var command = new MySqlCommand(commandText, connection);
+
+				command.Parameters.AddWithValue("@userId", userId);
+				command.Parameters.AddWithValue("@taskName", taskName);
+				command.Parameters.AddWithValue("@description", description);
+				command.Parameters.AddWithValue("@tagNo", tagNo);
+
+				// dueDateはstring型なので、MySQLのDATETIMEに合う形に変換推奨
+				// ここではstringのまま渡していますが、DateTime型で受け取る方が良いです
+				command.Parameters.AddWithValue("@dueDate", dueDate);
+
+				await command.ExecuteNonQueryAsync();
+			}
+			catch (Exception ex)
+			{
+				// 例外は必要に応じてログ出力や再スローしてください
+				throw;
+			}
+			finally
+			{
+				await connection.CloseAsync();
+			}
+		}
+	}
 }

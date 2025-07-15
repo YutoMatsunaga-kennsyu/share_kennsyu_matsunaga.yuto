@@ -1,0 +1,74 @@
+﻿@page "/"
+
+@using TaskManagementWeb.Services
+@inject UserService UserService
+@inject UserSessionService UserSessionService
+@inject NavigationManager Navigation
+
+<div class="flex items-center justify-center min-h-screen bg-gray-100 px-4">
+    <div class="bg-white shadow-md rounded-lg max-w-md w-full p-8 space-y-6 flex flex-col items-center text-center">
+        <!-- 中央に配置された大きなアイコン -->
+        <img src="images/tasklist_icon.svg" alt="タスク一覧アイコン" style="width: 200px; height: 200px;" />
+
+        <h2 class="text-3xl font-extrabold text-gray-900">TaskManagementWeb</h2>
+
+        <div class="w-full flex flex-col items-start text-left">
+            <label for="userid" class="text-sm font-medium text-gray-700 mb-1">
+                ユーザーID
+            </label>
+            <input id="userid" type="text" @bind="UserId" maxlength="20"
+                   class="appearance-none rounded-md block w-full px-3 py-2 border border-gray-300 placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                   placeholder="ユーザーIDを入力してください" />
+        </div>
+
+        <div class="w-full flex flex-col items-start text-left mt-4">
+            <label for="password" class="text-sm font-medium text-gray-700 mb-1">
+                パスワード
+            </label>
+            <input id="password" type="password" @bind="Password" maxlength="20"
+                   class="appearance-none rounded-md block w-full px-3 py-2 border border-gray-300 placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                   placeholder="パスワードを入力してください" />
+        </div>
+
+        <button @onclick="LoginAsync"
+                class="w-full py-2 px-4 text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+            ログイン
+        </button>
+
+        @if (!string.IsNullOrEmpty(ErrorMessage))
+        {
+            <p class="text-sm text-red-600">@ErrorMessage</p>
+        }
+    </div>
+</div>
+
+
+@code {
+    private string UserId = string.Empty;
+    private string Password = string.Empty;
+    private string ErrorMessage = string.Empty;
+
+    private async Task LoginAsync()
+    {
+        ErrorMessage = string.Empty;
+
+        if (string.IsNullOrWhiteSpace(UserId) || string.IsNullOrWhiteSpace(Password))
+        {
+            ErrorMessage = "ユーザーIDまたはパスワードが未入力です";
+            return;
+        }
+
+        var user = await UserService.LoginAsync(UserId, Password);
+
+        if (user == null)
+        {
+            ErrorMessage = "ユーザーIDまたはパスワードが間違っています";
+            return;
+        }
+
+        UserSessionService.UserId = user.UserId;
+        UserSessionService.UserName = user.UserName;
+
+        Navigation.NavigateTo("/tasklist");
+    }
+}

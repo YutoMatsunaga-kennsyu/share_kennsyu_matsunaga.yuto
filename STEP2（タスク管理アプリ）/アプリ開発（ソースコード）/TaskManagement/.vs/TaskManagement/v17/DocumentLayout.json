@@ -3,24 +3,32 @@
   "WorkspaceRootPath": "C:\\Users\\yuto1\\OneDrive\\\u30C9\u30AD\u30E5\u30E1\u30F3\u30C8\\share_kennsyu_matsunaga.yuto\\STEP2\uFF08\u30BF\u30B9\u30AF\u7BA1\u7406\u30A2\u30D7\u30EA\uFF09\\\u30A2\u30D7\u30EA\u958B\u767A\uFF08\u30BD\u30FC\u30B9\u30B3\u30FC\u30C9\uFF09\\TaskManagement\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{B70E9D45-E520-452A-A12F-F1E6CFC003E2}|TaskManagement\\TaskManagement.csproj|c:\\users\\yuto1\\onedrive\\\u30C9\u30AD\u30E5\u30E1\u30F3\u30C8\\share_kennsyu_matsunaga.yuto\\step2\uFF08\u30BF\u30B9\u30AF\u7BA1\u7406\u30A2\u30D7\u30EA\uFF09\\\u30A2\u30D7\u30EA\u958B\u767A\uFF08\u30BD\u30FC\u30B9\u30B3\u30FC\u30C9\uFF09\\taskmanagement\\taskmanagement\\util\\dbutil.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B70E9D45-E520-452A-A12F-F1E6CFC003E2}|TaskManagement\\TaskManagement.csproj|solutionrelative:taskmanagement\\util\\dbutil.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{B70E9D45-E520-452A-A12F-F1E6CFC003E2}|TaskManagement\\TaskManagement.csproj|C:\\Users\\yuto1\\OneDrive\\\u30C9\u30AD\u30E5\u30E1\u30F3\u30C8\\share_kennsyu_matsunaga.yuto\\STEP2\uFF08\u30BF\u30B9\u30AF\u7BA1\u7406\u30A2\u30D7\u30EA\uFF09\\\u30A2\u30D7\u30EA\u958B\u767A\uFF08\u30BD\u30FC\u30B9\u30B3\u30FC\u30C9\uFF09\\TaskManagement\\taskmanagement\\tasklist\\tasklist.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B70E9D45-E520-452A-A12F-F1E6CFC003E2}|TaskManagement\\TaskManagement.csproj|solutionrelative:taskmanagement\\tasklist\\tasklist.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B70E9D45-E520-452A-A12F-F1E6CFC003E2}|TaskManagement\\TaskManagement.csproj|c:\\users\\yuto1\\onedrive\\\u30C9\u30AD\u30E5\u30E1\u30F3\u30C8\\share_kennsyu_matsunaga.yuto\\step2\uFF08\u30BF\u30B9\u30AF\u7BA1\u7406\u30A2\u30D7\u30EA\uFF09\\\u30A2\u30D7\u30EA\u958B\u767A\uFF08\u30BD\u30FC\u30B9\u30B3\u30FC\u30C9\uFF09\\taskmanagement\\taskmanagement\\tbl\\tasks\\tasksdao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B70E9D45-E520-452A-A12F-F1E6CFC003E2}|TaskManagement\\TaskManagement.csproj|solutionrelative:taskmanagement\\tbl\\tasks\\tasksdao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B70E9D45-E520-452A-A12F-F1E6CFC003E2}|TaskManagement\\TaskManagement.csproj|C:\\Users\\yuto1\\OneDrive\\\u30C9\u30AD\u30E5\u30E1\u30F3\u30C8\\share_kennsyu_matsunaga.yuto\\STEP2\uFF08\u30BF\u30B9\u30AF\u7BA1\u7406\u30A2\u30D7\u30EA\uFF09\\\u30A2\u30D7\u30EA\u958B\u767A\uFF08\u30BD\u30FC\u30B9\u30B3\u30FC\u30C9\uFF09\\TaskManagement\\taskmanagement\\tasklist\\tasklist.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{B70E9D45-E520-452A-A12F-F1E6CFC003E2}|TaskManagement\\TaskManagement.csproj|solutionrelative:taskmanagement\\tasklist\\tasklist.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
     {
       "AbsoluteMoniker": "D:0:0:{B70E9D45-E520-452A-A12F-F1E6CFC003E2}|TaskManagement\\TaskManagement.csproj|C:\\Users\\yuto1\\OneDrive\\\u30C9\u30AD\u30E5\u30E1\u30F3\u30C8\\share_kennsyu_matsunaga.yuto\\STEP2\uFF08\u30BF\u30B9\u30AF\u7BA1\u7406\u30A2\u30D7\u30EA\uFF09\\\u30A2\u30D7\u30EA\u958B\u767A\uFF08\u30BD\u30FC\u30B9\u30B3\u30FC\u30C9\uFF09\\TaskManagement\\taskmanagement\\tbl\\tasktags\\tasktagsdao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{B70E9D45-E520-452A-A12F-F1E6CFC003E2}|TaskManagement\\TaskManagement.csproj|solutionrelative:taskmanagement\\tbl\\tasktags\\tasktagsdao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{B70E9D45-E520-452A-A12F-F1E6CFC003E2}|TaskManagement\\TaskManagement.csproj|c:\\users\\yuto1\\onedrive\\\u30C9\u30AD\u30E5\u30E1\u30F3\u30C8\\share_kennsyu_matsunaga.yuto\\step2\uFF08\u30BF\u30B9\u30AF\u7BA1\u7406\u30A2\u30D7\u30EA\uFF09\\\u30A2\u30D7\u30EA\u958B\u767A\uFF08\u30BD\u30FC\u30B9\u30B3\u30FC\u30C9\uFF09\\taskmanagement\\taskmanagement\\tasklist\\tasklist.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B70E9D45-E520-452A-A12F-F1E6CFC003E2}|TaskManagement\\TaskManagement.csproj|solutionrelative:taskmanagement\\tasklist\\tasklist.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B70E9D45-E520-452A-A12F-F1E6CFC003E2}|TaskManagement\\TaskManagement.csproj|c:\\users\\yuto1\\onedrive\\\u30C9\u30AD\u30E5\u30E1\u30F3\u30C8\\share_kennsyu_matsunaga.yuto\\step2\uFF08\u30BF\u30B9\u30AF\u7BA1\u7406\u30A2\u30D7\u30EA\uFF09\\\u30A2\u30D7\u30EA\u958B\u767A\uFF08\u30BD\u30FC\u30B9\u30B3\u30FC\u30C9\uFF09\\taskmanagement\\taskmanagement\\util\\dbutil.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B70E9D45-E520-452A-A12F-F1E6CFC003E2}|TaskManagement\\TaskManagement.csproj|solutionrelative:taskmanagement\\util\\dbutil.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{B70E9D45-E520-452A-A12F-F1E6CFC003E2}|TaskManagement\\TaskManagement.csproj|C:\\Users\\yuto1\\OneDrive\\\u30C9\u30AD\u30E5\u30E1\u30F3\u30C8\\share_kennsyu_matsunaga.yuto\\STEP2\uFF08\u30BF\u30B9\u30AF\u7BA1\u7406\u30A2\u30D7\u30EA\uFF09\\\u30A2\u30D7\u30EA\u958B\u767A\uFF08\u30BD\u30FC\u30B9\u30B3\u30FC\u30C9\uFF09\\TaskManagement\\taskmanagement\\taskdetail\\taskdetail.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{B70E9D45-E520-452A-A12F-F1E6CFC003E2}|TaskManagement\\TaskManagement.csproj|solutionrelative:taskmanagement\\taskdetail\\taskdetail.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{B70E9D45-E520-452A-A12F-F1E6CFC003E2}|TaskManagement\\TaskManagement.csproj|C:\\Users\\yuto1\\OneDrive\\\u30C9\u30AD\u30E5\u30E1\u30F3\u30C8\\share_kennsyu_matsunaga.yuto\\STEP2\uFF08\u30BF\u30B9\u30AF\u7BA1\u7406\u30A2\u30D7\u30EA\uFF09\\\u30A2\u30D7\u30EA\u958B\u767A\uFF08\u30BD\u30FC\u30B9\u30B3\u30FC\u30C9\uFF09\\TaskManagement\\taskmanagement\\tasklist\\tasklist.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B70E9D45-E520-452A-A12F-F1E6CFC003E2}|TaskManagement\\TaskManagement.csproj|solutionrelative:taskmanagement\\tasklist\\tasklist.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{B70E9D45-E520-452A-A12F-F1E6CFC003E2}|TaskManagement\\TaskManagement.csproj|C:\\Users\\yuto1\\OneDrive\\\u30C9\u30AD\u30E5\u30E1\u30F3\u30C8\\share_kennsyu_matsunaga.yuto\\STEP2\uFF08\u30BF\u30B9\u30AF\u7BA1\u7406\u30A2\u30D7\u30EA\uFF09\\\u30A2\u30D7\u30EA\u958B\u767A\uFF08\u30BD\u30FC\u30B9\u30B3\u30FC\u30C9\uFF09\\TaskManagement\\taskmanagement\\tasklist\\tasklist.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{B70E9D45-E520-452A-A12F-F1E6CFC003E2}|TaskManagement\\TaskManagement.csproj|solutionrelative:taskmanagement\\tasklist\\tasklist.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     }
   ],
   "DocumentGroupContainers": [
@@ -30,11 +38,37 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 5,
           "Children": [
             {
               "$type": "Document",
               "DocumentIndex": 1,
+              "Title": "TasksDao.cs",
+              "DocumentMoniker": "C:\\Users\\yuto1\\OneDrive\\\u30C9\u30AD\u30E5\u30E1\u30F3\u30C8\\share_kennsyu_matsunaga.yuto\\STEP2\uFF08\u30BF\u30B9\u30AF\u7BA1\u7406\u30A2\u30D7\u30EA\uFF09\\\u30A2\u30D7\u30EA\u958B\u767A\uFF08\u30BD\u30FC\u30B9\u30B3\u30FC\u30C9\uFF09\\TaskManagement\\TaskManagement\\TBL\\Tasks\\TasksDao.cs",
+              "RelativeDocumentMoniker": "TaskManagement\\TBL\\Tasks\\TasksDao.cs",
+              "ToolTip": "C:\\Users\\yuto1\\OneDrive\\\u30C9\u30AD\u30E5\u30E1\u30F3\u30C8\\share_kennsyu_matsunaga.yuto\\STEP2\uFF08\u30BF\u30B9\u30AF\u7BA1\u7406\u30A2\u30D7\u30EA\uFF09\\\u30A2\u30D7\u30EA\u958B\u767A\uFF08\u30BD\u30FC\u30B9\u30B3\u30FC\u30C9\uFF09\\TaskManagement\\TaskManagement\\TBL\\Tasks\\TasksDao.cs",
+              "RelativeToolTip": "TaskManagement\\TBL\\Tasks\\TasksDao.cs",
+              "ViewState": "AQIAAFgAAAAAAAAAAAAUwG8AAAA/AAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-14T04:41:01.941Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "TaskList.Designer.cs",
+              "DocumentMoniker": "C:\\Users\\yuto1\\OneDrive\\\u30C9\u30AD\u30E5\u30E1\u30F3\u30C8\\share_kennsyu_matsunaga.yuto\\STEP2\uFF08\u30BF\u30B9\u30AF\u7BA1\u7406\u30A2\u30D7\u30EA\uFF09\\\u30A2\u30D7\u30EA\u958B\u767A\uFF08\u30BD\u30FC\u30B9\u30B3\u30FC\u30C9\uFF09\\TaskManagement\\TaskManagement\\TaskList\\TaskList.Designer.cs",
+              "RelativeDocumentMoniker": "TaskManagement\\TaskList\\TaskList.Designer.cs",
+              "ToolTip": "C:\\Users\\yuto1\\OneDrive\\\u30C9\u30AD\u30E5\u30E1\u30F3\u30C8\\share_kennsyu_matsunaga.yuto\\STEP2\uFF08\u30BF\u30B9\u30AF\u7BA1\u7406\u30A2\u30D7\u30EA\uFF09\\\u30A2\u30D7\u30EA\u958B\u767A\uFF08\u30BD\u30FC\u30B9\u30B3\u30FC\u30C9\uFF09\\TaskManagement\\TaskManagement\\TaskList\\TaskList.Designer.cs",
+              "RelativeToolTip": "TaskManagement\\TaskList\\TaskList.Designer.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAcDAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-14T04:29:07.902Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
               "Title": "TaskTagsDao.cs",
               "DocumentMoniker": "C:\\Users\\yuto1\\OneDrive\\\u30C9\u30AD\u30E5\u30E1\u30F3\u30C8\\share_kennsyu_matsunaga.yuto\\STEP2\uFF08\u30BF\u30B9\u30AF\u7BA1\u7406\u30A2\u30D7\u30EA\uFF09\\\u30A2\u30D7\u30EA\u958B\u767A\uFF08\u30BD\u30FC\u30B9\u30B3\u30FC\u30C9\uFF09\\TaskManagement\\TaskManagement\\TBL\\TaskTags\\TaskTagsDao.cs",
               "RelativeDocumentMoniker": "TaskManagement\\TBL\\TaskTags\\TaskTagsDao.cs",
@@ -42,11 +76,12 @@
               "RelativeToolTip": "TaskManagement\\TBL\\TaskTags\\TaskTagsDao.cs",
               "ViewState": "AQIAAA4AAAAAAAAAAADwvy8AAAARAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-07T05:23:55.796Z"
+              "WhenOpened": "2025-07-07T05:23:55.796Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 6,
               "Title": "TaskDetail.cs",
               "DocumentMoniker": "C:\\Users\\yuto1\\OneDrive\\\u30C9\u30AD\u30E5\u30E1\u30F3\u30C8\\share_kennsyu_matsunaga.yuto\\STEP2\uFF08\u30BF\u30B9\u30AF\u7BA1\u7406\u30A2\u30D7\u30EA\uFF09\\\u30A2\u30D7\u30EA\u958B\u767A\uFF08\u30BD\u30FC\u30B9\u30B3\u30FC\u30C9\uFF09\\TaskManagement\\TaskManagement\\TaskDetail\\TaskDetail.cs",
               "RelativeDocumentMoniker": "TaskManagement\\TaskDetail\\TaskDetail.cs",
@@ -58,7 +93,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 5,
               "Title": "DBUtil.cs",
               "DocumentMoniker": "C:\\Users\\yuto1\\OneDrive\\\u30C9\u30AD\u30E5\u30E1\u30F3\u30C8\\share_kennsyu_matsunaga.yuto\\STEP2\uFF08\u30BF\u30B9\u30AF\u7BA1\u7406\u30A2\u30D7\u30EA\uFF09\\\u30A2\u30D7\u30EA\u958B\u767A\uFF08\u30BD\u30FC\u30B9\u30B3\u30FC\u30C9\uFF09\\TaskManagement\\TaskManagement\\Util\\DBUtil.cs",
               "RelativeDocumentMoniker": "TaskManagement\\Util\\DBUtil.cs",
@@ -71,26 +106,28 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 0,
               "Title": "TaskList.cs",
               "DocumentMoniker": "C:\\Users\\yuto1\\OneDrive\\\u30C9\u30AD\u30E5\u30E1\u30F3\u30C8\\share_kennsyu_matsunaga.yuto\\STEP2\uFF08\u30BF\u30B9\u30AF\u7BA1\u7406\u30A2\u30D7\u30EA\uFF09\\\u30A2\u30D7\u30EA\u958B\u767A\uFF08\u30BD\u30FC\u30B9\u30B3\u30FC\u30C9\uFF09\\TaskManagement\\TaskManagement\\TaskList\\TaskList.cs",
               "RelativeDocumentMoniker": "TaskManagement\\TaskList\\TaskList.cs",
               "ToolTip": "C:\\Users\\yuto1\\OneDrive\\\u30C9\u30AD\u30E5\u30E1\u30F3\u30C8\\share_kennsyu_matsunaga.yuto\\STEP2\uFF08\u30BF\u30B9\u30AF\u7BA1\u7406\u30A2\u30D7\u30EA\uFF09\\\u30A2\u30D7\u30EA\u958B\u767A\uFF08\u30BD\u30FC\u30B9\u30B3\u30FC\u30C9\uFF09\\TaskManagement\\TaskManagement\\TaskList\\TaskList.cs",
               "RelativeToolTip": "TaskManagement\\TaskList\\TaskList.cs",
-              "ViewState": "AQIAALkBAAAAAAAAAAAowNYBAAABAAAA",
+              "ViewState": "AQIAALEBAAAAAAAAAAAowLoBAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-02T08:03:03.223Z"
+              "WhenOpened": "2025-07-02T08:03:03.223Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 2,
               "Title": "TaskList.cs [\u30C7\u30B6\u30A4\u30F3]",
               "DocumentMoniker": "C:\\Users\\yuto1\\OneDrive\\\u30C9\u30AD\u30E5\u30E1\u30F3\u30C8\\share_kennsyu_matsunaga.yuto\\STEP2\uFF08\u30BF\u30B9\u30AF\u7BA1\u7406\u30A2\u30D7\u30EA\uFF09\\\u30A2\u30D7\u30EA\u958B\u767A\uFF08\u30BD\u30FC\u30B9\u30B3\u30FC\u30C9\uFF09\\TaskManagement\\TaskManagement\\TaskList\\TaskList.cs",
               "RelativeDocumentMoniker": "TaskManagement\\TaskList\\TaskList.cs",
               "ToolTip": "C:\\Users\\yuto1\\OneDrive\\\u30C9\u30AD\u30E5\u30E1\u30F3\u30C8\\share_kennsyu_matsunaga.yuto\\STEP2\uFF08\u30BF\u30B9\u30AF\u7BA1\u7406\u30A2\u30D7\u30EA\uFF09\\\u30A2\u30D7\u30EA\u958B\u767A\uFF08\u30BD\u30FC\u30B9\u30B3\u30FC\u30C9\uFF09\\TaskManagement\\TaskManagement\\TaskList\\TaskList.cs [\u30C7\u30B6\u30A4\u30F3]",
               "RelativeToolTip": "TaskManagement\\TaskList\\TaskList.cs [\u30C7\u30B6\u30A4\u30F3]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-02T08:03:00.666Z"
+              "WhenOpened": "2025-07-02T08:03:00.666Z",
+              "EditorCaption": " [\u30C7\u30B6\u30A4\u30F3]"
             }
           ]
         }

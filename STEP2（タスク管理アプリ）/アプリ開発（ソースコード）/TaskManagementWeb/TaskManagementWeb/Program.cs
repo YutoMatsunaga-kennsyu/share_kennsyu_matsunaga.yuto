@@ -11,6 +11,9 @@ builder.Services.AddScoped<TaskRepository>();
 builder.Services.AddScoped<TaskService>();
 builder.Services.AddScoped<TaskTagRepository>();
 builder.Services.AddSingleton<TaskTagService>();
+builder.Services.AddScoped<UserService>();
+builder.Services.AddScoped<UserRepository>();
+builder.Services.AddScoped<UserSessionService>();
 
 var app = builder.Build();
 

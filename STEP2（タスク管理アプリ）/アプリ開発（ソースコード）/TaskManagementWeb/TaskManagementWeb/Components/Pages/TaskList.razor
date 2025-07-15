@@ -1,26 +1,29 @@
-﻿@page "/"
+﻿@page "/tasklist"
 
 @using TaskManagementWeb.Services
 @using TaskManagementWeb.Models
 @using TaskManagementWeb.Helpers
+@inject UserSessionService UserSessionService
+@inject NavigationManager Navigation
 @inject TaskService TaskService
 @inject TaskTagService TaskTagService
 @inject IJSRuntime JS
 
 <!-- 全体コンテナ -->
-<div class="flex flex-col h-screen">
+<div class="flex flex-col h-screen px-4">
 
 	<!-- タイトル -->
 	<div class="flex items-center mb-2 border-b border-gray-300 pb-1 justify-between">
-		<div class="flex items-center">
-			<img src="images/task.png" alt="タスクアイコン" class="w-6 h-6 mr-2" />
+		<div class="flex items-center gap-2 ml-2">
+			<img src="images/tasklist_icon.svg" alt="タスク一覧アイコン"
+				 style="width: 25px; height: 25px;" />
 			<h3 class="text-xl font-semibold text-gray-800 m-0">
 				タスク一覧
 			</h3>
 		</div>
 
 		<div class="flex items-center gap-2">
-			<span class="text-gray-700 font-medium">@CurrentUserId</span>
+			<span class="text-gray-700 font-medium">@UserSessionService.UserId</span>
 			<button class="bg-transparent border-none cursor-pointer p-0" title="ログアウト" @onclick="OnLogoutClicked" style="width: 28px; height: 28px;">
 				<img src="images/logout.svg" alt="ログアウト" style="width: 100%; height: 100%;" />
 			</button>
@@ -28,9 +31,11 @@
 	</div>
 
 	<div class="mb-1 px-6 py-4 bg-gray-100 border border-gray-300 rounded-lg shadow-sm">
-		<div class="flex flex-wrap items-end gap-x-6 gap-y-4">
 
-			<!-- タスク名 -->
+		<!-- 横並び＋wrapで折返し対応 -->
+		<div class="flex flex-wrap items-end gap-x-6 gap-y-4 w-full">
+
+			<!-- 各検索条件 -->
 			<div class="flex flex-col w-48">
 				<label for="txtTaskName" class="text-sm font-medium text-gray-700 mb-1">タスク名</label>
 				<InputText id="txtTaskName"
@@ -39,7 +44,6 @@
 						   maxlength="15" />
 			</div>
 
-			<!-- タスク分類 -->
 			<div class="flex flex-col w-48">
 				<label for="tagComboBox" class="text-sm font-medium text-gray-700 mb-1">タスク分類</label>
 				<InputSelect id="tagComboBox" class="border border-gray-300 rounded px-2 py-1 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-blue-300" @bind-Value="SearchTag">
@@ -51,25 +55,21 @@
 				</InputSelect>
 			</div>
 
-			<!-- 完了期限（開始） -->
 			<div class="flex flex-col w-48">
 				<label for="txtDateFrom" class="text-sm font-medium text-gray-700 mb-1">タスク完了期限（開始）</label>
 				<InputDate id="txtDateFrom" class="border border-gray-300 rounded px-2 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-blue-300" @bind-Value="SearchDateFrom" />
 			</div>
 
-			<!-- 完了期限（終了） -->
 			<div class="flex flex-col w-48">
 				<label for="txtDateTo" class="text-sm font-medium text-gray-700 mb-1">タスク完了期限（終了）</label>
 				<InputDate id="txtDateTo" class="border border-gray-300 rounded px-2 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-blue-300" @bind-Value="SearchDateTo" />
 			</div>
 
-			<!-- タスク完了日 -->
 			<div class="flex flex-col w-48">
 				<label for="txtDueDate" class="text-sm font-medium text-gray-700 mb-1">タスク完了日</label>
 				<InputDate id="txtDueDate" class="border border-gray-300 rounded px-2 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-blue-300" @bind-Value="SearchDueDate" />
 			</div>
 
-			<!-- タスク状況 -->
 			<div class="flex flex-col w-36">
 				<label for="activeComboBox" class="text-sm font-medium text-gray-700 mb-1">タスク状況</label>
 				<InputSelect id="activeComboBox" class="border border-gray-300 rounded px-2 py-1 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-blue-300" @bind-Value="SearchActiveStatus">
@@ -80,21 +80,26 @@
 				</InputSelect>
 			</div>
 
-			<!-- ボタン -->
-			<div class="flex gap-3 mt-1">
+			<!-- 検索・リセットボタン -->
+			<div class="flex items-center gap-3">
 				<button class="px-4 py-1.5 bg-blue-600 text-white text-sm rounded hover:bg-blue-700 transition" @onclick="OnSearchClicked">検索</button>
 				<button class="px-4 py-1.5 bg-gray-400 text-white text-sm rounded hover:bg-gray-500 transition" @onclick="OnResetClicked">リセット</button>
 			</div>
-
 		</div>
 	</div>
 
-	@if (!string.IsNullOrEmpty(SearchLogMessage))
-	{
-		<div class="text-sm @(IsErrorSearchLogMessage ? "text-red-700 bg-red-100 border border-red-400 rounded p-2" : "text-green-700 bg-green-100 border border-green-400 rounded p-2")">
-			@SearchLogMessage
+	<div class="flex">
+		@if (!string.IsNullOrEmpty(SearchLogMessage))
+		{
+			<div class="text-sm inline-block @(IsErrorSearchLogMessage ? "text-red-700 bg-red-100 border border-red-400 rounded p-2" : "text-green-700 bg-green-100 border border-green-400 rounded p-2")">
+				@SearchLogMessage
+			</div>
+		}
+
+		<div class="ml-auto" style="transform: translateY(3px);">
+			<button class="px-4 py-1.5 bg-green-600 text-white text-sm rounded hover:bg-green-700 transition" @onclick="OnNewTaskClicked">新規登録</button>
 		</div>
-	}
+	</div>
 
 
 	<!-- ヘッダー＋テーブルヘッダーをまとめてsticky固定 -->
@@ -113,7 +118,7 @@
 				<col style="width: 6%;" />
 			</colgroup>
 			<thead>
-				<tr class="h-14 leading-6 border-t-2 border-b-2 border-black">
+				<tr class="h-14 leading-6 border-t-2 border-b-2 border-l-2 border-r-2 border-black">
 					<th class="p-1 bg-white">タスク名</th>
 					<th class="p-1 bg-white">説明</th>
 					<th class="p-1 bg-white">タスク分類</th>
@@ -130,7 +135,7 @@
 	</div>
 
 	<!-- テーブル本体のスクロール領域（ヘッダーとは別のテーブルでtbodyのみ） -->
-	<div class="flex-grow overflow-auto relative">
+	<div class="flex-grow overflow-auto relative" style="border-right: 2px solid black;">
 
 		@if (Tasks == null)
 		{
@@ -138,7 +143,7 @@
 		}
 		else
 		{
-			<table class="table-auto w-full border-separate border-spacing-0 table-fixed">
+			<table class="table-auto w-full border-collapse border-black border-2 table-fixed">
 				<colgroup>
 					<col style="width: 18%;" />
 					<col style="width: 20%;" />
@@ -207,7 +212,7 @@
 									}
 								</InputSelect>
 							</td>
-							<td class="p-2 border border-gray-300 text-center">
+							<td class="p-2 border border-gray-300 text-center" style="border-right: none;">
 								<input type="checkbox" @bind="task.IsChecked" />
 							</td>
 						</tr>
@@ -218,7 +223,7 @@
 	</div>
 
 	<!-- フッター -->
-	<div class="bg-white border-t border-gray-300 px-4 py-3 flex items-center justify-between relative">
+	<div class="bg-white border-t-2 border-black px-4 py-3 flex items-center justify-between relative">
 		@if (!string.IsNullOrEmpty(EditLogMessage))
 		{
 			<div class="text-sm @(IsErrorEditLogMessage ? "text-red-700 bg-red-100 border border-red-400 rounded p-2" : "text-green-700 bg-green-100 border border-green-400 rounded p-2")">
@@ -239,8 +244,6 @@
 	private string EditLogMessage = string.Empty;
 	private bool IsErrorSearchLogMessage = false;
 	private string SearchLogMessage = string.Empty;
-	// --- ログインユーザーID（仮に固定） ---
-	private string CurrentUserId = "X";
 
 	private Dictionary<int, string> TagDictionary = new();
 
@@ -255,11 +258,17 @@
 
 	protected override async Task OnInitializedAsync()
 	{
-		// タグ情報取得
+		if (string.IsNullOrEmpty(UserSessionService.UserId))
+		{
+			// セッション切れ：ログイン画面へリダイレクト
+			Navigation.NavigateTo("/", forceLoad: true);
+			return;
+		}
+
+		// 以下、通常の初期化処理
 		TagDictionary = TaskTagService.GetTagDictionary();
 		TaskTags = TagDictionary.Values.ToList();
 
-		// 初期表示は検索条件を全件取得に合わせて指定
 		Tasks = await TaskService.SearchTasksAsync(
 			taskName: "",
 			tagName: "全て",
@@ -267,7 +276,7 @@
 			dateTo: "",
 			dateDone: "",
 			active: "全て",
-			userId: CurrentUserId);
+			userId: UserSessionService.UserId); 
 
 		foreach (var task in Tasks)
 		{
@@ -278,6 +287,7 @@
 		IsErrorSearchLogMessage = false;
 		SearchLogMessage = $"{Tasks.Count} 件のタスクが見つかりました。";
 	}
+
 
 	private async Task OnSearchClicked()
 	{
@@ -312,7 +322,7 @@
 			dateTo: SearchDateTo?.ToString("yyyy-MM-dd") ?? "",
 			dateDone: doneDateStr,
 			active: isActiveStr,
-			userId: CurrentUserId);
+			userId: UserSessionService.UserId);
 
 		foreach (var task in Tasks)
 		{
@@ -342,7 +352,7 @@
 			dateTo: "",
 			dateDone: "",
 			active: "全て",
-			userId: CurrentUserId);
+			userId: UserSessionService.UserId);
 
 		foreach (var task in Tasks)
 		{
@@ -889,8 +899,15 @@
 		StateHasChanged();
 	}
 
+	private void OnNewTaskClicked()
+	{
+		Navigation.NavigateTo("/taskcreate"); // 例：新規登録ページに遷移する場合
+	}
+
 	private void OnLogoutClicked()
 	{
-		
+		UserSessionService.UserId = null;
+		UserSessionService.UserName = null;
+		Navigation.NavigateTo("/");
 	}
 }
