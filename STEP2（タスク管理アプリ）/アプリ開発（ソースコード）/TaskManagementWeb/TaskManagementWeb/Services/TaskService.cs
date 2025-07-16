@@ -72,9 +72,9 @@ namespace TaskManagementWeb.Services
 		/// <summary>
 		/// 新規タスクを登録する（非同期）
 		/// </summary>
-		public async Task CreateTaskAsync(string taskName, string description, int tagNo, string dueDate, string userId)
+		public async Task CreateTaskAsync(TaskModel task)
 		{
-			await _taskRepo.CreateTaskAsync(taskName, description, tagNo, dueDate, userId);
+			await _taskRepo.CreateTaskAsync(task);
 		}
 	}
 }

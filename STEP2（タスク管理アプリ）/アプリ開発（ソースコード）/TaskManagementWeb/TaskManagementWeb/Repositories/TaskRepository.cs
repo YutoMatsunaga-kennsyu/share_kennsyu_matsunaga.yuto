@@ -242,11 +242,11 @@ namespace TaskManagementWeb.Repositories
 		/// <param name="tagNo">タスク分類番号</param>
 		/// <param name="dueDate">タスク完了期限（文字列で受け取る場合は適宜変換してください）</param>
 		/// <param name="userId">ユーザーID</param>
-		public async Task CreateTaskAsync(string taskName, string description, int tagNo, string dueDate, string userId)
+		public async Task CreateTaskAsync(TaskModel task)
 		{
 			var commandText = @"
                 INSERT INTO tasks(user_id, task_name, description, tag_no, due_date, update_date, is_active) 
-                VALUES (@userId, @taskName, @description, @tagNo, @dueDate, NOW(), 1)";
+                VALUES (@userId, @taskName, @description, @tagNo, @dueDate, NOW(), 2)";
 
 			using var connection = new MySqlConnection(_config.GetConnectionString("DefaultConnection"));
 			await connection.OpenAsync();
@@ -255,14 +255,14 @@ namespace TaskManagementWeb.Repositories
 			{
 				using var command = new MySqlCommand(commandText, connection);
 
-				command.Parameters.AddWithValue("@userId", userId);
-				command.Parameters.AddWithValue("@taskName", taskName);
-				command.Parameters.AddWithValue("@description", description);
-				command.Parameters.AddWithValue("@tagNo", tagNo);
+				command.Parameters.AddWithValue("@userId", task.UserId);
+				command.Parameters.AddWithValue("@taskName", task.TaskName);
+				command.Parameters.AddWithValue("@description", task.Description);
+				command.Parameters.AddWithValue("@tagNo", task.TagNo);
 
 				// dueDateはstring型なので、MySQLのDATETIMEに合う形に変換推奨
 				// ここではstringのまま渡していますが、DateTime型で受け取る方が良いです
-				command.Parameters.AddWithValue("@dueDate", dueDate);
+				command.Parameters.AddWithValue("@dueDate", task.DueDate);
 
 				await command.ExecuteNonQueryAsync();
 			}

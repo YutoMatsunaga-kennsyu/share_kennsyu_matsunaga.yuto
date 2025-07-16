@@ -13,6 +13,8 @@ namespace TaskManagementWeb.Models
 		public string Description { get; set; } = string.Empty;
 		public string TempDescription { get; set; } = string.Empty;
 
+        public string UserId { get; set; } = string.Empty;
+
         public int TagNo { get; set; }
         public string TagName { get; set; }
         public DateTime? DueDate { get; set; }
