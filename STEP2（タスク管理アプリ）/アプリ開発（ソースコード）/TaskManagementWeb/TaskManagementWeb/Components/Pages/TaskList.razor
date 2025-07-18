@@ -56,12 +56,12 @@
 			</div>
 
 			<div class="flex flex-col w-48">
-				<label for="txtDateFrom" class="text-sm font-medium text-gray-700 mb-1">タスク完了期限（開始）</label>
+				<label for="txtDateFrom" class="text-sm font-medium text-gray-700 mb-1">タスク完了期限（開始日）</label>
 				<InputDate id="txtDateFrom" class="border border-gray-300 rounded px-2 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-blue-300" @bind-Value="SearchDateFrom" />
 			</div>
 
 			<div class="flex flex-col w-48">
-				<label for="txtDateTo" class="text-sm font-medium text-gray-700 mb-1">タスク完了期限（終了）</label>
+				<label for="txtDateTo" class="text-sm font-medium text-gray-700 mb-1">タスク完了期限（終了日）</label>
 				<InputDate id="txtDateTo" class="border border-gray-300 rounded px-2 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-blue-300" @bind-Value="SearchDateTo" />
 			</div>
 
@@ -74,9 +74,9 @@
 				<label for="activeComboBox" class="text-sm font-medium text-gray-700 mb-1">タスク状況</label>
 				<InputSelect id="activeComboBox" class="border border-gray-300 rounded px-2 py-1 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-blue-300" @bind-Value="SearchActiveStatus">
 					<option value="">全て</option>
-					<option value="完了">完了</option>
-					<option value="着手中">着手中</option>
 					<option value="未着手">未着手</option>
+					<option value="着手中">着手中</option>
+					<option value="完了">完了</option>
 				</InputSelect>
 			</div>
 
@@ -171,11 +171,12 @@
 					{
 						<tr>
 							<td class="p-2 border border-gray-300">
-								<textarea id="taskName-@task.TaskNo"
-										  value="@task.TempTaskName"
-										  @oninput="(e) => OnTaskNameInput(task, e)"
-										  @onblur="async () => await ValidateAndSaveTaskAsync(task)"
-										  class="w-full box-border font-normal bg-transparent border border-transparent hover:border-gray-300 focus:border-blue-500 focus:bg-white focus:ring-2 focus:ring-blue-200 rounded transition duration-200"></textarea>
+								<input id="taskName-@task.TaskNo"
+									   type="text"
+									   value="@task.TempTaskName"
+									   @oninput="(e) => OnTaskNameInput(task, e)"
+									   @onblur="async () => await ValidateAndSaveTaskAsync(task)"
+									   class="w-full box-border font-normal bg-transparent border border-transparent hover:border-gray-300 focus:border-blue-500 focus:bg-white focus:ring-2 focus:ring-blue-200 rounded transition duration-200" />
 							</td>
 							<td class="p-2 border border-gray-300">
 								<textarea id="description-@task.TaskNo"
@@ -306,9 +307,11 @@
 		if (SearchDateFrom.HasValue && SearchDateTo.HasValue && SearchDateFrom > SearchDateTo)
 		{
 			IsErrorSearchLogMessage = true;
-			SearchLogMessage = "タスク完了期限(開始日)は、タスク完了期限(終了日)と\n同じか前の日付を設定してください";
+			SearchLogMessage = "タスク完了期限(開始日)は、タスク完了期限(終了日)と同じか、前の日付を設定してください。";
 			return;
 		}
+
+		EditLogMessage = "";
 
 		await ReloadTasksWithSearchConditionAsync();
 	}
@@ -342,14 +345,24 @@
 			task.TempDescription = task.Description ?? "";
 		}
 
-		IsErrorSearchLogMessage = false;
-		SearchLogMessage = $"{Tasks.Count} 件のタスクが見つかりました。";
+		if (Tasks.Count == 0)
+		{
+			IsErrorSearchLogMessage = true;
+			SearchLogMessage = "検索条件に一致するタスクはありませんでした。";
+		}
+		else
+		{
+			IsErrorSearchLogMessage = false;
+			SearchLogMessage = $"{Tasks.Count} 件のタスクが見つかりました。";
+		}
 
 		StateHasChanged();
 	}
 
 	private async Task OnResetClicked()
 	{
+		EditLogMessage = ""; 
+
 		SearchTaskName = "";
 		SearchTag = "";
 		SearchDateFrom = null;
@@ -488,7 +501,7 @@
 
 			if (hasChanges)
 			{
-				EditLogMessage = $"「{task.TaskName}」の変更を保存しました。変更内容【{changeMessage}】";
+				EditLogMessage = $"\"{task.TaskName}\" の変更を保存しました。変更内容【{changeMessage}】";
 				IsErrorEditLogMessage = false;
 			}
 		}
@@ -553,7 +566,7 @@
 
 			if (hasChanges)
 			{
-				EditLogMessage = $"「{task.TaskName}」の変更を保存しました。変更内容【{changeMessage}】";
+				EditLogMessage = $"\"{task.TaskName}\" の変更を保存しました。変更内容【{changeMessage}】";
 				IsErrorEditLogMessage = false;
 
 			}
@@ -667,7 +680,7 @@
 
 			if (hasChanges)
 			{
-				EditLogMessage = $"「{task.TaskName}」の変更を保存しました。変更内容【{changeMessage}】";
+				EditLogMessage = $"\"{task.TaskName}\" の変更を保存しました。変更内容【{changeMessage}】";
 				IsErrorEditLogMessage = false;
 			}
 			else
@@ -774,7 +787,7 @@
 
 			if (hasChanges)
 			{
-				EditLogMessage = $"「{task.TaskName}」の変更を保存しました。変更内容【{changeMessage}】";
+				EditLogMessage = $"\"{task.TaskName}\" の変更を保存しました。変更内容【{changeMessage}】";
 				IsErrorEditLogMessage = false;
 			}
 		}
@@ -822,7 +835,7 @@
 			// ログメッセージ
 			if (hasChanges)
 			{
-				EditLogMessage = $"「{task.TaskName}」の変更を保存しました。変更内容【{changeMessage}】";
+				EditLogMessage = $"\"{task.TaskName}\" の変更を保存しました。変更内容【{changeMessage}】";
 				IsErrorEditLogMessage = false;
 
 			}

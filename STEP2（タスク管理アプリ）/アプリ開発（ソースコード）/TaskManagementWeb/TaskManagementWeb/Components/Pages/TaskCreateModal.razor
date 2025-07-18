@@ -52,7 +52,7 @@
             <div class="mb-4">
                 <label class="block text-sm font-medium text-gray-700 mb-1">タスク完了期限</label>
                 <input type="date" class="w-full border border-gray-500 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-600"
-                       @bind="DueDate" min="@MinDate" />
+                       @bind="DueDate"/>
             </div>
 
             <!-- エラー -->
@@ -82,7 +82,6 @@
     private DateTime? DueDate = DateTime.Today;
     private string ErrorMessage = "";
     private Dictionary<int, string> TaskTags = new();
-    private string MinDate => DateTime.Today.ToString("yyyy-MM-dd");
     private ElementReference ModalHeaderRef;
     private ElementReference ModalRef;
 
