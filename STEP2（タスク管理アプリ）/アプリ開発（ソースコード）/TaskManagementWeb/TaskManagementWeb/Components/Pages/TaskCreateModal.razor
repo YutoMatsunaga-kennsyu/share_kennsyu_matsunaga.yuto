@@ -51,8 +51,8 @@
             <!-- 期限 -->
             <div class="mb-4">
                 <label class="block text-sm font-medium text-gray-700 mb-1">タスク完了期限</label>
-                <input type="date" class="w-full border border-gray-500 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-600"
-                       @bind="DueDate"/>
+                   <input type="datetime-local" class="w-full border border-gray-500 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-600"
+                            @bind="DueDate" />
             </div>
 
             <!-- エラー -->
@@ -79,12 +79,12 @@
     private string TaskName = "";
     private string Description = "";
     private int SelectedTagNo;
-    private DateTime? DueDate = DateTime.Today;
     private string ErrorMessage = "";
     private Dictionary<int, string> TaskTags = new();
     private ElementReference ModalHeaderRef;
     private ElementReference ModalRef;
 
+    private DateTime? DueDate = DateTime.Today;
 
     protected override void OnInitialized()
     {
@@ -108,7 +108,7 @@
 
         if (string.IsNullOrWhiteSpace(TaskName) || DueDate == null)
         {
-            ErrorMessage = "タスク名またはタスク完了期限が未入力です。";
+            ErrorMessage = "タスク名、またはタスク完了期限が未入力です。";
             return;
         }
 

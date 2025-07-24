@@ -147,7 +147,8 @@
 	</div>
 
 	<!-- テーブル本体のスクロール領域（ヘッダーとは別のテーブルでtbodyのみ） -->
-	<div class="flex-grow overflow-auto relative" style="border-right: 2px solid black; border-left: 2px solid black;">
+	<div class="flex-grow relative"
+		 style="overflow-y: scroll; scrollbar-gutter: stable; border-right: 2px solid black; border-left: 2px solid black;">
 
 		@if (Tasks == null)
 		{
@@ -862,7 +863,13 @@
 			return;
 		}
 
-		if (await JS.InvokeAsync<bool>("showConfirm", "選択されたタスクを完了にしますか？"))
+		if (selected.Any(t => t.IsActive == 0))
+		{
+			await JS.InvokeVoidAsync("alert", "完了済みのタスクが選択されています。");
+			return;
+		}
+
+		if (await JS.InvokeAsync<bool>("showConfirm", "選択されたタスクを完了しますか？"))
 		{
 			await MarkDoneAsync();
 		}
@@ -888,17 +895,6 @@
 	{
 		var selected = Tasks.Where(t => t.IsChecked).ToList();
 		if (selected.Count == 0) return;
-
-		// 既に完了済みのタスクを抽出
-		var alreadyCompleted = selected.Where(t => t.IsActive == 0).ToList();
-
-		if (alreadyCompleted.Any())
-		{
-			EditLogMessage = "完了済みのタスクが選択されていたため、完了できませんでした。";
-			IsErrorEditLogMessage = true;
-			StateHasChanged();
-			return;
-		}
 
 		// 完了処理
 		TaskService.CompleteTasks(selected);
